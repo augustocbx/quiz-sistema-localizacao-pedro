@@ -1,0 +1,36 @@
+{
+  "name": "Quiz: Navegando pelas Estrelas",
+  "short_name": "Quiz Navegação",
+  "description": "Quiz educativo sobre orientação por astros e sistemas modernos de localização",
+  "start_url": "/quiz-sistema-localizacao-pedro/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e3a8a",
+  "orientation": "any",
+  "scope": "/quiz-sistema-localizacao-pedro/",
+  "icons": [
+    {
+      "src": "images/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["education", "games"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Iniciar Quiz",
+      "short_name": "Quiz",
+      "description": "Iniciar novo quiz",
+      "url": "/quiz-sistema-localizacao-pedro/",
+      "icons": []
+    }
+  ]
+}

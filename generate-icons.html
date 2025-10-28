@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerar Ícones PWA</title>
+</head>
+<body>
+    <h1>Gerador de Ícones PWA</h1>
+    <p>Clique nos botões para baixar os ícones:</p>
+
+    <button onclick="generateIcon(192)">Baixar icon-192.png</button>
+    <button onclick="generateIcon(512)">Baixar icon-512.png</button>
+
+    <br><br>
+    <canvas id="canvas" style="border: 1px solid #ccc;"></canvas>
+
+    <script>
+        async function generateIcon(size) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = size;
+            canvas.height = size;
+
+            // Fundo azul
+            ctx.fillStyle = '#1e3a8a';
+            ctx.fillRect(0, 0, size, size);
+
+            // Círculo de fundo
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.5)';
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size * 0.43, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Estrela dourada
+            ctx.fillStyle = '#FFD700';
+            ctx.strokeStyle = '#FFA500';
+            ctx.lineWidth = size * 0.015;
+
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const outerRadius = size * 0.3;
+            const innerRadius = size * 0.15;
+            const spikes = 5;
+
+            ctx.beginPath();
+            for (let i = 0; i < spikes * 2; i++) {
+                const radius = i % 2 === 0 ? outerRadius : innerRadius;
+                const angle = (i * Math.PI) / spikes - Math.PI / 2;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Círculo da bússola
+            ctx.strokeStyle = 'rgba(59, 130, 246, 0.6)';
+            ctx.lineWidth = size * 0.008;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size * 0.35, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Ponto Norte
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(size/2, size * 0.15, size * 0.015, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Letra N
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = `bold ${size * 0.047}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText('N', size/2, size * 0.12);
+
+            // Estrelas decorativas
+            const starPositions = [
+                [0.29, 0.29], [0.71, 0.29], [0.29, 0.71], [0.71, 0.71]
+            ];
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            starPositions.forEach(([x, y]) => {
+                ctx.beginPath();
+                ctx.arc(size * x, size * y, size * 0.012, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Download
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+    </script>
+</body>
+</html>

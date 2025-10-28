@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo -->
+  <rect width="512" height="512" fill="#1e3a8a" rx="100"/>
+
+  <!-- Círculo de fundo -->
+  <circle cx="256" cy="256" r="220" fill="#0f172a" opacity="0.5"/>
+
+  <!-- Estrela principal -->
+  <path d="M256,80 L280,200 L400,220 L300,300 L330,420 L256,360 L182,420 L212,300 L112,220 L232,200 Z"
+        fill="#FFD700" stroke="#FFA500" stroke-width="8"/>
+
+  <!-- Bússola ao redor -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#3b82f6" stroke-width="4" opacity="0.6"/>
+
+  <!-- Pontos cardeais -->
+  <circle cx="256" cy="76" r="8" fill="#fbbf24"/>
+  <text x="256" y="60" text-anchor="middle" fill="#fbbf24" font-size="24" font-weight="bold">N</text>
+
+  <circle cx="256" cy="436" r="8" fill="#cbd5e1"/>
+  <circle cx="76" cy="256" r="8" fill="#cbd5e1"/>
+  <circle cx="436" cy="256" r="8" fill="#cbd5e1"/>
+
+  <!-- Estrelas menores decorativas -->
+  <circle cx="150" cy="150" r="6" fill="#fff" opacity="0.8"/>
+  <circle cx="362" cy="150" r="6" fill="#fff" opacity="0.8"/>
+  <circle cx="150" cy="362" r="6" fill="#fff" opacity="0.8"/>
+  <circle cx="362" cy="362" r="6" fill="#fff" opacity="0.8"/>
+</svg>
