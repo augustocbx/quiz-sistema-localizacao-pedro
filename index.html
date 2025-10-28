@@ -168,11 +168,12 @@
                             if (event.data && event.data.type === 'SW_UPDATED') {
                                 console.log('[App] Atualização disponível:', event.data.version);
 
-                                // Limpa rankings ao atualizar
+                                // Verifica se precisa limpar rankings
                                 const currentVersion = localStorage.getItem('appVersion');
                                 const newVersion = event.data.version;
 
-                                if (currentVersion && currentVersion !== newVersion) {
+                                // Limpa rankings se a versão mudou OU se é a primeira atualização
+                                if (!currentVersion || currentVersion !== newVersion) {
                                     console.log('[App] Nova versão detectada! Limpando rankings...');
                                     localStorage.removeItem('generalRanking');
                                     localStorage.removeItem('tempRanking');
