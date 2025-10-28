@@ -23,8 +23,14 @@
     <!-- Estilos -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/backgrounds.css">
+    <link rel="stylesheet" href="css/achievements.css">
 </head>
 <body>
+    <!-- Botão de Som Flutuante -->
+    <div id="sound-toggle-btn" class="settings-button" title="Ligar/Desligar Sons">
+        🔊
+    </div>
+
     <!-- Tela Inicial -->
     <div id="start-screen" class="screen active">
         <div class="container">
@@ -34,6 +40,7 @@
             <div class="start-actions">
                 <button id="start-btn" class="btn btn-primary">Iniciar Quiz</button>
                 <button id="view-permanent-ranking-btn" class="btn btn-secondary">Ver Ranking Permanente</button>
+                <button id="view-achievements-btn" class="btn btn-secondary">🏆 Conquistas</button>
             </div>
 
             <!-- Ranking Temporário na Tela Inicial -->
@@ -132,7 +139,47 @@
         </div>
     </div>
 
+    <!-- Tela de Conquistas -->
+    <div id="achievements-screen" class="screen">
+        <div class="container">
+            <div class="ranking-header">
+                <button id="back-to-start-from-achievements-btn" class="btn btn-secondary btn-back">← Tela Inicial</button>
+            </div>
+
+            <h1 class="title">🏆 Conquistas</h1>
+
+            <div class="stats-container">
+                <div class="stat-row">
+                    <span class="stat-label">Progresso</span>
+                    <span class="stat-value"><span id="achievements-progress">0</span>%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="achievements-progress-bar" class="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Desbloqueadas</span>
+                    <span class="stat-value"><span id="achievements-unlocked">0</span>/<span id="achievements-total">0</span></span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Quizzes Completos</span>
+                    <span class="stat-value"><span id="quizzes-completed">0</span></span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Maior Combo</span>
+                    <span class="stat-value"><span id="max-combo">0</span>x 🔥</span>
+                </div>
+            </div>
+
+            <div id="achievements-gallery" class="achievements-gallery">
+                <!-- Conquistas serão inseridas aqui -->
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
+    <script src="js/sound-manager.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/visual-effects.js"></script>
     <script src="js/questions.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/names.js"></script>

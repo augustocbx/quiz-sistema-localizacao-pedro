@@ -4,6 +4,13 @@ let selectedQuestions = [];
 let correctAnswers = 0;
 let startTime = null;
 let quizFinished = false;
+let currentCombo = 0;
+let maxCombo = 0;
+let categoryStats = {
+    compass: { correct: 0, total: 0 },
+    gps: { correct: 0, total: 0 },
+    stars: { correct: 0, total: 0 }
+};
 
 // Elementos do DOM
 const screens = {
@@ -11,12 +18,14 @@ const screens = {
     quiz: document.getElementById('quiz-screen'),
     result: document.getElementById('result-screen'),
     tempRanking: document.getElementById('temp-ranking-screen'),
-    permanentRanking: document.getElementById('permanent-ranking-screen')
+    permanentRanking: document.getElementById('permanent-ranking-screen'),
+    achievements: document.getElementById('achievements-screen')
 };
 
 // Botões
 const startBtn = document.getElementById('start-btn');
 const viewPermanentRankingBtn = document.getElementById('view-permanent-ranking-btn');
+const viewAchievementsBtn = document.getElementById('view-achievements-btn');
 const quitBtn = document.getElementById('quit-btn');
 const saveScoreBtn = document.getElementById('save-score-btn');
 const randomNameBtn = document.getElementById('random-name-btn');
@@ -24,10 +33,13 @@ const playAgainBtn = document.getElementById('play-again-btn');
 const viewPermanentFromTempBtn = document.getElementById('view-permanent-from-temp-btn');
 const backToStartFromTempBtn = document.getElementById('back-to-start-from-temp-btn');
 const backToStartFromPermanentBtn = document.getElementById('back-to-start-from-permanent-btn');
+const backToStartFromAchievementsBtn = document.getElementById('back-to-start-from-achievements-btn');
+const soundToggleBtn = document.getElementById('sound-toggle-btn');
 
 // Event Listeners
 startBtn.addEventListener('click', startQuiz);
 viewPermanentRankingBtn.addEventListener('click', () => showScreen('permanentRanking'));
+viewAchievementsBtn.addEventListener('click', () => showScreen('achievements'));
 quitBtn.addEventListener('click', quitQuiz);
 saveScoreBtn.addEventListener('click', saveScore);
 randomNameBtn.addEventListener('click', generateRandomName);
@@ -35,6 +47,15 @@ playAgainBtn.addEventListener('click', startQuiz);
 viewPermanentFromTempBtn.addEventListener('click', () => showScreen('permanentRanking'));
 backToStartFromTempBtn.addEventListener('click', () => showScreen('start'));
 backToStartFromPermanentBtn.addEventListener('click', () => showScreen('start'));
+backToStartFromAchievementsBtn.addEventListener('click', () => showScreen('start'));
+soundToggleBtn.addEventListener('click', toggleSound);
+
+// Adicionar sons aos cliques dos botões
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (soundManager) soundManager.playClick();
+    });
+});
 
 // Inicialização
 function init() {
@@ -53,6 +74,8 @@ function showScreen(screenName) {
         displayTempRanking();
     } else if (screenName === 'permanentRanking') {
         displayPermanentRanking();
+    } else if (screenName === 'achievements') {
+        displayAchievements();
     }
 }
 
@@ -62,6 +85,16 @@ function startQuiz() {
     currentQuestionIndex = 0;
     correctAnswers = 0;
     quizFinished = false;
+    currentCombo = 0;
+    maxCombo = 0;
+    categoryStats = {
+        compass: { correct: 0, total: 0 },
+        gps: { correct: 0, total: 0 },
+        stars: { correct: 0, total: 0 }
+    };
+
+    // Tocar som de início
+    if (soundManager) soundManager.playStart();
 
     // Selecionar 15 perguntas aleatórias do banco de 40
     selectedQuestions = selectRandomQuestions(QUESTION_BANK, 15);
@@ -143,6 +176,8 @@ function selectAnswer(selectedIndex) {
 
     // Desabilitar todos os botões
     const buttons = document.querySelectorAll('.answer-btn');
+    const selectedButton = buttons[selectedIndex];
+
     buttons.forEach((btn, index) => {
         btn.disabled = true;
         if (index === selectedIndex) {
@@ -150,10 +185,39 @@ function selectAnswer(selectedIndex) {
         }
     });
 
-    // Atualizar contagem de acertos
+    // Tracking de categoria
+    trackQuestionCategory(question, isCorrect);
+
+    // Atualizar contagem de acertos e combo
     if (isCorrect) {
         correctAnswers++;
+        currentCombo++;
+        if (currentCombo > maxCombo) {
+            maxCombo = currentCombo;
+        }
+
         document.getElementById('correct-count').textContent = correctAnswers;
+
+        // Sons e efeitos de acerto
+        if (soundManager) soundManager.playCorrect(currentCombo);
+        if (visualEffects) {
+            visualEffects.correctButtonEffect(selectedButton);
+            visualEffects.showCombo(currentCombo);
+            visualEffects.screenFlash('rgba(34, 197, 94, 0.2)');
+        }
+
+        // Verificar conquistas durante o quiz
+        checkQuizAchievements();
+    } else {
+        currentCombo = 0;
+
+        // Sons e efeitos de erro
+        if (soundManager) soundManager.playWrong();
+        if (visualEffects) {
+            visualEffects.shakeElement(document.querySelector('.quiz-content'));
+            visualEffects.hideCombo();
+            visualEffects.screenFlash('rgba(239, 68, 68, 0.2)');
+        }
     }
 
     // Mostrar animação
@@ -206,12 +270,54 @@ function finishQuiz() {
     const endTime = Date.now();
     const totalTime = ((endTime - startTime) / 1000).toFixed(1);
 
+    // Verificar conquistas finais
+    const finalStats = {
+        currentScore: correctAnswers,
+        maxCombo: maxCombo,
+        compassCorrect: categoryStats.compass.correct,
+        compassTotal: categoryStats.compass.total,
+        gpsCorrect: categoryStats.gps.correct,
+        gpsTotal: categoryStats.gps.total,
+        starsCorrect: categoryStats.stars.correct,
+        starsTotal: categoryStats.stars.total,
+        quizCompleted: true,
+        totalTime: parseFloat(totalTime),
+        quizzesCompleted: achievementSystem.stats.quizzesCompleted + 1
+    };
+
+    // Atualizar estatísticas de conquistas
+    achievementSystem.updateQuizStats({
+        maxCombo: maxCombo,
+        categoryStats: categoryStats
+    });
+
+    // Verificar conquistas finais
+    const newAchievements = achievementSystem.checkAchievements(finalStats);
+
+    // Efeitos especiais para vitória perfeita
+    if (correctAnswers === 15) {
+        if (soundManager) soundManager.playPerfect();
+        if (visualEffects) {
+            setTimeout(() => visualEffects.perfectVictory(), 500);
+        }
+    }
+
+    // Mostrar conquistas desbloqueadas
+    newAchievements.forEach((achievement, index) => {
+        setTimeout(() => {
+            achievementSystem.showAchievementPopup(achievement);
+        }, index * 1000);
+    });
+
     // Atualizar tela de resultado
     document.getElementById('final-score').textContent = correctAnswers;
     document.getElementById('final-time').textContent = totalTime;
 
     // Limpar input de nome
     document.getElementById('player-name-input').value = '';
+
+    // Ocultar combo
+    if (visualEffects) visualEffects.hideCombo();
 
     // Mostrar tela de resultado
     showScreen('result');
@@ -348,6 +454,98 @@ function displayRankingList(elementId, ranking) {
         `;
 
         container.appendChild(item);
+    });
+}
+
+// Tracking de categoria de pergunta
+function trackQuestionCategory(question, isCorrect) {
+    const questionText = question.question.toLowerCase();
+
+    if (questionText.includes('bússola') || questionText.includes('norte magnético')) {
+        categoryStats.compass.total++;
+        if (isCorrect) categoryStats.compass.correct++;
+    } else if (questionText.includes('gps') || questionText.includes('satélite') || questionText.includes('sistema de posicionamento')) {
+        categoryStats.gps.total++;
+        if (isCorrect) categoryStats.gps.correct++;
+    } else if (questionText.includes('estrela') || questionText.includes('polar') || questionText.includes('constelação')) {
+        categoryStats.stars.total++;
+        if (isCorrect) categoryStats.stars.correct++;
+    }
+}
+
+// Verificar conquistas durante o quiz
+function checkQuizAchievements() {
+    const currentStats = {
+        currentScore: correctAnswers,
+        maxCombo: maxCombo,
+        currentCombo: currentCombo,
+        compassCorrect: categoryStats.compass.correct,
+        compassTotal: categoryStats.compass.total,
+        gpsCorrect: categoryStats.gps.correct,
+        gpsTotal: categoryStats.gps.total,
+        starsCorrect: categoryStats.stars.correct,
+        starsTotal: categoryStats.stars.total,
+        quizCompleted: false,
+        quizzesCompleted: achievementSystem.stats.quizzesCompleted
+    };
+
+    const newAchievements = achievementSystem.checkAchievements(currentStats);
+    newAchievements.forEach(achievement => {
+        achievementSystem.showAchievementPopup(achievement);
+    });
+}
+
+// Toggle de som
+function toggleSound() {
+    const isEnabled = soundManager.toggle();
+    soundToggleBtn.textContent = isEnabled ? '🔊' : '🔇';
+    soundToggleBtn.classList.toggle('sound-off', !isEnabled);
+
+    // Feedback sonoro
+    if (isEnabled) {
+        soundManager.playClick();
+    }
+}
+
+// Exibir tela de conquistas
+function displayAchievements() {
+    const progress = achievementSystem.getProgress();
+    const unlocked = achievementSystem.getUnlockedAchievements();
+    const locked = achievementSystem.getLockedAchievements();
+
+    // Atualizar estatísticas
+    document.getElementById('achievements-progress').textContent = progress.percentage;
+    document.getElementById('achievements-unlocked').textContent = progress.unlocked;
+    document.getElementById('achievements-total').textContent = progress.total;
+    document.getElementById('quizzes-completed').textContent = achievementSystem.stats.quizzesCompleted;
+    document.getElementById('max-combo').textContent = achievementSystem.stats.maxCombo;
+
+    // Atualizar barra de progresso
+    const progressBar = document.getElementById('achievements-progress-bar');
+    if (visualEffects) {
+        visualEffects.animateProgress(progressBar, 0, progress.percentage);
+    } else {
+        progressBar.style.width = progress.percentage + '%';
+    }
+
+    // Criar galeria de conquistas
+    const gallery = document.getElementById('achievements-gallery');
+    gallery.innerHTML = '';
+
+    const allAchievements = [...unlocked, ...locked];
+
+    allAchievements.forEach(achievement => {
+        const isUnlocked = achievementSystem.isUnlocked(achievement.id);
+        const card = document.createElement('div');
+        card.className = `achievement-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+
+        card.innerHTML = `
+            <div class="achievement-card-icon">${achievement.icon}</div>
+            <div class="achievement-card-name">${achievement.name}</div>
+            <div class="achievement-card-desc">${achievement.description}</div>
+        `;
+
+        gallery.appendChild(card);
     });
 }
 
