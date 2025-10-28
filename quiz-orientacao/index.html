@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Quiz: Navegando pelas Estrelas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/backgrounds.css">
+</head>
+<body>
+    <!-- Tela Inicial -->
+    <div id="start-screen" class="screen active">
+        <div class="container">
+            <h1 class="title">Navegando pelas Estrelas</h1>
+            <p class="subtitle">Descubra como as pessoas se orientavam no passado e nos dias de hoje!</p>
+
+            <div class="start-actions">
+                <button id="start-btn" class="btn btn-primary">Iniciar Quiz</button>
+                <button id="view-permanent-ranking-btn" class="btn btn-secondary">Ver Ranking Permanente</button>
+            </div>
+
+            <!-- Ranking Temporário na Tela Inicial -->
+            <div class="ranking-section home-ranking">
+                <h2 class="ranking-title">Ranking Temporário</h2>
+                <p class="ranking-subtitle">(Últimos 5 jogadores - Top 3)</p>
+                <div id="home-temp-ranking-list" class="ranking-list">
+                    <!-- Ranking temporário será inserido aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela do Quiz -->
+    <div id="quiz-screen" class="screen">
+        <div class="quiz-header">
+            <div class="score-display">
+                <span id="score-text">Acertos: <strong id="correct-count">0</strong> / <strong id="total-count">20</strong></span>
+            </div>
+            <div class="question-number">
+                <span>Pergunta <strong id="current-question">1</strong> de <strong>20</strong></span>
+            </div>
+            <button id="quit-btn" class="btn btn-danger">Desistir</button>
+        </div>
+
+        <div class="quiz-content">
+            <div class="question-container">
+                <h2 id="question-text" class="question-text"></h2>
+            </div>
+
+            <div id="answers-container" class="answers-container">
+                <!-- Respostas serão inseridas dinamicamente -->
+            </div>
+        </div>
+
+        <!-- Animações -->
+        <div id="animation-container" class="animation-container hidden">
+            <div id="animation-element" class="animation-element"></div>
+        </div>
+    </div>
+
+    <!-- Tela de Resultado -->
+    <div id="result-screen" class="screen">
+        <div class="container">
+            <h1 class="title">Parabéns!</h1>
+            <div class="result-info">
+                <p class="result-score">Você acertou <strong id="final-score">0</strong> de <strong>20</strong> perguntas!</p>
+                <p class="result-time">Tempo: <strong id="final-time">0.0</strong> segundos</p>
+            </div>
+
+            <div class="name-input-section">
+                <p>Digite seu nome ou gere um nome aleatório:</p>
+                <input type="text" id="player-name-input" class="name-input" placeholder="Seu nome" maxlength="20">
+                <button id="random-name-btn" class="btn btn-secondary">Nome Aleatório</button>
+            </div>
+
+            <button id="save-score-btn" class="btn btn-primary">Salvar e Ver Ranking</button>
+        </div>
+    </div>
+
+    <!-- Tela de Ranking Temporário -->
+    <div id="temp-ranking-screen" class="screen">
+        <div class="container">
+            <h1 class="title">Ranking Temporário</h1>
+
+            <div class="ranking-section">
+                <p class="ranking-subtitle">(Top 3 dos últimos 5 jogadores)</p>
+                <div id="temp-ranking-list" class="ranking-list">
+                    <!-- Ranking temporário será inserido aqui -->
+                </div>
+            </div>
+
+            <div class="ranking-actions">
+                <button id="play-again-btn" class="btn btn-primary">Jogar Novamente</button>
+                <button id="view-permanent-from-temp-btn" class="btn btn-secondary">Ver Ranking Permanente</button>
+                <button id="back-to-start-from-temp-btn" class="btn btn-secondary">Tela Inicial</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Ranking Permanente -->
+    <div id="permanent-ranking-screen" class="screen">
+        <div class="container">
+            <div class="ranking-header">
+                <button id="back-to-start-from-permanent-btn" class="btn btn-secondary btn-back">← Tela Inicial</button>
+            </div>
+
+            <h1 class="title">Ranking Permanente</h1>
+
+            <div class="ranking-section">
+                <p class="ranking-subtitle">(Top 10 de todos os tempos)</p>
+                <div id="permanent-ranking-list" class="ranking-list">
+                    <!-- Ranking permanente será inserido aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/questions.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/names.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

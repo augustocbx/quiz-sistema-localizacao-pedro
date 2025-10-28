@@ -1,0 +1,111 @@
+/* Fundos temáticos para as perguntas do quiz */
+
+.bg-stars-night {
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,.05) 2px, rgba(255,255,255,.05) 4px);
+}
+
+.bg-gps-satellite {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%),
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.bg-ancient-navigation {
+    background: linear-gradient(to bottom, #8B4513 0%, #D2691E 50%, #CD853F 100%),
+                repeating-linear-gradient(90deg, rgba(139,69,19,0.1) 0px, transparent 2px, transparent 4px, rgba(139,69,19,0.1) 4px);
+}
+
+.bg-constellation {
+    background: radial-gradient(ellipse at top, #1e3a8a 0%, #0f172a 100%),
+                radial-gradient(circle at 30% 40%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255,215,0,0.1) 0%, transparent 50%);
+}
+
+.bg-southern-cross {
+    background: linear-gradient(180deg, #001F3F 0%, #003366 50%, #000428 100%),
+                radial-gradient(circle at 50% 30%, rgba(255,255,255,0.1) 0%, transparent 30%);
+}
+
+.bg-compass {
+    background: radial-gradient(circle at center, #8B0000 0%, #DC143C 30%, #4682B4 100%),
+                repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255,255,255,0.1) 10deg 20deg);
+}
+
+.bg-sun-navigation {
+    background: radial-gradient(circle at 30% 30%, #FFD700 0%, #FFA500 20%, #FF8C00 40%, #4682B4 70%, #1e40af 100%);
+}
+
+.bg-smartphone-gps {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.05) 2px);
+}
+
+.bg-celestial-pole {
+    background: conic-gradient(from 180deg at 50% 50%, #0f172a 0deg, #1e3a8a 120deg, #3b82f6 180deg, #1e3a8a 240deg, #0f172a 360deg);
+}
+
+.bg-gps-history {
+    background: linear-gradient(to right, #8B4513 0%, #4682B4 50%, #667eea 100%);
+}
+
+.bg-sextant {
+    background: radial-gradient(ellipse at center, #CD7F32 0%, #8B4513 50%, #2F4F4F 100%);
+}
+
+.bg-orion {
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 70%),
+                radial-gradient(circle at 40% 40%, rgba(255,215,0,0.2) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255,215,0,0.2) 0%, transparent 20%),
+                radial-gradient(circle at 60% 40%, rgba(255,215,0,0.2) 0%, transparent 20%);
+}
+
+.bg-solar-storm {
+    background: radial-gradient(ellipse at top, #FF4500 0%, #FF6347 20%, #DC143C 40%, #8B008B 70%, #000000 100%);
+}
+
+.bg-earth-equator {
+    background: radial-gradient(ellipse at center, #4169E1 0%, #1E90FF 30%, #87CEEB 60%, #000080 100%);
+}
+
+.bg-map-coordinates {
+    background: linear-gradient(135deg, #2C5F2D 0%, #97BC62 50%, #4682B4 100%),
+                repeating-linear-gradient(0deg, transparent 0%, transparent 48px, rgba(255,255,255,0.1) 48px, rgba(255,255,255,0.1) 50px),
+                repeating-linear-gradient(90deg, transparent 0%, transparent 48px, rgba(255,255,255,0.1) 48px, rgba(255,255,255,0.1) 50px);
+}
+
+.bg-compass-rose {
+    background: radial-gradient(circle at center, #F5DEB3 0%, #DEB887 30%, #D2691E 60%, #8B4513 100%),
+                conic-gradient(from 0deg at 50% 50%, transparent 0deg 44deg, rgba(139,69,19,0.3) 44deg 46deg, transparent 46deg 90deg, rgba(139,69,19,0.3) 90deg 92deg, transparent 92deg 180deg);
+}
+
+.bg-forest-navigation {
+    background: linear-gradient(to bottom, #2C5F2D 0%, #228B22 30%, #006400 70%, #013220 100%),
+                repeating-linear-gradient(90deg, transparent 0px, rgba(0,0,0,0.1) 2px, transparent 4px);
+}
+
+.bg-full-moon {
+    background: radial-gradient(circle at center, #F5F5DC 0%, #FFFACD 20%, #4682B4 40%, #191970 70%, #000000 100%);
+}
+
+.bg-greenwich {
+    background: linear-gradient(to bottom, #87CEEB 0%, #4682B4 40%, #2F4F4F 100%),
+                repeating-linear-gradient(90deg, transparent 0%, transparent 49%, rgba(255,0,0,0.3) 49%, rgba(255,0,0,0.3) 51%, transparent 51%, transparent 100%);
+}
+
+.bg-moon-tides {
+    background: linear-gradient(to bottom, #000428 0%, #004e92 30%, #1e3a8a 60%, #0ea5e9 100%);
+}
+
+.bg-satellite-systems {
+    background: linear-gradient(135deg, #1e3a8a 0%, #312e81 30%, #4c1d95 60%, #581c87 100%),
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 40%);
+}
+
+.bg-airplane-gps {
+    background: linear-gradient(to bottom, #87CEEB 0%, #4682B4 40%, #1e40af 80%, #1e3a8a 100%);
+}
+
+.bg-modern-navigation {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%),
+                repeating-linear-gradient(45deg, transparent 0px, rgba(255,255,255,0.05) 2px, transparent 4px);
+}
