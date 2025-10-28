@@ -63,8 +63,8 @@ function startQuiz() {
     correctAnswers = 0;
     quizFinished = false;
 
-    // Selecionar 20 perguntas aleatórias do banco de 40
-    selectedQuestions = selectRandomQuestions(QUESTION_BANK, 20);
+    // Selecionar 15 perguntas aleatórias do banco de 40
+    selectedQuestions = selectRandomQuestions(QUESTION_BANK, 15);
 
     // Embaralhar as respostas de cada pergunta
     selectedQuestions.forEach(question => {
@@ -342,7 +342,7 @@ function displayRankingList(elementId, ranking) {
                 <div class="ranking-name">${player.name}</div>
             </div>
             <div class="ranking-stats">
-                <div class="ranking-score">${player.score}/20</div>
+                <div class="ranking-score">${player.score}/15</div>
                 <div class="ranking-time">${player.time}s</div>
             </div>
         `;
