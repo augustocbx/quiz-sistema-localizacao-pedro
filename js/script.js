@@ -35,11 +35,9 @@ const backToStartFromTempBtn = document.getElementById('back-to-start-from-temp-
 const backToStartFromPermanentBtn = document.getElementById('back-to-start-from-permanent-btn');
 const backToStartFromAchievementsBtn = document.getElementById('back-to-start-from-achievements-btn');
 const soundToggleBtn = document.getElementById('sound-toggle-btn');
-const clearAllDataBtn = document.getElementById('clear-all-data-btn');
 
 // Event Listeners
 startBtn.addEventListener('click', startQuiz);
-clearAllDataBtn.addEventListener('click', clearAllData);
 viewPermanentRankingBtn.addEventListener('click', () => showScreen('permanentRanking'));
 viewAchievementsBtn.addEventListener('click', () => showScreen('achievements'));
 quitBtn.addEventListener('click', quitQuiz);
@@ -506,71 +504,6 @@ function toggleSound() {
     // Feedback sonoro
     if (isEnabled) {
         soundManager.playClick();
-    }
-}
-
-// Limpar todos os dados (rankings e conquistas)
-function clearAllData() {
-    // Solicitar senha
-    const password = prompt('Digite a senha para limpar os dados:');
-
-    if (password !== '180415') {
-        if (password !== null) {
-            alert('❌ Senha incorreta!');
-        }
-        return;
-    }
-
-    const confirmation = confirm(
-        '⚠️ ATENÇÃO!\n\n' +
-        'Isso vai limpar:\n' +
-        '• Ranking Permanente\n' +
-        '• Ranking Temporário\n' +
-        '• Todas as Conquistas\n' +
-        '• Todas as Estatísticas\n\n' +
-        'Tem certeza?'
-    );
-
-    if (confirmation) {
-        // Limpar rankings
-        localStorage.removeItem('generalRanking');
-        localStorage.removeItem('tempRanking');
-        localStorage.removeItem('tempRankingCount');
-
-        // Limpar conquistas
-        localStorage.removeItem('achievements');
-        localStorage.removeItem('achievementStats');
-
-        // Limpar versão
-        localStorage.removeItem('appVersion');
-
-        // Recarregar sistemas
-        if (achievementSystem) {
-            achievementSystem.unlockedAchievements = [];
-            achievementSystem.stats = {
-                quizzesCompleted: 0,
-                maxCombo: 0,
-                compassCorrect: 0,
-                compassTotal: 0,
-                gpsCorrect: 0,
-                gpsTotal: 0,
-                starsCorrect: 0,
-                starsTotal: 0
-            };
-            achievementSystem.saveProgress();
-        }
-
-        // Reinicializar rankings
-        loadRankings();
-
-        // Atualizar tela
-        updateHomeTempRanking();
-
-        // Feedback
-        alert('✅ Todos os dados foram limpos com sucesso!');
-
-        // Som de feedback
-        if (soundManager) soundManager.playClick();
     }
 }
 
