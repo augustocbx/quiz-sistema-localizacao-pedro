@@ -154,6 +154,16 @@ function showScreen(screenName) {
     Object.values(screens).forEach(screen => screen.classList.remove('active'));
     screens[screenName].classList.add('active');
 
+    // Ocultar QR code durante o quiz
+    const qrFloating = document.getElementById('qr-toggle-btn');
+    if (qrFloating) {
+        if (screenName === 'quiz') {
+            qrFloating.style.display = 'none';
+        } else {
+            qrFloating.style.display = 'flex';
+        }
+    }
+
     if (screenName === 'start') {
         updateHomeTempRanking();
     } else if (screenName === 'avatar') {
