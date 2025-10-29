@@ -231,6 +231,12 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
+.achievement-card.unlocked:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 5px 30px rgba(251, 191, 36, 0.4);
+    cursor: pointer;
+}
+
 .achievement-card-icon {
     font-size: 48px;
     margin-bottom: 10px;
@@ -336,6 +342,155 @@
 
 .settings-button.sound-off {
     opacity: 0.5;
+}
+
+/* ========================================
+   MODAL DE DETALHES DA CONQUISTA
+   ======================================== */
+.achievement-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.achievement-modal.show {
+    display: flex;
+}
+
+.achievement-modal-content {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 0 50px rgba(251, 191, 36, 0.5);
+    animation: scaleIn 0.3s ease;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.achievement-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* Desktop - apenas hover suave */
+@media (hover: hover) and (pointer: fine) {
+    .achievement-modal-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+    }
+}
+
+/* Tablet/Touch - animação no active */
+.achievement-modal-close:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.9);
+}
+
+.achievement-modal-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.achievement-modal-title {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.achievement-modal-desc {
+    font-size: 1.2rem;
+    color: #cbd5e1;
+    margin-bottom: 30px;
+}
+
+.achievement-modal-player {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+    border: 2px solid rgba(251, 191, 36, 0.3);
+}
+
+.achievement-modal-label {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.achievement-modal-player-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.achievement-modal-avatar {
+    font-size: 3rem;
+    width: 70px;
+    height: 70px;
+    background: rgba(59, 130, 246, 0.3);
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+}
+
+.achievement-modal-name {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+}
+
+.achievement-modal-date {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-style: italic;
 }
 
 /* ========================================
@@ -466,6 +621,38 @@
         width: 45px;
         height: 45px;
         border-width: 2px;
+    }
+
+    /* Modal de conquista */
+    .achievement-modal-content {
+        padding: 30px 20px;
+        max-width: 90%;
+    }
+
+    .achievement-modal-icon {
+        font-size: 60px;
+    }
+
+    .achievement-modal-title {
+        font-size: 1.5rem;
+    }
+
+    .achievement-modal-desc {
+        font-size: 1rem;
+    }
+
+    .achievement-modal-player {
+        padding: 20px 15px;
+    }
+
+    .achievement-modal-avatar {
+        font-size: 2.5rem;
+        width: 60px;
+        height: 60px;
+    }
+
+    .achievement-modal-name {
+        font-size: 1.2rem;
     }
 }
 
@@ -927,5 +1114,41 @@
         width: 70px;
         height: 70px;
         border-width: 4px;
+    }
+
+    /* Modal de conquista */
+    .achievement-modal-content {
+        padding: 45px;
+        max-width: 600px;
+    }
+
+    .achievement-modal-icon {
+        font-size: 100px;
+    }
+
+    .achievement-modal-title {
+        font-size: 2.5rem;
+    }
+
+    .achievement-modal-desc {
+        font-size: 1.4rem;
+    }
+
+    .achievement-modal-player {
+        padding: 30px;
+    }
+
+    .achievement-modal-avatar {
+        font-size: 3.5rem;
+        width: 80px;
+        height: 80px;
+    }
+
+    .achievement-modal-name {
+        font-size: 1.8rem;
+    }
+
+    .achievement-modal-date {
+        font-size: 1rem;
     }
 }

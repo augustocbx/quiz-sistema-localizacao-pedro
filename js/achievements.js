@@ -100,6 +100,14 @@ class AchievementSystem {
             this.unlockedAchievements = [];
         }
 
+        // Carregar detalhes das conquistas (quem desbloqueou)
+        const savedDetails = localStorage.getItem('achievementDetails');
+        if (savedDetails) {
+            this.achievementDetails = JSON.parse(savedDetails);
+        } else {
+            this.achievementDetails = {};
+        }
+
         const savedStats = localStorage.getItem('achievementStats');
         if (savedStats) {
             this.stats = JSON.parse(savedStats);
@@ -119,11 +127,30 @@ class AchievementSystem {
 
     saveProgress() {
         localStorage.setItem('achievements', JSON.stringify(this.unlockedAchievements));
+        localStorage.setItem('achievementDetails', JSON.stringify(this.achievementDetails));
         localStorage.setItem('achievementStats', JSON.stringify(this.stats));
     }
 
     isUnlocked(achievementId) {
         return this.unlockedAchievements.includes(achievementId);
+    }
+
+    getAchievementDetails(achievementId) {
+        return this.achievementDetails[achievementId] || null;
+    }
+
+    updateRecentUnlocksWithPlayerInfo(playerName, playerAvatar) {
+        // Atualiza conquistas que foram desbloqueadas recentemente mas ainda não têm nome
+        this.unlockedAchievements.forEach(achievementId => {
+            if (!this.achievementDetails[achievementId] || !this.achievementDetails[achievementId].playerName || this.achievementDetails[achievementId].playerName === 'Jogador') {
+                this.achievementDetails[achievementId] = {
+                    playerName: playerName,
+                    playerAvatar: playerAvatar,
+                    unlockedAt: this.achievementDetails[achievementId]?.unlockedAt || new Date().toISOString()
+                };
+            }
+        });
+        this.saveProgress();
     }
 
     checkAchievements(currentStats) {
@@ -132,6 +159,14 @@ class AchievementSystem {
         this.achievements.forEach(achievement => {
             if (!this.isUnlocked(achievement.id) && achievement.condition(currentStats)) {
                 this.unlockedAchievements.push(achievement.id);
+
+                // Salvar detalhes do jogador que desbloqueou
+                this.achievementDetails[achievement.id] = {
+                    playerName: currentStats.playerName || 'Jogador',
+                    playerAvatar: currentStats.playerAvatar || '👤',
+                    unlockedAt: new Date().toISOString()
+                };
+
                 newlyUnlocked.push(achievement);
             }
         });

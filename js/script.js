@@ -70,6 +70,23 @@ document.querySelectorAll('.btn').forEach(btn => {
     });
 });
 
+// Event listeners para o modal de conquista
+const achievementModalCloseBtn = document.getElementById('achievement-modal-close');
+const achievementModal = document.getElementById('achievement-modal');
+
+if (achievementModalCloseBtn) {
+    achievementModalCloseBtn.addEventListener('click', closeAchievementModal);
+}
+
+// Fechar modal ao clicar fora do conteúdo
+if (achievementModal) {
+    achievementModal.addEventListener('click', (e) => {
+        if (e.target === achievementModal) {
+            closeAchievementModal();
+        }
+    });
+}
+
 // Parar timer quando o app é minimizado ou a página é ocultada
 document.addEventListener('visibilitychange', () => {
     if (document.hidden && screens.quiz.classList.contains('active')) {
@@ -427,6 +444,11 @@ function saveScore() {
     // Salvar nos rankings
     saveToRankings(scoreData);
 
+    // Atualizar conquistas com nome e avatar do jogador
+    if (achievementSystem) {
+        achievementSystem.updateRecentUnlocksWithPlayerInfo(playerName, scoreData.avatar);
+    }
+
     // Mostrar apenas ranking temporário
     showScreen('tempRanking');
 }
@@ -620,8 +642,57 @@ function displayAchievements() {
             <div class="achievement-card-desc">${achievement.description}</div>
         `;
 
+        // Adicionar evento de clique apenas para conquistas desbloqueadas
+        if (isUnlocked) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => showAchievementDetails(achievement));
+        }
+
         gallery.appendChild(card);
     });
+}
+
+// Mostrar modal com detalhes da conquista
+function showAchievementDetails(achievement) {
+    const modal = document.getElementById('achievement-modal');
+    const details = achievementSystem.getAchievementDetails(achievement.id);
+
+    // Preencher modal com informações
+    document.getElementById('achievement-modal-icon').textContent = achievement.icon;
+    document.getElementById('achievement-modal-title').textContent = achievement.name;
+    document.getElementById('achievement-modal-desc').textContent = achievement.description;
+
+    if (details) {
+        document.getElementById('achievement-modal-avatar').textContent = details.playerAvatar || '👤';
+        document.getElementById('achievement-modal-name').textContent = details.playerName || 'Jogador';
+
+        // Formatar data
+        if (details.unlockedAt) {
+            const date = new Date(details.unlockedAt);
+            const dateStr = date.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('achievement-modal-date').textContent = `Desbloqueado em ${dateStr}`;
+        } else {
+            document.getElementById('achievement-modal-date').textContent = '';
+        }
+    }
+
+    // Mostrar modal
+    modal.classList.add('show');
+
+    // Som de feedback
+    if (soundManager) soundManager.playClick();
+}
+
+// Fechar modal
+function closeAchievementModal() {
+    const modal = document.getElementById('achievement-modal');
+    modal.classList.remove('show');
 }
 
 // Inicializar quando o DOM estiver pronto
