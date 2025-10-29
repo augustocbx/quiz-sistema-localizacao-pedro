@@ -23,7 +23,7 @@ class PowerUpSystem {
                 id: 'doubleTime',
                 name: '+Tempo',
                 icon: '⏰',
-                description: 'Dobra o tempo disponível',
+                description: 'Restaura os 10 segundos',
                 available: 1,
                 used: 0
             }
@@ -96,7 +96,7 @@ class PowerUpSystem {
         };
     }
 
-    // Dobrar Tempo - Adiciona tempo extra na pergunta atual
+    // Restaurar Tempo - Volta o tempo para 10 segundos
     applyDoubleTime() {
         if (!this.use('doubleTime')) return null;
 
@@ -105,7 +105,7 @@ class PowerUpSystem {
 
         return {
             success: true,
-            message: '⏰ Tempo dobrado! Você tem mais tempo agora!'
+            message: '⏰ Tempo restaurado para 10 segundos!'
         };
     }
 

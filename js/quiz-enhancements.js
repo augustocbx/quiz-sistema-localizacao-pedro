@@ -104,10 +104,8 @@ function usePowerUp(powerUpId) {
     } else if (powerUpId === 'doubleTime') {
         const result = powerUpSystem.applyDoubleTime();
         if (result) {
-            // Dobrar o tempo restante
-            const currentTime = timeRemaining;
-            const additionalTime = currentTime; // Adicionar o mesmo tempo que resta (dobrando)
-            timeRemaining = currentTime + additionalTime;
+            // Restaurar o tempo para 10 segundos
+            timeRemaining = TIME_PER_QUESTION;
 
             powerUpSystem.showPowerUpEffect(powerUpId, result.message);
             powerUpSystem.updateUI();
