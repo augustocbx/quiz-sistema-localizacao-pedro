@@ -70,6 +70,22 @@ document.querySelectorAll('.btn').forEach(btn => {
     });
 });
 
+// Parar timer quando o app é minimizado ou a página é ocultada
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && screens.quiz.classList.contains('active')) {
+        if (typeof stopTimer === 'function') {
+            stopTimer();
+        }
+    }
+});
+
+// Parar timer antes de sair da página
+window.addEventListener('beforeunload', () => {
+    if (typeof stopTimer === 'function') {
+        stopTimer();
+    }
+});
+
 // Inicialização
 function init() {
     showScreen('start');
@@ -78,6 +94,13 @@ function init() {
 
 // Mostrar tela específica
 function showScreen(screenName) {
+    // Se está saindo da tela do quiz, parar o timer
+    if (screens.quiz.classList.contains('active') && screenName !== 'quiz') {
+        if (typeof stopTimer === 'function') {
+            stopTimer();
+        }
+    }
+
     Object.values(screens).forEach(screen => screen.classList.remove('active'));
     screens[screenName].classList.add('active');
 
@@ -96,6 +119,11 @@ function showScreen(screenName) {
 
 // Iniciar Quiz
 function startQuiz() {
+    // Parar qualquer timer anterior
+    if (typeof stopTimer === 'function') {
+        stopTimer();
+    }
+
     // Reset do estado
     currentQuestionIndex = 0;
     correctAnswers = 0;
@@ -286,8 +314,17 @@ function showAnimation(isCorrect) {
 
 // Desistir do quiz
 function quitQuiz() {
+    // Parar o timer antes do confirm para evitar que continue tocando
+    const wasTimerRunning = timerInterval !== null;
+    stopTimer();
+
     if (confirm('Tem certeza que deseja desistir? Você ainda poderá salvar seu resultado.')) {
         finishQuiz();
+    } else {
+        // Se cancelar, reiniciar o timer apenas se estava rodando
+        if (wasTimerRunning && !quizFinished) {
+            startTimer();
+        }
     }
 }
 
