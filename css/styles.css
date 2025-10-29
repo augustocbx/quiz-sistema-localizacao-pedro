@@ -642,31 +642,60 @@ body::before {
         padding: 20px;
     }
 
+    /* Ajustes do Quiz para caber na tela mobile */
+    .quiz-content {
+        padding: 15px 10px;
+        min-height: auto;
+        gap: 10px;
+    }
+
+    .question-container {
+        margin-bottom: 15px;
+    }
+
     .question-text {
-        font-size: 1.3rem;
-        padding: 20px;
+        font-size: 1.1rem;
+        padding: 15px;
+        line-height: 1.3;
+        min-height: auto;
     }
 
     .answers-container {
         grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .answer-btn {
-        padding: 15px;
-        font-size: 1rem;
-    }
-
-    .quiz-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 15px;
         gap: 10px;
     }
 
+    .answer-btn {
+        padding: 12px;
+        font-size: 0.95rem;
+        min-height: auto;
+    }
+
+    .quiz-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        text-align: center;
+        padding: 10px;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
     .player-avatar-display {
-        order: -1;
-        margin-bottom: 10px;
+        order: 0;
+        margin-bottom: 0;
+    }
+
+    .score-display, .question-number {
+        font-size: 0.9rem;
+    }
+
+    .score-display strong, .question-number strong {
+        font-size: 1.1rem;
+    }
+
+    #quit-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
     }
 
     .animation-element {
@@ -709,8 +738,45 @@ body::before {
         font-size: 0.9rem;
     }
 
+    /* Ajustes extras para telas muito pequenas */
+    .quiz-content {
+        padding: 10px 8px;
+    }
+
     .question-text {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .answer-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .answers-container {
+        gap: 8px;
+    }
+
+    .quiz-header {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .score-display, .question-number {
+        font-size: 0.85rem;
+    }
+
+    .score-display strong, .question-number strong {
+        font-size: 1rem;
+    }
+
+    #quit-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .question-container {
+        margin-bottom: 10px;
     }
 }
 

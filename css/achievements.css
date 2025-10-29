@@ -1195,16 +1195,26 @@
     }
 
     .powerup-btn {
-        min-width: 70px;
-        padding: 10px 12px;
+        min-width: 65px;
+        padding: 8px 10px;
     }
 
     .powerup-icon {
-        font-size: 24px;
+        font-size: 22px;
+        margin-bottom: 3px;
     }
 
     .powerup-name {
-        font-size: 10px;
+        font-size: 9px;
+        margin-bottom: 2px;
+    }
+
+    .powerup-count {
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+        top: -6px;
+        right: -6px;
     }
 
     .avatar-selector {
@@ -1219,11 +1229,76 @@
     }
 
     .timer-container {
-        max-width: 250px;
+        max-width: 100%;
+        margin: 0 auto 10px;
+    }
+
+    .timer-bar-bg {
+        height: 10px;
     }
 
     .timer-text {
+        font-size: 14px;
+        top: -22px;
+    }
+
+    #powerups-wrapper {
+        gap: 8px;
+        margin-bottom: 5px;
+    }
+}
+
+/* Ajustes extras para telas muito pequenas */
+@media (max-width: 480px) {
+    .powerup-btn {
+        min-width: 60px;
+        padding: 6px 8px;
+    }
+
+    .powerup-icon {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+
+    .powerup-name {
+        font-size: 8px;
+        margin-bottom: 1px;
+    }
+
+    .timer-container {
+        margin: 0 auto 8px;
+    }
+
+    .timer-bar-bg {
+        height: 8px;
+    }
+
+    .timer-text {
+        font-size: 13px;
+        top: -20px;
+    }
+
+    #powerups-wrapper {
+        gap: 6px;
+        margin-bottom: 3px;
+    }
+
+    .achievement-popup {
+        min-width: 280px;
+        max-width: 320px;
+        padding: 15px;
+    }
+
+    .achievement-icon {
+        font-size: 40px;
+    }
+
+    .achievement-name {
         font-size: 16px;
+    }
+
+    .achievement-desc {
+        font-size: 12px;
     }
 }
 
