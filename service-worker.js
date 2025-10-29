@@ -1,6 +1,6 @@
 // Service Worker para Quiz: Navegando pelas Estrelas
 // Aumente este número quando fizer atualizações: v1, v2, v3...
-const CACHE_NAME = 'quiz-navegacao-v5';
+const CACHE_NAME = 'quiz-navegacao-v6';
 
 const urlsToCache = [
   '/quiz-sistema-localizacao-pedro/',
@@ -101,13 +101,35 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Estratégia: Cache First para CSS/JS/images (usa cache, atualiza em background)
+  // Estratégia: Network First para arquivos com versão (?v=X)
+  // Isso garante que cache-busting funcione corretamente
+  if (url.search.includes('?v=')) {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          // Cacheia a nova versão
+          if (response && response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // Fallback para cache se offline
+          return caches.match(request);
+        })
+    );
+    return;
+  }
+
+  // Estratégia: Cache First para outros recursos (images, etc)
   event.respondWith(
     caches.match(request)
       .then(cachedResponse => {
-        // Retorna do cache e atualiza em background
-        const fetchPromise = fetch(request).then(networkResponse => {
-          // Atualiza o cache em background
+        return cachedResponse || fetch(request).then(networkResponse => {
+          // Cacheia novos recursos
           if (networkResponse && networkResponse.status === 200) {
             const responseClone = networkResponse.clone();
             caches.open(CACHE_NAME).then(cache => {
@@ -115,13 +137,7 @@ self.addEventListener('fetch', event => {
             });
           }
           return networkResponse;
-        }).catch(() => {
-          // Se falhar, não faz nada (já tem no cache)
-          return cachedResponse;
         });
-
-        // Retorna cache imediatamente, ou espera rede se não tiver cache
-        return cachedResponse || fetchPromise;
       })
   );
 });
