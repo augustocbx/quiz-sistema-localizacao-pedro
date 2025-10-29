@@ -704,3 +704,170 @@
         font-size: 16px;
     }
 }
+
+/* ========================================
+   OTIMIZAÇÕES PARA TABLET LANDSCAPE
+   ======================================== */
+
+@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+
+    /* === CONQUISTAS === */
+    .achievements-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 25px;
+    }
+
+    .achievement-card {
+        padding: 30px 25px;
+    }
+
+    .achievement-card-icon {
+        font-size: 64px;
+        margin-bottom: 15px;
+    }
+
+    .achievement-card-name {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .achievement-card-desc {
+        font-size: 13px;
+    }
+
+    /* === POPUP DE CONQUISTA === */
+    .achievement-popup {
+        min-width: 380px;
+        max-width: 420px;
+        padding: 25px;
+        top: 30px;
+        right: -450px;
+    }
+
+    .achievement-popup.show {
+        right: 30px;
+    }
+
+    .achievement-icon {
+        font-size: 56px;
+    }
+
+    .achievement-name {
+        font-size: 20px;
+    }
+
+    .achievement-desc {
+        font-size: 15px;
+    }
+
+    /* === COMBO COUNTER === */
+    .combo-counter {
+        font-size: 32px;
+        padding: 20px 40px;
+        top: 120px;
+    }
+
+    /* === POWER-UPS === */
+    .powerups-container {
+        gap: 15px;
+        padding: 15px;
+        margin: 0;
+    }
+
+    .powerup-btn {
+        min-width: 110px;
+        padding: 16px 20px;
+    }
+
+    .powerup-icon {
+        font-size: 36px;
+        margin-bottom: 8px;
+    }
+
+    .powerup-name {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .powerup-count {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+        top: -10px;
+        right: -10px;
+    }
+
+    .powerup-effect-popup {
+        padding: 40px 50px;
+    }
+
+    .powerup-effect-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+    }
+
+    .powerup-effect-message {
+        font-size: 22px;
+    }
+
+    /* === TIMER === */
+    .timer-container {
+        max-width: 100%;
+        margin: 0 0 20px 0;
+    }
+
+    .timer-bar-bg {
+        height: 16px;
+    }
+
+    .timer-text {
+        font-size: 24px;
+        top: -35px;
+    }
+
+    /* === AVATARES === */
+    .avatar-selector {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 20px;
+        max-width: 800px;
+        margin: 30px auto;
+    }
+
+    .avatar-option {
+        width: 100px;
+        height: 100px;
+        font-size: 50px;
+        border-width: 4px;
+    }
+
+    .avatar-option.selected {
+        transform: scale(1.2);
+    }
+
+    /* === ESTATÍSTICAS === */
+    .stats-container {
+        padding: 30px;
+        margin: 30px 0;
+    }
+
+    .stat-row {
+        padding: 15px 0;
+    }
+
+    .stat-label {
+        font-size: 16px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+    }
+
+    /* === BOTÃO DE SOM === */
+    .settings-button {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        top: 30px;
+        right: 30px;
+    }
+}

@@ -719,3 +719,247 @@ body::before {
         overflow-y: auto;
     }
 }
+
+/* ============================================
+   OTIMIZAÇÕES PARA TABLET LANDSCAPE
+   ============================================ */
+
+/* Tablet Landscape (768px - 1366px) */
+@media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+
+    /* === AJUSTES GLOBAIS === */
+    .container {
+        max-width: 1200px;
+        padding: 50px;
+    }
+
+    .title {
+        font-size: 3rem;
+    }
+
+    .subtitle {
+        font-size: 1.3rem;
+    }
+
+    /* Aumentar touch targets globalmente */
+    .btn {
+        min-height: 60px;
+        padding: 18px 40px;
+        font-size: 1.2rem;
+    }
+
+    /* === TELA INICIAL === */
+    .start-actions {
+        gap: 25px;
+        margin-bottom: 50px;
+    }
+
+    .home-ranking {
+        margin-top: 40px;
+        padding-top: 40px;
+    }
+
+    .home-ranking .ranking-title {
+        font-size: 2rem;
+    }
+
+    .home-ranking .ranking-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .home-ranking .ranking-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+
+    .home-ranking .ranking-stats {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    /* === TELA DO QUIZ - LAYOUT 2 COLUNAS === */
+    #quiz-screen.active {
+        padding: 0;
+    }
+
+    .quiz-header {
+        padding: 25px 40px;
+        gap: 30px;
+    }
+
+    .score-display, .question-number {
+        font-size: 1.4rem;
+    }
+
+    .score-display strong, .question-number strong {
+        font-size: 1.6rem;
+    }
+
+    .quiz-content {
+        display: grid;
+        grid-template-columns: 45% 55%;
+        grid-template-areas:
+            "timer answers"
+            "powerups answers"
+            "question answers";
+        gap: 30px;
+        padding: 40px;
+        align-items: start;
+    }
+
+    /* Timer - Posição 1 da Coluna Esquerda */
+    #timer-container {
+        grid-area: timer;
+        align-self: start;
+    }
+
+    /* Power-ups - Posição 2 da Coluna Esquerda */
+    #powerups-wrapper {
+        grid-area: powerups;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Pergunta - Posição 3 da Coluna Esquerda */
+    .question-container {
+        grid-area: question;
+        max-width: 100%;
+        margin-bottom: 0;
+    }
+
+    .question-text {
+        font-size: 1.8rem;
+        padding: 35px;
+        min-height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.5;
+    }
+
+    /* Respostas - Toda a Coluna Direita */
+    .answers-container {
+        grid-area: answers;
+        max-width: 100%;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-self: center;
+    }
+
+    .answer-btn {
+        padding: 25px 30px;
+        font-size: 1.15rem;
+        min-height: 75px;
+        text-align: center;
+    }
+
+    /* === TELA DE RESULTADOS === */
+    .result-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        text-align: left;
+        align-items: center;
+    }
+
+    .result-score, .result-time {
+        font-size: 1.8rem;
+    }
+
+    .result-score strong, .result-time strong {
+        font-size: 2.5rem;
+    }
+
+    .name-input {
+        max-width: 500px;
+        padding: 20px;
+        font-size: 1.3rem;
+    }
+
+    /* === TELAS DE RANKING === */
+    .ranking-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .ranking-item {
+        padding: 25px;
+        min-height: 100px;
+    }
+
+    .ranking-position {
+        font-size: 2rem;
+        min-width: 60px;
+    }
+
+    .ranking-icon {
+        font-size: 2.5rem;
+        width: 60px;
+        height: 60px;
+    }
+
+    .ranking-name {
+        font-size: 1.4rem;
+    }
+
+    .ranking-score {
+        font-size: 1.6rem;
+    }
+
+    .ranking-time {
+        font-size: 1rem;
+    }
+
+    /* Top 3 em destaque maior */
+    .ranking-item.top-1,
+    .ranking-item.top-2,
+    .ranking-item.top-3 {
+        grid-column: span 1;
+    }
+
+    /* === ANIMAÇÕES === */
+    .animation-element {
+        width: 400px;
+        height: 400px;
+    }
+
+    .animation-message {
+        font-size: 2rem;
+        padding: 20px 40px;
+    }
+}
+
+/* Alerta de Orientação Portrait APENAS na Tela do Quiz */
+@media (min-width: 768px) and (max-width: 1366px) and (orientation: portrait) {
+    #quiz-screen.active::after {
+        content: '🔄 Por favor, gire seu dispositivo para o modo paisagem (horizontal) para jogar!';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(15, 23, 42, 0.98);
+        color: #fbbf24;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        z-index: 9999;
+        padding: 40px;
+        line-height: 1.6;
+    }
+
+    /* Esconde apenas o conteúdo do quiz quando em portrait */
+    #quiz-screen.active .quiz-header,
+    #quiz-screen.active .quiz-content {
+        visibility: hidden;
+    }
+}
