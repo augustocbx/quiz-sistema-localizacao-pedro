@@ -135,6 +135,13 @@ class AchievementSystem {
                 description: 'Acerte a pergunta muito difícil',
                 icon: '👑',
                 condition: (stats) => stats.veryHardCorrect === true
+            },
+            {
+                id: 'beginner',
+                name: 'Primeiros Passos',
+                description: 'Acerte 5 ou mais perguntas',
+                icon: '🎈',
+                condition: (stats) => stats.currentScore >= 5
             }
         ];
 
