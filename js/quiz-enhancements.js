@@ -107,7 +107,7 @@ function usePowerUp(powerUpId) {
     } else if (powerUpId === 'doubleTime') {
         const result = powerUpSystem.applyDoubleTime();
         if (result) {
-            // Restaurar o tempo para 10 segundos
+            // Restaurar o tempo para 15 segundos
             timeRemaining = TIME_PER_QUESTION;
 
             powerUpSystem.showPowerUpEffect(powerUpId, result.message);

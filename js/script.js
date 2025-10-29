@@ -14,8 +14,8 @@ let categoryStats = {
 
 // Timer
 let timerInterval = null;
-let timeRemaining = 10;
-const TIME_PER_QUESTION = 10; // segundos
+let timeRemaining = 15;
+const TIME_PER_QUESTION = 15; // segundos
 
 // Power-ups
 let removedAnswerIndices = [];

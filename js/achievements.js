@@ -34,9 +34,9 @@ class AchievementSystem {
             {
                 id: 'speedster',
                 name: 'Velocista',
-                description: 'Complete em menos de 60 segundos',
+                description: 'Complete em menos de 120 segundos',
                 icon: '⚡',
-                condition: (stats) => stats.totalTime < 60 && stats.quizCompleted
+                condition: (stats) => stats.totalTime < 120 && stats.quizCompleted
             },
             {
                 id: 'perfection',
@@ -83,9 +83,9 @@ class AchievementSystem {
             {
                 id: 'flawless_fast',
                 name: 'Flash Perfeito',
-                description: '15/15 em menos de 45 segundos',
+                description: '15/15 em menos de 90 segundos',
                 icon: '⚡💎',
-                condition: (stats) => stats.currentScore === 15 && stats.totalTime < 45 && stats.quizCompleted
+                condition: (stats) => stats.currentScore === 15 && stats.totalTime < 90 && stats.quizCompleted
             }
         ];
 
