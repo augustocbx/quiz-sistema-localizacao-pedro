@@ -48,6 +48,7 @@ const backFromAvatarBtn = document.getElementById('back-from-avatar-btn');
 const quitBtn = document.getElementById('quit-btn');
 const saveScoreBtn = document.getElementById('save-score-btn');
 const randomNameBtn = document.getElementById('random-name-btn');
+const playerNameInput = document.getElementById('player-name-input');
 const playAgainBtn = document.getElementById('play-again-btn');
 const viewPermanentFromTempBtn = document.getElementById('view-permanent-from-temp-btn');
 const viewAchievementsFromTempBtn = document.getElementById('view-achievements-from-temp-btn');
@@ -65,6 +66,15 @@ viewAchievementsBtn.addEventListener('click', () => showScreen('achievements'));
 quitBtn.addEventListener('click', quitQuiz);
 saveScoreBtn.addEventListener('click', saveScore);
 randomNameBtn.addEventListener('click', generateRandomName);
+playerNameInput.addEventListener('input', () => {
+    // Desabilita o botão de nome randômico se o usuário começou a digitar
+    // Reabilita se o campo estiver vazio
+    if (playerNameInput.value.trim().length > 0) {
+        randomNameBtn.disabled = true;
+    } else {
+        randomNameBtn.disabled = false;
+    }
+});
 playAgainBtn.addEventListener('click', startQuiz);
 viewPermanentFromTempBtn.addEventListener('click', () => showScreen('permanentRanking'));
 viewAchievementsFromTempBtn.addEventListener('click', () => showScreen('achievements'));
@@ -507,6 +517,9 @@ function finishQuiz() {
 
     // Limpar input de nome
     document.getElementById('player-name-input').value = '';
+
+    // Garantir que o botão de nome randômico esteja habilitado
+    randomNameBtn.disabled = false;
 
     // Ocultar combo
     if (visualEffects) visualEffects.hideCombo();
