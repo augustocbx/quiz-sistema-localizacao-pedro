@@ -386,18 +386,8 @@
                             if (event.data && event.data.type === 'SW_UPDATED') {
                                 console.log('[App] Atualização disponível:', event.data.version);
 
-                                // Verifica se precisa limpar rankings
-                                const currentVersion = localStorage.getItem('appVersion');
+                                // Salva nova versão (sem limpar rankings)
                                 const newVersion = event.data.version;
-
-                                // Limpa apenas ranking geral se a versão mudou OU se é a primeira atualização
-                                if (!currentVersion || currentVersion !== newVersion) {
-                                    console.log('[App] Nova versão detectada! Limpando ranking geral...');
-                                    localStorage.removeItem('generalRanking');
-                                    // Ranking temporário é calculado dinamicamente do geral
-                                }
-
-                                // Salva nova versão
                                 localStorage.setItem('appVersion', newVersion);
 
                                 // OPÇÃO 1: Atualização automática silenciosa (ATIVA)
