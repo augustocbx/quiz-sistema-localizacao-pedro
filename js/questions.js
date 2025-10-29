@@ -68,8 +68,8 @@ const QUESTION_BANK = [
     },
     {
         question: "Em que ano o GPS foi disponibilizado para uso civil?",
-        answers: ["1995", "2000", "1980", "2010"],
-        correctIndex: 1,
+        answers: ["2000", "1995", "1980", "2010"],
+        correctIndex: 0,
         backgroundClass: "bg-gps-history"
     },
     {
@@ -359,5 +359,77 @@ const QUESTION_BANK = [
         answers: ["A localização fica mais precisa e confiável", "O celular fica mais rápido", "Gasta menos bateria", "A tela fica maior"],
         correctIndex: 0,
         backgroundClass: "bg-satellite-systems"
+    },
+    {
+        question: "O que é um gnômon?",
+        answers: ["Haste vertical que projeta sombra em relógios de sol", "Tipo de bússola", "Constelação do hemisfério sul", "Instrumento para medir ondas"],
+        correctIndex: 0,
+        backgroundClass: "bg-sun-navigation"
+    },
+    {
+        question: "Qual rocha natural foi fundamental para a invenção da bússola?",
+        answers: ["Magnetita (pedra-ímã)", "Granito", "Quartzo", "Mármore"],
+        correctIndex: 0,
+        backgroundClass: "bg-compass"
+    },
+    {
+        question: "Como os antigos usavam o gnômon para se orientar?",
+        answers: ["Marcando a sombra em diferentes momentos para encontrar Leste-Oeste", "Girando-o até apontar para o Norte", "Observando sua cor durante o dia", "Medindo sua temperatura"],
+        correctIndex: 0,
+        backgroundClass: "bg-sun-navigation"
+    },
+    {
+        question: "Por que a bússola funciona?",
+        answers: ["A Terra tem um campo magnético como um ímã gigante", "O Sol atrai metais", "As estrelas influenciam os metais", "O vento move a agulha"],
+        correctIndex: 0,
+        backgroundClass: "bg-compass"
+    },
+    {
+        question: "Qual a diferença entre polo magnético e polo geográfico?",
+        answers: ["O magnético não coincide exatamente com o geográfico", "São exatamente no mesmo lugar", "O magnético fica no espaço", "Não existe diferença"],
+        correctIndex: 0,
+        backgroundClass: "bg-earth-equator"
+    },
+    {
+        question: "Como os chineses descobriram o magnetismo da magnetita?",
+        answers: ["Observaram que ela sempre se alinhava Norte-Sul quando flutuava", "Viam que ela brilhava à noite", "Notaram que ela esquentava ao sol", "Perceberam que ela mudava de cor"],
+        correctIndex: 0,
+        backgroundClass: "bg-compass"
+    },
+    {
+        question: "Quantos satélites GPS orbitam a Terra atualmente?",
+        answers: ["24 satélites principais", "4 satélites", "100 satélites", "1 satélite"],
+        correctIndex: 0,
+        backgroundClass: "bg-gps-satellite"
+    },
+    {
+        question: "A que altitude os satélites GPS orbitam?",
+        answers: ["Aproximadamente 20.200 km", "100 km", "1.000 km", "50.000 km"],
+        correctIndex: 0,
+        backgroundClass: "bg-gps-satellite"
+    },
+    {
+        question: "O que significa 'movimento aparente do Sol'?",
+        answers: ["O Sol parece se mover devido à rotação da Terra", "O Sol realmente se move ao redor da Terra", "O Sol muda de tamanho", "O Sol para de brilhar"],
+        correctIndex: 0,
+        backgroundClass: "bg-sun-navigation"
+    },
+    {
+        question: "Como encontrar o Sul usando o Cruzeiro do Sul?",
+        answers: ["Traçar linha 4,5 vezes maior que a haste da cruz", "Observar a estrela mais fraca", "Contar todas as estrelas", "Medir a distância entre estrelas"],
+        correctIndex: 0,
+        backgroundClass: "bg-southern-cross"
+    },
+    {
+        question: "Qual civilização foi pioneira nas grandes navegações usando bússola?",
+        answers: ["Fenícios", "Astecas", "Incas", "Vikings"],
+        correctIndex: 0,
+        backgroundClass: "bg-ancient-navigation"
+    },
+    {
+        question: "O GPS calcula posição através de:",
+        answers: ["Triangulação com sinais de satélites", "Observação de estrelas", "Medição de temperatura", "Análise do vento"],
+        correctIndex: 0,
+        backgroundClass: "bg-gps-satellite"
     }
 ];
