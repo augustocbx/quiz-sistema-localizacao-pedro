@@ -31,9 +31,10 @@
         🔊
     </div>
 
-    <!-- Botão de QR Code Flutuante -->
-    <div id="qr-toggle-btn" class="settings-button qr-button" title="Compartilhar Quiz">
-        📱
+    <!-- QR Code Flutuante Pequeno -->
+    <div id="qr-toggle-btn" class="qr-floating-small" title="Clique para ampliar QR Code">
+        <div id="qrcode-small" class="qr-small-container"></div>
+        <div class="qr-small-label">Compartilhar</div>
     </div>
 
     <!-- Modal do QR Code -->
@@ -304,27 +305,41 @@
             const qrToggleBtn = document.getElementById('qr-toggle-btn');
             const qrModalClose = document.getElementById('qr-modal-close');
             const qrcodeElement = document.getElementById('qrcode');
+            const qrcodeSmallElement = document.getElementById('qrcode-small');
 
-            let qrCodeGenerated = false;
+            let qrCodeLargeGenerated = false;
+            const quizUrl = 'https://augustocbx.github.io/quiz-sistema-localizacao-pedro/';
+
+            // Gerar QR code pequeno flutuante
+            if (qrcodeSmallElement && typeof QRCode !== 'undefined') {
+                new QRCode(qrcodeSmallElement, {
+                    text: quizUrl,
+                    width: 80,
+                    height: 80,
+                    colorDark: '#1e3a8a',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
 
             // Abrir modal do QR Code
             qrToggleBtn.addEventListener('click', function() {
                 qrModal.style.display = 'flex';
 
-                // Gerar QR code apenas uma vez
-                if (!qrCodeGenerated && typeof QRCode !== 'undefined') {
+                // Gerar QR code grande apenas uma vez
+                if (!qrCodeLargeGenerated && typeof QRCode !== 'undefined') {
                     // Limpar conteúdo anterior se houver
                     qrcodeElement.innerHTML = '';
 
                     new QRCode(qrcodeElement, {
-                        text: 'https://augustocbx.github.io/quiz-sistema-localizacao-pedro/',
-                        width: 200,
-                        height: 200,
+                        text: quizUrl,
+                        width: 220,
+                        height: 220,
                         colorDark: '#1e3a8a',
                         colorLight: '#ffffff',
                         correctLevel: QRCode.CorrectLevel.H
                     });
-                    qrCodeGenerated = true;
+                    qrCodeLargeGenerated = true;
                 }
             });
 
