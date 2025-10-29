@@ -1,111 +1,155 @@
 /* Fundos temáticos para as perguntas do quiz */
 
-.bg-stars-night {
-    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%),
-                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,.05) 2px, rgba(255,255,255,.05) 4px);
+/* Base style for all backgrounds - discreto e com overlay */
+[class*="bg-"] {
+    position: relative;
+    overflow: hidden;
 }
 
-.bg-gps-satellite {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%),
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+/* Pseudo-elemento para a imagem de fundo com filtros */
+[class*="bg-"]::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.6) contrast(0.9) blur(1.5px); /* Filtros para deixar discreto */
+    -webkit-filter: brightness(0.6) contrast(0.9) blur(1.5px);
+    z-index: -2;
 }
 
-.bg-ancient-navigation {
-    background: linear-gradient(to bottom, #8B4513 0%, #D2691E 50%, #CD853F 100%),
-                repeating-linear-gradient(90deg, rgba(139,69,19,0.1) 0px, transparent 2px, transparent 4px, rgba(139,69,19,0.1) 4px);
+/* Overlay escuro adicional para melhorar legibilidade */
+[class*="bg-"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65); /* overlay escuro 65% */
+    pointer-events: none;
+    z-index: -1;
 }
 
-.bg-constellation {
-    background: radial-gradient(ellipse at top, #1e3a8a 0%, #0f172a 100%),
-                radial-gradient(circle at 30% 40%, rgba(255,215,0,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(255,215,0,0.1) 0%, transparent 50%);
+/* Garantir que o conteúdo fique acima do overlay */
+[class*="bg-"] > * {
+    position: relative;
+    z-index: 1;
 }
 
-.bg-southern-cross {
-    background: linear-gradient(180deg, #001F3F 0%, #003366 50%, #000428 100%),
-                radial-gradient(circle at 50% 30%, rgba(255,255,255,0.1) 0%, transparent 30%);
+/* Categoria 1: Estrelas e Constelações */
+.bg-stars-night::after,
+.bg-constellation::after,
+.bg-southern-cross::after,
+.bg-orion::after,
+.bg-celestial-pole::after {
+    background-image: url('../images/backgrounds/stars-constellations.jpg');
 }
 
-.bg-compass {
-    background: radial-gradient(circle at center, #8B0000 0%, #DC143C 30%, #4682B4 100%),
-                repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(255,255,255,0.1) 10deg 20deg);
+/* Categoria 2: GPS e Satélites */
+.bg-gps-satellite::after,
+.bg-satellite-systems::after,
+.bg-gps-history::after,
+.bg-solar-storm::after {
+    background-image: url('../images/backgrounds/gps-satellites.jpg');
 }
 
-.bg-sun-navigation {
-    background: radial-gradient(circle at 30% 30%, #FFD700 0%, #FFA500 20%, #FF8C00 40%, #4682B4 70%, #1e40af 100%);
+/* Categoria 3: Smartphones e Apps */
+.bg-smartphone-gps::after {
+    background-image: url('../images/backgrounds/smartphone-navigation.jpg');
 }
 
-.bg-smartphone-gps {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%),
-                repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.05) 2px);
+/* Categoria 4: Instrumentos Antigos */
+.bg-ancient-navigation::after,
+.bg-sextant::after,
+.bg-compass::after,
+.bg-compass-rose::after {
+    background-image: url('../images/backgrounds/ancient-instruments.jpg');
 }
 
-.bg-celestial-pole {
-    background: conic-gradient(from 180deg at 50% 50%, #0f172a 0deg, #1e3a8a 120deg, #3b82f6 180deg, #1e3a8a 240deg, #0f172a 360deg);
+/* Categoria 5: Sol */
+.bg-sun-navigation::after {
+    background-image: url('../images/backgrounds/sun-navigation.jpg');
 }
 
-.bg-gps-history {
-    background: linear-gradient(to right, #8B4513 0%, #4682B4 50%, #667eea 100%);
+/* Categoria 6: Lua e Marés */
+.bg-full-moon::after,
+.bg-moon-tides::after {
+    background-image: url('../images/backgrounds/moon-tides.jpg');
 }
 
-.bg-sextant {
-    background: radial-gradient(ellipse at center, #CD7F32 0%, #8B4513 50%, #2F4F4F 100%);
+/* Categoria 7: Mapas e Geografia */
+.bg-map-coordinates::after,
+.bg-earth-equator::after,
+.bg-greenwich::after {
+    background-image: url('../images/backgrounds/maps-coordinates.jpg');
 }
 
-.bg-orion {
-    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 70%),
-                radial-gradient(circle at 40% 40%, rgba(255,215,0,0.2) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(255,215,0,0.2) 0%, transparent 20%),
-                radial-gradient(circle at 60% 40%, rgba(255,215,0,0.2) 0%, transparent 20%);
+/* Categoria 8: Navegação Moderna/Aviação */
+.bg-modern-navigation::after,
+.bg-airplane-gps::after {
+    background-image: url('../images/backgrounds/modern-aviation.jpg');
 }
 
-.bg-solar-storm {
-    background: radial-gradient(ellipse at top, #FF4500 0%, #FF6347 20%, #DC143C 40%, #8B008B 70%, #000000 100%);
+/* Categoria 9: Natureza */
+.bg-forest-navigation::after {
+    background-image: url('../images/backgrounds/nature-forest.jpg');
 }
 
-.bg-earth-equator {
-    background: radial-gradient(ellipse at center, #4169E1 0%, #1E90FF 30%, #87CEEB 60%, #000080 100%);
+/* Opacidade aumentada para imagens mais escuras e discretas */
+.bg-stars-night::before,
+.bg-constellation::before,
+.bg-southern-cross::before,
+.bg-orion::before,
+.bg-celestial-pole::before {
+    background: rgba(0, 5, 15, 0.75); /* Azul escuro para céu noturno */
 }
 
-.bg-map-coordinates {
-    background: linear-gradient(135deg, #2C5F2D 0%, #97BC62 50%, #4682B4 100%),
-                repeating-linear-gradient(0deg, transparent 0%, transparent 48px, rgba(255,255,255,0.1) 48px, rgba(255,255,255,0.1) 50px),
-                repeating-linear-gradient(90deg, transparent 0%, transparent 48px, rgba(255,255,255,0.1) 48px, rgba(255,255,255,0.1) 50px);
+.bg-gps-satellite::before,
+.bg-satellite-systems::before,
+.bg-gps-history::before {
+    background: rgba(10, 10, 30, 0.75); /* Azul/roxo escuro para espaço */
 }
 
-.bg-compass-rose {
-    background: radial-gradient(circle at center, #F5DEB3 0%, #DEB887 30%, #D2691E 60%, #8B4513 100%),
-                conic-gradient(from 0deg at 50% 50%, transparent 0deg 44deg, rgba(139,69,19,0.3) 44deg 46deg, transparent 46deg 90deg, rgba(139,69,19,0.3) 90deg 92deg, transparent 92deg 180deg);
+.bg-solar-storm::before {
+    background: rgba(30, 0, 0, 0.7); /* Vermelho escuro para tempestade solar */
 }
 
-.bg-forest-navigation {
-    background: linear-gradient(to bottom, #2C5F2D 0%, #228B22 30%, #006400 70%, #013220 100%),
-                repeating-linear-gradient(90deg, transparent 0px, rgba(0,0,0,0.1) 2px, transparent 4px);
+.bg-smartphone-gps::before {
+    background: rgba(0, 0, 0, 0.75); /* Preto para destacar tela de celular */
 }
 
-.bg-full-moon {
-    background: radial-gradient(circle at center, #F5F5DC 0%, #FFFACD 20%, #4682B4 40%, #191970 70%, #000000 100%);
+.bg-ancient-navigation::before,
+.bg-sextant::before,
+.bg-compass::before,
+.bg-compass-rose::before {
+    background: rgba(25, 20, 15, 0.75); /* Marrom escuro para antiguidade */
 }
 
-.bg-greenwich {
-    background: linear-gradient(to bottom, #87CEEB 0%, #4682B4 40%, #2F4F4F 100%),
-                repeating-linear-gradient(90deg, transparent 0%, transparent 49%, rgba(255,0,0,0.3) 49%, rgba(255,0,0,0.3) 51%, transparent 51%, transparent 100%);
+.bg-sun-navigation::before {
+    background: rgba(40, 30, 0, 0.65); /* Amarelo escuro translúcido */
 }
 
-.bg-moon-tides {
-    background: linear-gradient(to bottom, #000428 0%, #004e92 30%, #1e3a8a 60%, #0ea5e9 100%);
+.bg-full-moon::before,
+.bg-moon-tides::before {
+    background: rgba(5, 10, 25, 0.75); /* Azul noturno */
 }
 
-.bg-satellite-systems {
-    background: linear-gradient(135deg, #1e3a8a 0%, #312e81 30%, #4c1d95 60%, #581c87 100%),
-                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 40%);
+.bg-map-coordinates::before,
+.bg-earth-equator::before,
+.bg-greenwich::before {
+    background: rgba(20, 20, 15, 0.75); /* Verde escuro para mapas */
 }
 
-.bg-airplane-gps {
-    background: linear-gradient(to bottom, #87CEEB 0%, #4682B4 40%, #1e40af 80%, #1e3a8a 100%);
+.bg-modern-navigation::before,
+.bg-airplane-gps::before {
+    background: rgba(10, 20, 40, 0.75); /* Azul aviação */
 }
 
-.bg-modern-navigation {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%),
-                repeating-linear-gradient(45deg, transparent 0px, rgba(255,255,255,0.05) 2px, transparent 4px);
+.bg-forest-navigation::before {
+    background: rgba(5, 20, 5, 0.75); /* Verde escuro floresta */
 }

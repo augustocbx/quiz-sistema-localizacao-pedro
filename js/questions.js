@@ -76,7 +76,7 @@ const QUESTION_BANK = [
         question: "Qual era o principal problema de navegação antes do GPS?",
         answers: ["Determinar a longitude exata", "Ver as estrelas", "Ler mapas", "Usar bússola"],
         correctIndex: 0,
-        backgroundClass: "bg-ancient-navigation"
+        backgroundClass: "bg-map-coordinates"
     },
     {
         question: "O que é um sextante?",
@@ -136,7 +136,7 @@ const QUESTION_BANK = [
         question: "Qual civilização antiga era famosa por navegar usando as estrelas?",
         answers: ["Fenícios", "Incas", "Maias", "Astecas"],
         correctIndex: 0,
-        backgroundClass: "bg-ancient-navigation"
+        backgroundClass: "bg-stars-night"
     },
     {
         question: "O que é longitude?",
