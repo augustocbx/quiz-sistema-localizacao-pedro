@@ -95,6 +95,13 @@
                 <button id="view-achievements-btn" class="btn btn-secondary">🏆 Conquistas</button>
             </div>
 
+            <!-- QR Code Section -->
+            <div class="qr-code-section">
+                <h3 class="qr-code-title">📱 Compartilhe o Quiz</h3>
+                <p class="qr-code-subtitle">Aponte a câmera do celular para o QR Code</p>
+                <div id="qrcode" class="qr-code-container"></div>
+            </div>
+
             <!-- Ranking Temporário na Tela Inicial -->
             <div class="ranking-section home-ranking">
                 <h2 class="ranking-title">Ranking Temporário</h2>
@@ -267,6 +274,9 @@
     </div>
 
     <!-- Scripts -->
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <script src="js/sound-manager.js"></script>
     <script src="js/achievements.js"></script>
     <script src="js/visual-effects.js"></script>
@@ -277,6 +287,24 @@
     <script src="js/animations.js"></script>
     <script src="js/names.js"></script>
     <script src="js/script.js"></script>
+
+    <!-- QR Code Generator -->
+    <script>
+        // Gera QR Code na tela inicial
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrcodeElement = document.getElementById('qrcode');
+            if (qrcodeElement && typeof QRCode !== 'undefined') {
+                new QRCode(qrcodeElement, {
+                    text: 'https://augustocbx.github.io/quiz-sistema-localizacao-pedro/',
+                    width: 180,
+                    height: 180,
+                    colorDark: '#1e3a8a',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+        });
+    </script>
 
     <!-- Service Worker para PWA com Auto-Atualização -->
     <script>
