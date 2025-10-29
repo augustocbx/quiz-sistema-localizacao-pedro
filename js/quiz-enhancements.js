@@ -35,9 +35,27 @@ function initializePowerUps() {
         skip: skipBtn ? 'SIM' : 'NÃO'
     });
 
-    if (fiftyFiftyBtn) fiftyFiftyBtn.addEventListener('click', () => usePowerUp('fiftyFifty'));
-    if (hintBtn) hintBtn.addEventListener('click', () => usePowerUp('hint'));
-    if (skipBtn) skipBtn.addEventListener('click', () => usePowerUp('skip'));
+    if (fiftyFiftyBtn) {
+        fiftyFiftyBtn.addEventListener('click', () => {
+            console.log('[Click] 50:50 clicado!');
+            usePowerUp('fiftyFifty');
+        });
+        console.log('[Init] 50:50 após event listener - disabled:', fiftyFiftyBtn.disabled, 'style:', fiftyFiftyBtn.style.background);
+    }
+    if (hintBtn) {
+        hintBtn.addEventListener('click', () => {
+            console.log('[Click] Dica clicado!');
+            usePowerUp('hint');
+        });
+        console.log('[Init] Dica após event listener - disabled:', hintBtn.disabled, 'style:', hintBtn.style.background);
+    }
+    if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+            console.log('[Click] Pular clicado!');
+            usePowerUp('skip');
+        });
+        console.log('[Init] Pular após event listener - disabled:', skipBtn.disabled, 'style:', skipBtn.style.background);
+    }
 
     // Aguardar um momento antes de atualizar UI (garante DOM pronto)
     console.log('[Init] Agendando updateUI...');
@@ -49,9 +67,15 @@ function initializePowerUps() {
 
 // Usar power-up
 function usePowerUp(powerUpId) {
+    console.log(`[UsePowerUp] Tentando usar ${powerUpId}`);
+    console.log(`[UsePowerUp] Disponível?`, powerUpSystem.isAvailable(powerUpId));
+
     if (!powerUpSystem.isAvailable(powerUpId)) {
+        console.log(`[UsePowerUp] ${powerUpId} NÃO DISPONÍVEL! Abortando.`);
         return;
     }
+
+    console.log(`[UsePowerUp] ${powerUpId} disponível, aplicando...`);
 
     const question = selectedQuestions[currentQuestionIndex];
 

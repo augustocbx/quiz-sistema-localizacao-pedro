@@ -143,11 +143,20 @@ class PowerUpSystem {
             button.id = `powerup-${powerUp.id}`;
             button.title = powerUp.description;
             button.disabled = false; // Iniciar como habilitado
+
+            // Aplicar estilos inline imediatamente
+            button.style.background = 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)';
+            button.style.border = '3px solid #fbbf24';
+            button.style.cursor = 'pointer';
+            button.style.opacity = '1';
+
             button.innerHTML = `
                 <div class="powerup-icon">${powerUp.icon}</div>
                 <div class="powerup-name">${powerUp.name}</div>
                 <div class="powerup-count">${this.getRemaining(powerUp.id)}</div>
             `;
+
+            console.log(`[CreateUI] Criando botão ${powerUp.id} - disabled=${button.disabled}`);
 
             // Event listener será adicionado no quiz-enhancements.js
             container.appendChild(button);
