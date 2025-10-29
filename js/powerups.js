@@ -31,9 +31,15 @@ class PowerUpSystem {
     }
 
     reset() {
+        console.log('[PowerUps] RESET chamado');
         this.powerUps.fiftyFifty.used = 0;
         this.powerUps.hint.used = 0;
         this.powerUps.skip.used = 0;
+        console.log('[PowerUps] Estado após reset:', {
+            fiftyFifty: `used=${this.powerUps.fiftyFifty.used}, available=${this.powerUps.fiftyFifty.available}`,
+            hint: `used=${this.powerUps.hint.used}, available=${this.powerUps.hint.available}`,
+            skip: `used=${this.powerUps.skip.used}, available=${this.powerUps.skip.available}`
+        });
     }
 
     isAvailable(powerUpId) {
@@ -151,18 +157,25 @@ class PowerUpSystem {
     }
 
     updateUI() {
+        console.log('[PowerUps] updateUI chamado');
         Object.values(this.powerUps).forEach(powerUp => {
             const button = document.getElementById(`powerup-${powerUp.id}`);
+            console.log(`[PowerUps] Botão ${powerUp.id}:`, button ? 'ENCONTRADO' : 'NÃO ENCONTRADO');
+
             if (button) {
                 const countElement = button.querySelector('.powerup-count');
                 const remaining = this.getRemaining(powerUp.id);
 
+                console.log(`[PowerUps] ${powerUp.id} - remaining=${remaining}, used=${powerUp.used}, available=${powerUp.available}`);
+
                 countElement.textContent = remaining;
 
                 if (remaining === 0) {
+                    console.log(`[PowerUps] ${powerUp.id} - DESABILITANDO (remaining=0)`);
                     button.classList.add('powerup-used');
                     button.disabled = true;
                 } else {
+                    console.log(`[PowerUps] ${powerUp.id} - HABILITANDO (remaining=${remaining})`);
                     button.classList.remove('powerup-used');
                     button.disabled = false;
                 }

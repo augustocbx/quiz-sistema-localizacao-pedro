@@ -9,6 +9,7 @@ function displayAvatarSelection() {
 
 // Inicializar Power-Ups no quiz
 function initializePowerUps() {
+    console.log('[Init] initializePowerUps INÍCIO');
     powerUpSystem.reset();
     removedAnswerIndices = [];
 
@@ -18,6 +19,7 @@ function initializePowerUps() {
         return;
     }
 
+    console.log('[Init] Criando UI dos power-ups...');
     wrapper.innerHTML = '';
     const powerUpsUI = powerUpSystem.createPowerUpUI();
     wrapper.appendChild(powerUpsUI);
@@ -27,12 +29,20 @@ function initializePowerUps() {
     const hintBtn = document.getElementById('powerup-hint');
     const skipBtn = document.getElementById('powerup-skip');
 
+    console.log('[Init] Botões encontrados:', {
+        fiftyFifty: fiftyFiftyBtn ? 'SIM' : 'NÃO',
+        hint: hintBtn ? 'SIM' : 'NÃO',
+        skip: skipBtn ? 'SIM' : 'NÃO'
+    });
+
     if (fiftyFiftyBtn) fiftyFiftyBtn.addEventListener('click', () => usePowerUp('fiftyFifty'));
     if (hintBtn) hintBtn.addEventListener('click', () => usePowerUp('hint'));
     if (skipBtn) skipBtn.addEventListener('click', () => usePowerUp('skip'));
 
     // Aguardar um momento antes de atualizar UI (garante DOM pronto)
+    console.log('[Init] Agendando updateUI...');
     setTimeout(() => {
+        console.log('[Init] Executando updateUI agora...');
         powerUpSystem.updateUI();
     }, 50);
 }
