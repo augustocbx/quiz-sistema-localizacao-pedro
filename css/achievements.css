@@ -728,6 +728,38 @@
     font-weight: 500;
 }
 
+/* Badge desbloqueado (primeiro a conseguir) */
+.player-modal-badge.first-unlock {
+    position: relative;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 191, 36, 0.05) 100%);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.3), inset 0 0 20px rgba(251, 191, 36, 0.1);
+}
+
+.player-modal-badge.first-unlock:hover {
+    box-shadow: 0 5px 25px rgba(251, 191, 36, 0.5), inset 0 0 25px rgba(251, 191, 36, 0.2);
+}
+
+.first-unlock-indicator {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 1.5rem;
+    animation: pulseGlow 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+    }
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(251, 191, 36, 1));
+    }
+}
+
 .player-modal-no-badges {
     text-align: center;
     color: #64748b;

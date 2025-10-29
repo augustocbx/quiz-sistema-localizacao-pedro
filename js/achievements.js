@@ -243,6 +243,24 @@ class AchievementSystem {
         };
     }
 
+    // Retorna as conquistas ADQUIRIDAS por um jogador com base nas estatísticas da rodada
+    getAcquiredAchievements(currentStats) {
+        const acquired = [];
+
+        this.achievements.forEach(achievement => {
+            if (achievement.condition(currentStats)) {
+                acquired.push({
+                    id: achievement.id,
+                    name: achievement.name,
+                    icon: achievement.icon,
+                    description: achievement.description
+                });
+            }
+        });
+
+        return acquired;
+    }
+
     showAchievementPopup(achievement) {
         // Criar popup de conquista
         const popup = document.createElement('div');

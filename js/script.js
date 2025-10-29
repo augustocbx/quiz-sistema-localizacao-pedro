@@ -474,13 +474,34 @@ function saveScore() {
     const endTime = Date.now();
     const totalTime = ((endTime - startTime) / 1000).toFixed(1);
 
+    // Calcular conquistas ADQUIRIDAS pelo jogador nesta rodada
+    const currentStats = {
+        currentScore: correctAnswers,
+        maxCombo: maxCombo,
+        currentCombo: currentCombo,
+        compassCorrect: categoryStats.compass.correct,
+        compassTotal: categoryStats.compass.total,
+        gpsCorrect: categoryStats.gps.correct,
+        gpsTotal: categoryStats.gps.total,
+        starsCorrect: categoryStats.stars.correct,
+        starsTotal: categoryStats.stars.total,
+        quizCompleted: true,
+        quizzesCompleted: achievementSystem.stats.quizzesCompleted + 1,
+        totalTime: parseFloat(totalTime),
+        powerUpsUsed: powerUpsUsed,
+        allPowerUpsUsed: powerUpsUsedTypes.size === 3,
+        lastSecondAnswer: lastSecondAnswer
+    };
+
+    const acquiredAchievements = achievementSystem ? achievementSystem.getAcquiredAchievements(currentStats) : [];
+
     const scoreData = {
         name: playerName,
         avatar: avatarSystem ? avatarSystem.getAvatarEmoji() : null,
         score: correctAnswers,
         time: parseFloat(totalTime),
         timestamp: Date.now(),
-        achievements: achievementSystem ? achievementSystem.getUnlockedAchievements() : []
+        achievements: acquiredAchievements
     };
 
     // Salvar nos rankings
@@ -790,15 +811,29 @@ function showPlayerDetails(playerData, position) {
         playerData.achievements.forEach(achievement => {
             const badge = document.createElement('div');
             badge.className = 'player-modal-badge';
-            badge.title = achievement.name;
+
+            // Verificar se este jogador foi quem desbloqueou (primeiro a conseguir)
+            const achievementDetails = achievementSystem.getAchievementDetails(achievement.id);
+            const wasUnlocker = achievementDetails &&
+                               achievementDetails.playerName === playerData.name &&
+                               achievementDetails.playerAvatar === playerData.avatar;
+
+            if (wasUnlocker) {
+                badge.classList.add('first-unlock');
+                badge.title = `${achievement.name} - ⭐ Primeiro a desbloquear!`;
+            } else {
+                badge.title = achievement.name;
+            }
+
             badge.innerHTML = `
                 <div class="player-modal-badge-icon">${achievement.icon}</div>
                 <div class="player-modal-badge-name">${achievement.name}</div>
+                ${wasUnlocker ? '<div class="first-unlock-indicator">⭐</div>' : ''}
             `;
             badgesContainer.appendChild(badge);
         });
     } else {
-        badgesContainer.innerHTML = '<div class="player-modal-no-badges">Nenhuma conquista desbloqueada</div>';
+        badgesContainer.innerHTML = '<div class="player-modal-no-badges">Nenhuma conquista adquirida</div>';
     }
 
     // Mostrar modal
