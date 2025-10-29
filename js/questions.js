@@ -313,8 +313,8 @@ const QUESTION_BANK = [
         backgroundClass: "bg-smartphone-gps"
     },
     {
-        question: "Qual é a vantagem de usar vários sistemas de satélites (GPS, GLONASS, Galileo) ao mesmo tempo no celular?",
-        answers: ["A localização fica mais precisa e confiável", "O celular fica mais rápido", "Gasta menos bateria", "A tela fica maior"],
+        question: "Qual região desenvolveu o sistema de navegação por satélite Galileo?",
+        answers: ["União Europeia", "Estados Unidos", "Japão", "Austrália"],
         correctIndex: 0,
         backgroundClass: "bg-satellite-systems",
         difficulty: "veryHard"
