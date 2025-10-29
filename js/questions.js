@@ -1,11 +1,5 @@
-// Banco de 100 perguntas sobre orientação e navegação
+// Banco de perguntas sobre orientação e navegação
 const QUESTION_BANK = [
-    {
-        question: "Qual é a estrela que sempre indica o Norte no céu noturno?",
-        answers: ["Estrela Polar", "Sirius", "Vega", "Betelgeuse"],
-        correctIndex: 0,
-        backgroundClass: "bg-stars-night"
-    },
     {
         question: "O que significa GPS?",
         answers: ["Sistema de Posicionamento Global", "Guia de Pontos no Solo", "Grande Plano de Satélites", "Geografia por Satélite"],
@@ -17,13 +11,6 @@ const QUESTION_BANK = [
         answers: ["Leste", "Oeste", "Norte", "Sul"],
         correctIndex: 0,
         backgroundClass: "bg-sun-navigation"
-    },
-    {
-        question: "Em qual constelação está a Estrela Polar?",
-        answers: ["Ursa Menor", "Ursa Maior", "Cruzeiro do Sul", "Órion"],
-        correctIndex: 0,
-        backgroundClass: "bg-constellation",
-        difficulty: "hard"
     },
     {
         question: "Quantos satélites são necessários para o GPS determinar sua posição?",
@@ -310,12 +297,6 @@ const QUESTION_BANK = [
         backgroundClass: "bg-forest-navigation"
     },
     {
-        question: "Por que a Estrela Polar é tão importante para navegação no hemisfério norte?",
-        answers: ["Ela fica praticamente parada no céu, sempre indicando o Norte", "Ela é a estrela mais brilhante", "Ela muda de cor", "Ela só aparece no verão"],
-        correctIndex: 0,
-        backgroundClass: "bg-stars-night"
-    },
-    {
         question: "O que o seu celular recebe do espaço para saber onde você está?",
         answers: ["Sinais de satélites GPS", "Luz das estrelas", "Ondas de rádio FM", "Mensagens de outros celulares"],
         correctIndex: 0,
@@ -559,13 +540,6 @@ const QUESTION_BANK = [
         correctIndex: 0,
         backgroundClass: "bg-moon-phases",
         difficulty: "hard"
-    },
-    {
-        question: "Como os povos antigos do hemisfério norte encontravam a Estrela Polar?",
-        answers: ["Usando as estrelas da Ursa Maior como guia", "Procurando a estrela mais brilhante", "Seguindo a Lua", "Usando bússola"],
-        correctIndex: 0,
-        backgroundClass: "bg-stars-night",
-        difficulty: "veryHard"
     },
     {
         question: "Qual é a limitação de usar apenas o Sol para se orientar?",
