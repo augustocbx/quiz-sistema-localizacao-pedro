@@ -139,6 +139,12 @@ function startQuiz() {
     // Tocar som de início
     if (soundManager) soundManager.playStart();
 
+    // Mostrar avatar do jogador no header
+    const avatarDisplay = document.querySelector('#player-avatar-display .player-avatar-icon');
+    if (avatarDisplay && avatarSystem) {
+        avatarDisplay.textContent = avatarSystem.getAvatarEmoji();
+    }
+
     // Inicializar power-ups
     if (powerUpSystem) initializePowerUps();
 

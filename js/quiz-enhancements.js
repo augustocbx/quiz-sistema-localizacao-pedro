@@ -64,6 +64,9 @@ function usePowerUp(powerUpId) {
     } else if (powerUpId === 'swapQuestion') {
         const result = powerUpSystem.applySwapQuestion();
         if (result) {
+            // Parar o timer imediatamente para evitar timeout durante a troca
+            stopTimer();
+
             powerUpSystem.showPowerUpEffect(powerUpId, result.message);
             powerUpSystem.updateUI();
 

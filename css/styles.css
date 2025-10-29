@@ -660,6 +660,13 @@ body::before {
     .quiz-header {
         flex-direction: column;
         text-align: center;
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .player-avatar-display {
+        order: -1;
+        margin-bottom: 10px;
     }
 
     .animation-element {
@@ -788,6 +795,28 @@ body::before {
     .quiz-header {
         padding: 25px 40px;
         gap: 30px;
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        align-items: center;
+    }
+
+    .player-avatar-display {
+        grid-column: 1;
+    }
+
+    .score-display {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+    .question-number {
+        grid-column: 3;
+        justify-self: center;
+    }
+
+    #quit-btn {
+        grid-column: 4;
+        justify-self: end;
     }
 
     .score-display, .question-number {

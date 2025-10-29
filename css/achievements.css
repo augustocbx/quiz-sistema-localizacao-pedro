@@ -320,13 +320,56 @@
     z-index: 9000;
 }
 
-.settings-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(90deg);
+/* Desktop - apenas hover suave */
+@media (hover: hover) and (pointer: fine) {
+    .settings-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+}
+
+/* Tablet/Touch - animação no active */
+.settings-button:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
 }
 
 .settings-button.sound-off {
     opacity: 0.5;
+}
+
+/* ========================================
+   AVATAR DO JOGADOR NO QUIZ HEADER
+   ======================================== */
+.player-avatar-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-avatar-icon {
+    font-size: 3rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(59, 130, 246, 0.3);
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    animation: avatar-pulse 2s ease-in-out infinite;
+}
+
+@keyframes avatar-pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(251, 191, 36, 0.8);
+        transform: scale(1.05);
+    }
 }
 
 /* ========================================
@@ -416,6 +459,13 @@
         font-size: 20px;
         top: 15px;
         right: 15px;
+    }
+
+    .player-avatar-icon {
+        font-size: 2rem;
+        width: 45px;
+        height: 45px;
+        border-width: 2px;
     }
 }
 
@@ -869,5 +919,13 @@
         font-size: 28px;
         top: 30px;
         right: 30px;
+    }
+
+    /* === AVATAR DO JOGADOR NO HEADER === */
+    .player-avatar-icon {
+        font-size: 3.5rem;
+        width: 70px;
+        height: 70px;
+        border-width: 4px;
     }
 }
