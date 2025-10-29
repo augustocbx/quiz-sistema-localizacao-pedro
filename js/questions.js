@@ -226,12 +226,6 @@ const QUESTION_BANK = [
         backgroundClass: "bg-sun-navigation"
     },
     {
-        question: "Os navegadores antigos usavam um instrumento chamado 'ampulheta' durante as viagens. Para que servia?",
-        answers: ["Para medir o tempo durante a viagem", "Para ver as estrelas", "Para medir a temperatura", "Para guardar água"],
-        correctIndex: 0,
-        backgroundClass: "bg-ancient-navigation"
-    },
-    {
         question: "Qual destes instrumentos antigos era usado para desenhar mapas dos lugares descobertos?",
         answers: ["Compasso (de desenho)", "Microscópio", "Termômetro", "Calculadora"],
         correctIndex: 0,
@@ -292,12 +286,6 @@ const QUESTION_BANK = [
         answers: ["O campo magnético da Terra", "A luz do Sol", "O vento", "A chuva"],
         correctIndex: 0,
         backgroundClass: "bg-smartphone-gps"
-    },
-    {
-        question: "Por que é difícil usar o GPS dentro de shoppings e túneis?",
-        answers: ["Os sinais dos satélites não passam bem pelas paredes e teto", "O GPS desliga sozinho", "É proibido usar GPS nesses lugares", "Os satélites estão muito longe"],
-        correctIndex: 0,
-        backgroundClass: "bg-modern-navigation"
     },
     {
         question: "No modo avião, o que ainda funciona no seu celular?",
@@ -404,12 +392,6 @@ const QUESTION_BANK = [
         correctIndex: 0,
         backgroundClass: "bg-sun-navigation",
         difficulty: "hard"
-    },
-    {
-        question: "Por que os povos antigos observavam o nascimento e pôr do Sol com atenção?",
-        answers: ["Para se orientar e marcar o tempo ao longo do ano", "Para ver se o Sol mudava de cor", "Para contar quantos Sóis existiam", "Para saber se ia chover"],
-        correctIndex: 0,
-        backgroundClass: "bg-ancient-navigation"
     },
     {
         question: "O que acontece com a posição onde o Sol nasce ao longo do ano?",
@@ -584,13 +566,6 @@ const QUESTION_BANK = [
     {
         question: "Qual rocha natural tem propriedades magnéticas e atrai ferro?",
         answers: ["Magnetita", "Granito", "Mármore", "Quartzo"],
-        correctIndex: 0,
-        backgroundClass: "bg-compass",
-        difficulty: "hard"
-    },
-    {
-        question: "Como a Terra funciona em relação ao magnetismo?",
-        answers: ["Como um grande ímã gigante", "Como uma bateria", "Como um espelho", "Como uma lanterna"],
         correctIndex: 0,
         backgroundClass: "bg-compass",
         difficulty: "hard"
