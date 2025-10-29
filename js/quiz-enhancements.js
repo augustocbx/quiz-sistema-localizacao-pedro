@@ -9,20 +9,36 @@ function displayAvatarSelection() {
 
 // Inicializar Power-Ups no quiz
 function initializePowerUps() {
+    console.log('[PowerUps] Inicializando...');
     powerUpSystem.reset();
     removedAnswerIndices = [];
 
     const wrapper = document.getElementById('powerups-wrapper');
+    if (!wrapper) {
+        console.error('[PowerUps] Wrapper não encontrado!');
+        return;
+    }
+
     wrapper.innerHTML = '';
     const powerUpsUI = powerUpSystem.createPowerUpUI();
     wrapper.appendChild(powerUpsUI);
 
     // Event listeners para power-ups
-    document.getElementById('powerup-fiftyFifty').addEventListener('click', () => usePowerUp('fiftyFifty'));
-    document.getElementById('powerup-hint').addEventListener('click', () => usePowerUp('hint'));
-    document.getElementById('powerup-skip').addEventListener('click', () => usePowerUp('skip'));
+    const fiftyFiftyBtn = document.getElementById('powerup-fiftyFifty');
+    const hintBtn = document.getElementById('powerup-hint');
+    const skipBtn = document.getElementById('powerup-skip');
 
-    powerUpSystem.updateUI();
+    if (fiftyFiftyBtn) fiftyFiftyBtn.addEventListener('click', () => usePowerUp('fiftyFifty'));
+    if (hintBtn) hintBtn.addEventListener('click', () => usePowerUp('hint'));
+    if (skipBtn) skipBtn.addEventListener('click', () => usePowerUp('skip'));
+
+    console.log('[PowerUps] Botões criados:', { fiftyFiftyBtn, hintBtn, skipBtn });
+
+    // Aguardar um momento antes de atualizar UI
+    setTimeout(() => {
+        powerUpSystem.updateUI();
+        console.log('[PowerUps] UI atualizada');
+    }, 100);
 }
 
 // Usar power-up

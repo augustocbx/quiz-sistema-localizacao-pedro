@@ -136,13 +136,14 @@ class PowerUpSystem {
             button.className = 'powerup-btn';
             button.id = `powerup-${powerUp.id}`;
             button.title = powerUp.description;
+            button.disabled = false; // Iniciar como habilitado
             button.innerHTML = `
                 <div class="powerup-icon">${powerUp.icon}</div>
                 <div class="powerup-name">${powerUp.name}</div>
                 <div class="powerup-count">${this.getRemaining(powerUp.id)}</div>
             `;
 
-            // Event listener será adicionado no script.js
+            // Event listener será adicionado no quiz-enhancements.js
             container.appendChild(button);
         });
 
@@ -150,6 +151,7 @@ class PowerUpSystem {
     }
 
     updateUI() {
+        console.log('[PowerUps] Atualizando UI...');
         Object.values(this.powerUps).forEach(powerUp => {
             const button = document.getElementById(`powerup-${powerUp.id}`);
             if (button) {
@@ -158,13 +160,19 @@ class PowerUpSystem {
 
                 countElement.textContent = remaining;
 
+                console.log(`[PowerUps] ${powerUp.name}: remaining=${remaining}, used=${powerUp.used}, available=${powerUp.available}`);
+
                 if (remaining === 0) {
                     button.classList.add('powerup-used');
                     button.disabled = true;
+                    console.log(`[PowerUps] ${powerUp.name} DESABILITADO`);
                 } else {
                     button.classList.remove('powerup-used');
                     button.disabled = false;
+                    console.log(`[PowerUps] ${powerUp.name} HABILITADO`);
                 }
+            } else {
+                console.error(`[PowerUps] Botão ${powerUp.id} não encontrado no DOM!`);
             }
         });
     }
