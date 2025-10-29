@@ -205,12 +205,6 @@ const QUESTION_BANK = [
         difficulty: "hard"
     },
     {
-        question: "Qual instrumento moderno substituiu o sextante nos navios?",
-        answers: ["GPS e sistemas eletrônicos", "Bússola digital", "Telescópio", "Radar"],
-        correctIndex: 0,
-        backgroundClass: "bg-modern-navigation"
-    },
-    {
         question: "O que causa as marés que os navegadores precisam conhecer?",
         answers: ["Atração gravitacional da Lua", "Vento forte", "Temperatura da água", "Rotação da Terra"],
         correctIndex: 0,

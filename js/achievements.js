@@ -114,6 +114,27 @@ class AchievementSystem {
                 description: 'Use todos os 3 power-ups em um único quiz',
                 icon: '🎪',
                 condition: (stats) => stats.quizCompleted && stats.allPowerUpsUsed === true
+            },
+            {
+                id: 'medium_master',
+                name: 'Domínio das Médias',
+                description: 'Acerte todas as 3 perguntas médias',
+                icon: '📚',
+                condition: (stats) => stats.mediumCorrect === 3
+            },
+            {
+                id: 'hard_conqueror',
+                name: 'Desafio Difícil',
+                description: 'Acerte a pergunta difícil',
+                icon: '💪',
+                condition: (stats) => stats.hardCorrect === true
+            },
+            {
+                id: 'very_hard_champion',
+                name: 'Campeão Supremo',
+                description: 'Acerte a pergunta muito difícil',
+                icon: '👑',
+                condition: (stats) => stats.veryHardCorrect === true
             }
         ];
 

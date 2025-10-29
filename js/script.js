@@ -23,6 +23,11 @@ let powerUpsUsed = 0;
 let powerUpsUsedTypes = new Set();
 let lastSecondAnswer = false;
 
+// Rastreamento de acertos por dificuldade
+let mediumCorrect = 0;
+let hardCorrect = false;
+let veryHardCorrect = false;
+
 // Elementos do DOM
 const screens = {
     start: document.getElementById('start-screen'),
@@ -186,6 +191,11 @@ function startQuiz() {
     powerUpsUsedTypes = new Set();
     lastSecondAnswer = false;
 
+    // Reset de rastreamento de dificuldade
+    mediumCorrect = 0;
+    hardCorrect = false;
+    veryHardCorrect = false;
+
     // Tocar som de início
     if (soundManager) soundManager.playStart();
 
@@ -338,6 +348,18 @@ function selectAnswer(selectedIndex) {
             maxCombo = currentCombo;
         }
 
+        // Rastrear acertos por dificuldade (baseado na posição)
+        if (currentQuestionIndex >= 5 && currentQuestionIndex <= 7) {
+            // Posições 6-8 (índices 5-7): Médias
+            mediumCorrect++;
+        } else if (currentQuestionIndex === 8) {
+            // Posição 9 (índice 8): Difícil
+            hardCorrect = true;
+        } else if (currentQuestionIndex === 9) {
+            // Posição 10 (índice 9): Muito Difícil
+            veryHardCorrect = true;
+        }
+
         document.getElementById('correct-count').textContent = correctAnswers;
 
         // Sons e efeitos de acerto
@@ -439,7 +461,10 @@ function finishQuiz() {
         quizzesCompleted: achievementSystem.stats.quizzesCompleted + 1,
         powerUpsUsed: powerUpsUsed,
         allPowerUpsUsed: powerUpsUsedTypes.size === 3,
-        lastSecondAnswer: lastSecondAnswer
+        lastSecondAnswer: lastSecondAnswer,
+        mediumCorrect: mediumCorrect,
+        hardCorrect: hardCorrect,
+        veryHardCorrect: veryHardCorrect
     };
 
     // Atualizar estatísticas de conquistas
@@ -681,7 +706,10 @@ function checkQuizAchievements() {
         quizzesCompleted: achievementSystem.stats.quizzesCompleted,
         powerUpsUsed: powerUpsUsed,
         allPowerUpsUsed: powerUpsUsedTypes.size === 3,
-        lastSecondAnswer: lastSecondAnswer
+        lastSecondAnswer: lastSecondAnswer,
+        mediumCorrect: mediumCorrect,
+        hardCorrect: hardCorrect,
+        veryHardCorrect: veryHardCorrect
     };
 
     const newAchievements = achievementSystem.checkAchievements(currentStats);
