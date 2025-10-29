@@ -83,9 +83,37 @@ class AchievementSystem {
             {
                 id: 'flawless_fast',
                 name: 'Flash Perfeito',
-                description: '15/15 em menos de 90 segundos',
+                description: '15/15 em menos de 100 segundos',
                 icon: '⚡💎',
-                condition: (stats) => stats.currentScore === 15 && stats.totalTime < 90 && stats.quizCompleted
+                condition: (stats) => stats.currentScore === 15 && stats.totalTime < 100 && stats.quizCompleted
+            },
+            {
+                id: 'strategist',
+                name: 'Estrategista',
+                description: 'Complete um quiz sem usar nenhum power-up',
+                icon: '🎮',
+                condition: (stats) => stats.quizCompleted && stats.powerUpsUsed === 0
+            },
+            {
+                id: 'clutch',
+                name: 'Contra o Relógio',
+                description: 'Acerte uma pergunta com menos de 1 segundo',
+                icon: '⏱️',
+                condition: (stats) => stats.lastSecondAnswer === true
+            },
+            {
+                id: 'resilient',
+                name: 'Resiliente',
+                description: 'Erre 3 ou mais perguntas mas complete com 10+ acertos',
+                icon: '🌊',
+                condition: (stats) => stats.currentScore >= 10 && (15 - stats.currentScore) >= 3 && stats.quizCompleted
+            },
+            {
+                id: 'power_master',
+                name: 'Mestre das Ajudas',
+                description: 'Use todos os 3 power-ups em um único quiz',
+                icon: '🎪',
+                condition: (stats) => stats.quizCompleted && stats.allPowerUpsUsed === true
             }
         ];
 

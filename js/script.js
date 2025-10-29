@@ -19,6 +19,9 @@ const TIME_PER_QUESTION = 15; // segundos
 
 // Power-ups
 let removedAnswerIndices = [];
+let powerUpsUsed = 0;
+let powerUpsUsedTypes = new Set();
+let lastSecondAnswer = false;
 
 // Elementos do DOM
 const screens = {
@@ -159,6 +162,11 @@ function startQuiz() {
         stars: { correct: 0, total: 0 }
     };
 
+    // Reset de estatísticas para conquistas
+    powerUpsUsed = 0;
+    powerUpsUsedTypes = new Set();
+    lastSecondAnswer = false;
+
     // Tocar som de início
     if (soundManager) soundManager.playStart();
 
@@ -254,6 +262,11 @@ function displayQuestion() {
 function selectAnswer(selectedIndex) {
     const question = selectedQuestions[currentQuestionIndex];
     const isCorrect = selectedIndex === question.shuffledCorrectIndex;
+
+    // Verificar se acertou com menos de 1 segundo para conquista "Contra o Relógio"
+    if (isCorrect && timeRemaining < 1) {
+        lastSecondAnswer = true;
+    }
 
     // Parar timer
     stopTimer();
@@ -378,7 +391,10 @@ function finishQuiz() {
         starsTotal: categoryStats.stars.total,
         quizCompleted: true,
         totalTime: parseFloat(totalTime),
-        quizzesCompleted: achievementSystem.stats.quizzesCompleted + 1
+        quizzesCompleted: achievementSystem.stats.quizzesCompleted + 1,
+        powerUpsUsed: powerUpsUsed,
+        allPowerUpsUsed: powerUpsUsedTypes.size === 3,
+        lastSecondAnswer: lastSecondAnswer
     };
 
     // Atualizar estatísticas de conquistas
@@ -591,7 +607,10 @@ function checkQuizAchievements() {
         starsCorrect: categoryStats.stars.correct,
         starsTotal: categoryStats.stars.total,
         quizCompleted: false,
-        quizzesCompleted: achievementSystem.stats.quizzesCompleted
+        quizzesCompleted: achievementSystem.stats.quizzesCompleted,
+        powerUpsUsed: powerUpsUsed,
+        allPowerUpsUsed: powerUpsUsedTypes.size === 3,
+        lastSecondAnswer: lastSecondAnswer
     };
 
     const newAchievements = achievementSystem.checkAchievements(currentStats);

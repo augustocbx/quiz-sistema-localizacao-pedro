@@ -47,6 +47,10 @@ function usePowerUp(powerUpId) {
     if (powerUpId === 'fiftyFifty') {
         const result = powerUpSystem.applyFiftyFifty(question);
         if (result) {
+            // Incrementar contadores para conquistas
+            powerUpsUsed++;
+            powerUpsUsedTypes.add('fiftyFifty');
+
             removedAnswerIndices = result.removedIndices;
 
             // Esconder botões
@@ -64,6 +68,10 @@ function usePowerUp(powerUpId) {
     } else if (powerUpId === 'swapQuestion') {
         const result = powerUpSystem.applySwapQuestion();
         if (result) {
+            // Incrementar contadores para conquistas
+            powerUpsUsed++;
+            powerUpsUsedTypes.add('swapQuestion');
+
             // Parar o timer imediatamente para evitar timeout durante a troca
             stopTimer();
 
@@ -107,6 +115,10 @@ function usePowerUp(powerUpId) {
     } else if (powerUpId === 'doubleTime') {
         const result = powerUpSystem.applyDoubleTime();
         if (result) {
+            // Incrementar contadores para conquistas
+            powerUpsUsed++;
+            powerUpsUsedTypes.add('doubleTime');
+
             // Restaurar o tempo para 15 segundos
             timeRemaining = TIME_PER_QUESTION;
 

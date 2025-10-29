@@ -163,7 +163,7 @@ const QUESTION_BANK = [
         backgroundClass: "bg-gps-satellite"
     },
     {
-        question: "Como os povos indígenas brasileiros se orientavam nas florestas?",
+        question: "Como os povos originários brasileiros se orientavam nas florestas?",
         answers: ["Observando o Sol, árvores e rios", "Usando bússolas", "Com GPS", "Com mapas de papel"],
         correctIndex: 0,
         backgroundClass: "bg-forest-navigation"
