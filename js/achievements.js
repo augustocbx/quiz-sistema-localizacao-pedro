@@ -4,7 +4,7 @@ class AchievementSystem {
     constructor() {
         // Badges organizados por ordem crescente de dificuldade
         this.achievements = [
-            // MUITO FÁCIL - Garantidos para iniciantes
+            // MUITO FÁCIL - Garantidos no primeiro quiz
             {
                 id: 'first_star',
                 name: 'Primeira Estrela',
@@ -19,15 +19,15 @@ class AchievementSystem {
                 icon: '🎈',
                 condition: (stats) => stats.currentScore >= 5
             },
+            {
+                id: 'power_master',
+                name: 'Mestre das Ajudas',
+                description: 'Use todos os 3 power-ups em um único quiz',
+                icon: '🎪',
+                condition: (stats) => stats.quizCompleted && stats.allPowerUpsUsed === true
+            },
 
             // FÁCIL - Acontecem naturalmente
-            {
-                id: 'clutch',
-                name: 'Contra o Relógio',
-                description: 'Acerte uma pergunta com menos de 1 segundo',
-                icon: '⏱️',
-                condition: (stats) => stats.lastSecondAnswer === true
-            },
             {
                 id: 'explorer',
                 name: 'Explorador',
@@ -43,20 +43,13 @@ class AchievementSystem {
                 condition: (stats) => stats.maxCombo >= 5
             },
 
-            // MÉDIO - Requer atenção e esforço
+            // MÉDIO - Requer atenção e conhecimento
             {
                 id: 'navigator',
                 name: 'Navegador Expert',
                 description: 'Acerte 9 ou mais perguntas',
                 icon: '🎯',
                 condition: (stats) => stats.currentScore >= 9
-            },
-            {
-                id: 'resilient',
-                name: 'Resiliente',
-                description: 'Erre 3 ou mais perguntas mas complete com 7+ acertos',
-                icon: '🌊',
-                condition: (stats) => stats.currentScore >= 7 && (10 - stats.currentScore) >= 3 && stats.quizCompleted
             },
             {
                 id: 'medium_master',
@@ -73,6 +66,13 @@ class AchievementSystem {
                 condition: (stats) => stats.quizCompleted && stats.powerUpsUsed === 0
             },
             {
+                id: 'resilient',
+                name: 'Resiliente',
+                description: 'Erre 3 ou mais perguntas mas complete com 7+ acertos',
+                icon: '🌊',
+                condition: (stats) => stats.currentScore >= 7 && (10 - stats.currentScore) >= 3 && stats.quizCompleted
+            },
+            {
                 id: 'hard_conqueror',
                 name: 'Desafio Difícil',
                 description: 'Acerte a pergunta difícil',
@@ -80,7 +80,7 @@ class AchievementSystem {
                 condition: (stats) => stats.hardCorrect === true
             },
 
-            // MÉDIO-DIFÍCIL - Requer conhecimento específico
+            // MÉDIO-DIFÍCIL - Requer domínio ou sorte
             {
                 id: 'compass_expert',
                 name: 'Mestre da Bússola',
@@ -103,12 +103,14 @@ class AchievementSystem {
                 condition: (stats) => stats.starsCorrect >= 2 && stats.starsTotal === stats.starsCorrect && stats.starsTotal >= 2
             },
             {
-                id: 'power_master',
-                name: 'Mestre das Ajudas',
-                description: 'Use todos os 3 power-ups em um único quiz',
-                icon: '🎪',
-                condition: (stats) => stats.quizCompleted && stats.allPowerUpsUsed === true
+                id: 'speedster',
+                name: 'Velocista',
+                description: 'Complete todas as 10 perguntas em menos de 100 segundos',
+                icon: '⚡',
+                condition: (stats) => stats.totalTime < 100 && stats.quizCompleted
             },
+
+            // DIFÍCIL - Excelência e maestria
             {
                 id: 'very_hard_champion',
                 name: 'Campeão Supremo',
@@ -116,8 +118,6 @@ class AchievementSystem {
                 icon: '👑',
                 condition: (stats) => stats.veryHardCorrect === true
             },
-
-            // DIFÍCIL - Requer excelência
             {
                 id: 'perfection',
                 name: 'Perfeição',
@@ -126,11 +126,11 @@ class AchievementSystem {
                 condition: (stats) => stats.currentScore === 10 && stats.quizCompleted
             },
             {
-                id: 'speedster',
-                name: 'Velocista',
-                description: 'Complete todas as 10 perguntas em menos de 100 segundos',
-                icon: '⚡',
-                condition: (stats) => stats.totalTime < 100 && stats.quizCompleted
+                id: 'clutch',
+                name: 'Contra o Relógio',
+                description: 'Acerte uma pergunta com menos de 1 segundo',
+                icon: '⏱️',
+                condition: (stats) => stats.lastSecondAnswer === true
             },
 
             // MUITO DIFÍCIL - Maestria absoluta
