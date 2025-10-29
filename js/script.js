@@ -63,6 +63,12 @@ backToStartFromPermanentBtn.addEventListener('click', () => showScreen('start'))
 backToStartFromAchievementsBtn.addEventListener('click', () => showScreen('start'));
 soundToggleBtn.addEventListener('click', toggleSound);
 
+// Event listener para o botão de reset
+const resetAllBtn = document.getElementById('reset-all-btn');
+if (resetAllBtn) {
+    resetAllBtn.addEventListener('click', resetAllData);
+}
+
 // Adicionar sons aos cliques dos botões
 document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -650,6 +656,16 @@ function displayAchievements() {
 
         gallery.appendChild(card);
     });
+
+    // Mostrar botão de reset se todas as conquistas foram desbloqueadas
+    const resetSection = document.getElementById('reset-section');
+    if (resetSection) {
+        if (progress.percentage === 100) {
+            resetSection.style.display = 'block';
+        } else {
+            resetSection.style.display = 'none';
+        }
+    }
 }
 
 // Mostrar modal com detalhes da conquista
@@ -693,6 +709,81 @@ function showAchievementDetails(achievement) {
 function closeAchievementModal() {
     const modal = document.getElementById('achievement-modal');
     modal.classList.remove('show');
+}
+
+// Lista de senhas válidas (feitiços e personagens de Harry Potter em português)
+const harryPotterPasswords = [
+    // Feitiços
+    'expelliarmus', 'wingardium leviosa', 'lumus', 'nox', 'alohomora', 'expecto patronum',
+    'avada kedavra', 'crucio', 'imperio', 'stupefy', 'protego', 'accio', 'riddikulus',
+    'obliviate', 'sectumsempra', 'diffindo', 'incendio', 'aguamenti', 'reparo',
+    'finite incantatem', 'expulso', 'impedimenta', 'petrificus totalus', 'confundo',
+    'bombarda', 'reducto', 'levicorpus', 'liberacorpus', 'episkey', 'vulnera sanentur',
+    'homenum revelio', 'prior incantato', 'geminio', 'silencio', 'muffliato',
+    'apparate', 'disapparate', 'morsmordre', 'fiendfyre', 'lumus maxima',
+    // Personagens
+    'harry potter', 'hermione granger', 'rony weasley', 'rony', 'ron weasley', 'ron',
+    'alvo dumbledore', 'dumbledore', 'severo snape', 'snape', 'voldemort',
+    'lord voldemort', 'tom riddle', 'sirius black', 'sirius', 'remus lupin', 'lupin',
+    'rubeus hagrid', 'hagrid', 'minerva mcgonagall', 'mcgonagall', 'draco malfoy', 'draco',
+    'gina weasley', 'ginny weasley', 'luna lovegood', 'luna', 'neville longbottom', 'neville',
+    'fred weasley', 'fred', 'jorge weasley', 'george weasley', 'jorge', 'george',
+    'molly weasley', 'molly', 'artur weasley', 'arthur weasley', 'artur', 'arthur',
+    'belatriz lestrange', 'bellatrix lestrange', 'belatriz', 'bellatrix',
+    'lucio malfoy', 'lucius malfoy', 'lucio', 'lucius', 'narcisa malfoy', 'narcissa malfoy',
+    'pedro pettigrew', 'peter pettigrew', 'rabicho', 'wormtail',
+    'tiago potter', 'james potter', 'tiago', 'james', 'lilian potter', 'lily potter', 'lily',
+    'cedrico diggory', 'cedric diggory', 'cedrico', 'cedric',
+    'cho chang', 'cho', 'fleur delacour', 'fleur', 'viktor krum', 'viktor',
+    'gilderoy lockhart', 'lockhart', 'mad-eye moody', 'olho-tonto moody', 'moody',
+    'newt scamander', 'newt', 'grindelwald', 'gellert grindelwald',
+    'dobby', 'monstro', 'kreacher', 'hedwig', 'edwiges',
+    'fawkes', 'fênix', 'aragog', 'buckbeak', 'bicuço'
+];
+
+// Validar senha de Harry Potter
+function validateHarryPotterPassword(input) {
+    const normalized = input.toLowerCase().trim();
+    return harryPotterPasswords.includes(normalized);
+}
+
+// Resetar tudo (conquistas e ranking)
+function resetAllData() {
+    const password = prompt('Digite um feitiço ou personagem de Harry Potter (em português) para confirmar:');
+
+    if (!password) {
+        return; // Cancelou
+    }
+
+    if (validateHarryPotterPassword(password)) {
+        const confirmReset = confirm('⚠️ Isso vai resetar TODAS as conquistas e o ranking permanente. Tem certeza?');
+
+        if (confirmReset) {
+            // Resetar conquistas
+            localStorage.removeItem('achievements');
+            localStorage.removeItem('achievementDetails');
+            localStorage.removeItem('achievementStats');
+
+            // Resetar rankings
+            localStorage.removeItem('generalRanking');
+            localStorage.removeItem('tempRanking');
+            localStorage.removeItem('tempRankingCount');
+
+            // Recarregar sistema de conquistas
+            achievementSystem.loadProgress();
+
+            // Tocar som
+            if (soundManager) soundManager.playSparkle();
+
+            alert('✅ Tudo foi resetado com sucesso!');
+
+            // Recarregar a tela
+            showScreen('start');
+            setTimeout(() => showScreen('achievements'), 100);
+        }
+    } else {
+        alert('❌ Senha incorreta! Digite um feitiço ou personagem de Harry Potter válido.');
+    }
 }
 
 // Inicializar quando o DOM estiver pronto

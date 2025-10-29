@@ -345,6 +345,62 @@
 }
 
 /* ========================================
+   SEÇÃO DE RESET
+   ======================================== */
+.reset-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(239, 68, 68, 0.3);
+    text-align: center;
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reset-section .btn-danger {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    border: 2px solid #ef4444;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.reset-section .btn-danger::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.reset-section .btn-danger:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.reset-section .btn-danger:hover {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+    border-color: #f87171;
+}
+
+/* ========================================
    MODAL DE DETALHES DA CONQUISTA
    ======================================== */
 .achievement-modal {
@@ -653,6 +709,12 @@
 
     .achievement-modal-name {
         font-size: 1.2rem;
+    }
+
+    /* Botão de reset */
+    .reset-section .btn-danger {
+        padding: 12px 30px;
+        font-size: 1rem;
     }
 }
 
@@ -1150,5 +1212,11 @@
 
     .achievement-modal-date {
         font-size: 1rem;
+    }
+
+    /* Botão de reset */
+    .reset-section .btn-danger {
+        padding: 18px 50px;
+        font-size: 1.4rem;
     }
 }
