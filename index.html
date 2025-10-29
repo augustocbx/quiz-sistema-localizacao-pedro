@@ -376,10 +376,30 @@
                     .then(registration => {
                         console.log('[App] Service Worker registrado:', registration.scope);
 
-                        // Verifica atualizações a cada 30 minutos
+                        // Verifica atualizações a cada 5 minutos (mais frequente)
                         setInterval(() => {
+                            console.log('[App] Verificando atualizações...');
                             registration.update();
-                        }, 1800000); // 30 minutos = 1800000ms
+                        }, 300000); // 5 minutos = 300000ms
+
+                        // Detecta quando há um novo Service Worker esperando
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('[App] Nova versão encontrada! Instalando...');
+
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // Novo Service Worker instalado, força ativação
+                                    console.log('[App] Nova versão instalada! Forçando atualização...');
+                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                }
+                            });
+                        });
+
+                        // Força atualização ao carregar a página
+                        registration.update().then(() => {
+                            console.log('[App] Verificação inicial de atualização concluída');
+                        });
 
                         // Escuta mensagens do Service Worker
                         navigator.serviceWorker.addEventListener('message', event => {
@@ -390,16 +410,7 @@
                                 const newVersion = event.data.version;
                                 localStorage.setItem('appVersion', newVersion);
 
-                                // OPÇÃO 1: Atualização automática silenciosa (ATIVA)
                                 // A página será recarregada automaticamente pelo controllerchange
-
-                                // OPÇÃO 2: Mostrar notificação ao usuário (DESATIVADA)
-                                // Descomente as linhas abaixo se quiser mostrar uma mensagem:
-                                /*
-                                if (confirm('Nova versão disponível! Deseja atualizar agora?')) {
-                                    window.location.reload();
-                                }
-                                */
                             }
                         });
                     })
