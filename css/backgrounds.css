@@ -78,7 +78,9 @@
 
 /* Categoria 6: Lua e Marés */
 .bg-full-moon::after,
-.bg-moon-tides::after {
+.bg-moon-tides::after,
+.bg-moon-phases::after,
+.bg-moon-orbit::after {
     background-image: url('../images/backgrounds/moon-tides.jpg');
 }
 
@@ -135,7 +137,9 @@
 }
 
 .bg-full-moon::before,
-.bg-moon-tides::before {
+.bg-moon-tides::before,
+.bg-moon-phases::before,
+.bg-moon-orbit::before {
     background: rgba(5, 10, 25, 0.75); /* Azul noturno */
 }
 

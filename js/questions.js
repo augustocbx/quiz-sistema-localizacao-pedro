@@ -291,7 +291,7 @@ const QUESTION_BANK = [
         question: "A bússola do celular funciona porque dentro dele existe um sensor que detecta o quê?",
         answers: ["O campo magnético da Terra", "A luz do Sol", "O vento", "A chuva"],
         correctIndex: 0,
-        backgroundClass: "bg-compass"
+        backgroundClass: "bg-smartphone-gps"
     },
     {
         question: "Por que é difícil usar o GPS dentro de shoppings e túneis?",
@@ -309,7 +309,7 @@ const QUESTION_BANK = [
         question: "Quando você compartilha sua localização com alguém pelo WhatsApp, você está enviando o quê?",
         answers: ["Suas coordenadas (latitude e longitude)", "Uma foto sua", "Seu endereço de casa", "Seu número de telefone"],
         correctIndex: 0,
-        backgroundClass: "bg-map-coordinates",
+        backgroundClass: "bg-smartphone-gps",
         difficulty: "hard"
     },
     {
