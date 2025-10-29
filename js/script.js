@@ -794,11 +794,13 @@ function showPlayerDetails(playerData, position) {
         const dateStr = date.toLocaleDateString('pt-BR', {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric',
+            year: 'numeric'
+        });
+        const timeStr = date.toLocaleTimeString('pt-BR', {
             hour: '2-digit',
             minute: '2-digit'
         });
-        document.getElementById('player-modal-date').textContent = dateStr;
+        document.getElementById('player-modal-date').textContent = `${dateStr} ${timeStr}`;
     } else {
         document.getElementById('player-modal-date').textContent = 'Data não disponível';
     }

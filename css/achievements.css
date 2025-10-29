@@ -684,6 +684,11 @@
     font-weight: bold;
 }
 
+/* Ajuste específico para o campo de data */
+#player-modal-date {
+    font-size: 1rem;
+}
+
 .player-modal-achievements {
     margin-top: 30px;
 }
