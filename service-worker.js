@@ -1,6 +1,6 @@
 // Service Worker para Quiz: Navegando pelas Estrelas
 // Aumente este número quando fizer atualizações: v1, v2, v3...
-const CACHE_NAME = 'quiz-navegacao-v6';
+const CACHE_NAME = 'quiz-navegacao-v7';
 
 const urlsToCache = [
   '/quiz-sistema-localizacao-pedro/',
