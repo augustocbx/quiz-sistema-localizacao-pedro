@@ -277,12 +277,11 @@
                                 const currentVersion = localStorage.getItem('appVersion');
                                 const newVersion = event.data.version;
 
-                                // Limpa rankings se a versão mudou OU se é a primeira atualização
+                                // Limpa apenas ranking geral se a versão mudou OU se é a primeira atualização
                                 if (!currentVersion || currentVersion !== newVersion) {
-                                    console.log('[App] Nova versão detectada! Limpando rankings...');
+                                    console.log('[App] Nova versão detectada! Limpando ranking geral...');
                                     localStorage.removeItem('generalRanking');
-                                    localStorage.removeItem('tempRanking');
-                                    localStorage.removeItem('tempRankingCount');
+                                    // Ranking temporário é calculado dinamicamente do geral
                                 }
 
                                 // Salva nova versão

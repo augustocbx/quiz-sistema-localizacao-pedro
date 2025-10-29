@@ -462,22 +462,19 @@ function saveScore() {
 // Sistema de Rankings
 function loadRankings() {
     const general = localStorage.getItem('generalRanking');
-    const temp = localStorage.getItem('tempRanking');
-    const tempCount = localStorage.getItem('tempRankingCount');
 
     if (!general) {
         localStorage.setItem('generalRanking', JSON.stringify([]));
     }
-    if (!temp) {
-        localStorage.setItem('tempRanking', JSON.stringify([]));
-    }
-    if (!tempCount) {
-        localStorage.setItem('tempRankingCount', '0');
+
+    // Limpar tempRanking antigo se existir (migração)
+    if (localStorage.getItem('tempRanking')) {
+        localStorage.removeItem('tempRanking');
     }
 }
 
 function saveToRankings(scoreData) {
-    // Ranking Geral
+    // Ranking Geral - mantém histórico completo ordenado
     let generalRanking = JSON.parse(localStorage.getItem('generalRanking')) || [];
     generalRanking.push(scoreData);
     generalRanking.sort((a, b) => {
@@ -487,39 +484,44 @@ function saveToRankings(scoreData) {
     generalRanking = generalRanking.slice(0, 10);
     localStorage.setItem('generalRanking', JSON.stringify(generalRanking));
 
-    // Ranking Temporário
-    let tempRanking = JSON.parse(localStorage.getItem('tempRanking')) || [];
-    let tempCount = parseInt(localStorage.getItem('tempRankingCount')) || 0;
-
-    tempRanking.push(scoreData);
-    tempRanking.sort((a, b) => {
-        if (b.score !== a.score) return b.score - a.score;
-        return a.time - b.time;
-    });
-    tempRanking = tempRanking.slice(0, 3);
-
-    tempCount++;
-
-    // Reiniciar ranking temporário a cada 5 usuários
-    if (tempCount >= 5) {
-        tempRanking = [];
-        tempCount = 0;
-    }
-
-    localStorage.setItem('tempRanking', JSON.stringify(tempRanking));
-    localStorage.setItem('tempRankingCount', tempCount.toString());
+    // Não precisa mais de ranking temporário separado!
+    // O ranking temporário será calculado dinamicamente dos 5 mais recentes do geral
 }
 
 // Atualizar ranking temporário na tela inicial
 function updateHomeTempRanking() {
-    const tempRanking = JSON.parse(localStorage.getItem('tempRanking')) || [];
-    displayRankingList('home-temp-ranking-list', tempRanking);
+    const generalRanking = JSON.parse(localStorage.getItem('generalRanking')) || [];
+
+    // Pegar os 5 jogadores mais recentes (por timestamp)
+    const recent5 = [...generalRanking]
+        .sort((a, b) => b.timestamp - a.timestamp) // Ordenar por mais recente
+        .slice(0, 5);
+
+    // Ordenar esses 5 por pontuação e pegar o top 3
+    const top3 = [...recent5].sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.time - b.time;
+    }).slice(0, 3);
+
+    displayRankingList('home-temp-ranking-list', top3);
 }
 
 // Exibir tela de ranking temporário
 function displayTempRanking() {
-    const tempRanking = JSON.parse(localStorage.getItem('tempRanking')) || [];
-    displayRankingList('temp-ranking-list', tempRanking);
+    const generalRanking = JSON.parse(localStorage.getItem('generalRanking')) || [];
+
+    // Pegar os 5 jogadores mais recentes (por timestamp)
+    const recent5 = [...generalRanking]
+        .sort((a, b) => b.timestamp - a.timestamp) // Ordenar por mais recente
+        .slice(0, 5);
+
+    // Ordenar esses 5 por pontuação e pegar o top 3
+    const top3 = [...recent5].sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.time - b.time;
+    }).slice(0, 3);
+
+    displayRankingList('temp-ranking-list', top3);
 }
 
 // Exibir tela de ranking permanente
@@ -764,10 +766,8 @@ function resetAllData() {
             localStorage.removeItem('achievementDetails');
             localStorage.removeItem('achievementStats');
 
-            // Resetar rankings
+            // Resetar ranking geral (temporário é calculado dinamicamente dele)
             localStorage.removeItem('generalRanking');
-            localStorage.removeItem('tempRanking');
-            localStorage.removeItem('tempRankingCount');
 
             // Recarregar sistema de conquistas
             achievementSystem.loadProgress();
