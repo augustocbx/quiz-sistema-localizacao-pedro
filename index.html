@@ -31,6 +31,22 @@
         🔊
     </div>
 
+    <!-- Botão de QR Code Flutuante -->
+    <div id="qr-toggle-btn" class="settings-button qr-button" title="Compartilhar Quiz">
+        📱
+    </div>
+
+    <!-- Modal do QR Code -->
+    <div id="qr-modal" class="qr-modal">
+        <div class="qr-modal-content">
+            <button class="qr-modal-close" id="qr-modal-close">×</button>
+            <h2 class="qr-modal-title">📱 Compartilhe o Quiz</h2>
+            <p class="qr-modal-subtitle">Aponte a câmera do celular para acessar</p>
+            <div id="qrcode" class="qr-code-container"></div>
+            <div class="qr-modal-url">https://augustocbx.github.io/quiz-sistema-localizacao-pedro/</div>
+        </div>
+    </div>
+
     <!-- Modal de Detalhes da Conquista -->
     <div id="achievement-modal" class="achievement-modal">
         <div class="achievement-modal-content">
@@ -93,13 +109,6 @@
                 <button id="start-btn" class="btn btn-primary">🚀 Iniciar Quiz</button>
                 <button id="view-permanent-ranking-btn" class="btn btn-secondary">🏅 Ver Ranking Permanente</button>
                 <button id="view-achievements-btn" class="btn btn-secondary">🏆 Conquistas</button>
-            </div>
-
-            <!-- QR Code Section -->
-            <div class="qr-code-section">
-                <h3 class="qr-code-title">📱 Compartilhe o Quiz</h3>
-                <p class="qr-code-subtitle">Aponte a câmera do celular para o QR Code</p>
-                <div id="qrcode" class="qr-code-container"></div>
             </div>
 
             <!-- Ranking Temporário na Tela Inicial -->
@@ -288,21 +297,48 @@
     <script src="js/names.js"></script>
     <script src="js/script.js"></script>
 
-    <!-- QR Code Generator -->
+    <!-- QR Code Generator and Modal -->
     <script>
-        // Gera QR Code na tela inicial
         document.addEventListener('DOMContentLoaded', function() {
+            const qrModal = document.getElementById('qr-modal');
+            const qrToggleBtn = document.getElementById('qr-toggle-btn');
+            const qrModalClose = document.getElementById('qr-modal-close');
             const qrcodeElement = document.getElementById('qrcode');
-            if (qrcodeElement && typeof QRCode !== 'undefined') {
-                new QRCode(qrcodeElement, {
-                    text: 'https://augustocbx.github.io/quiz-sistema-localizacao-pedro/',
-                    width: 180,
-                    height: 180,
-                    colorDark: '#1e3a8a',
-                    colorLight: '#ffffff',
-                    correctLevel: QRCode.CorrectLevel.H
-                });
-            }
+
+            let qrCodeGenerated = false;
+
+            // Abrir modal do QR Code
+            qrToggleBtn.addEventListener('click', function() {
+                qrModal.style.display = 'flex';
+
+                // Gerar QR code apenas uma vez
+                if (!qrCodeGenerated && typeof QRCode !== 'undefined') {
+                    // Limpar conteúdo anterior se houver
+                    qrcodeElement.innerHTML = '';
+
+                    new QRCode(qrcodeElement, {
+                        text: 'https://augustocbx.github.io/quiz-sistema-localizacao-pedro/',
+                        width: 200,
+                        height: 200,
+                        colorDark: '#1e3a8a',
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                    qrCodeGenerated = true;
+                }
+            });
+
+            // Fechar modal do QR Code
+            qrModalClose.addEventListener('click', function() {
+                qrModal.style.display = 'none';
+            });
+
+            // Fechar ao clicar fora do modal
+            qrModal.addEventListener('click', function(e) {
+                if (e.target === qrModal) {
+                    qrModal.style.display = 'none';
+                }
+            });
         });
     </script>
 
