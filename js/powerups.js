@@ -151,7 +151,6 @@ class PowerUpSystem {
     }
 
     updateUI() {
-        console.log('[PowerUps] Atualizando UI...');
         Object.values(this.powerUps).forEach(powerUp => {
             const button = document.getElementById(`powerup-${powerUp.id}`);
             if (button) {
@@ -160,19 +159,13 @@ class PowerUpSystem {
 
                 countElement.textContent = remaining;
 
-                console.log(`[PowerUps] ${powerUp.name}: remaining=${remaining}, used=${powerUp.used}, available=${powerUp.available}`);
-
                 if (remaining === 0) {
                     button.classList.add('powerup-used');
                     button.disabled = true;
-                    console.log(`[PowerUps] ${powerUp.name} DESABILITADO`);
                 } else {
                     button.classList.remove('powerup-used');
                     button.disabled = false;
-                    console.log(`[PowerUps] ${powerUp.name} HABILITADO`);
                 }
-            } else {
-                console.error(`[PowerUps] Botão ${powerUp.id} não encontrado no DOM!`);
             }
         });
     }
