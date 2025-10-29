@@ -710,10 +710,12 @@ body::before {
 /* Modo tela cheia para tablet */
 @media (display-mode: standalone) {
     body {
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .screen {
-        height: 100vh;
+        min-height: 100vh;
+        overflow-y: auto;
     }
 }
