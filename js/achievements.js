@@ -83,9 +83,9 @@ class AchievementSystem {
             {
                 id: 'flawless_fast',
                 name: 'Flash Perfeito',
-                description: '15/15 em menos de 100 segundos',
+                description: '15/15 em menos de 120 segundos',
                 icon: '⚡💎',
-                condition: (stats) => stats.currentScore === 15 && stats.totalTime < 100 && stats.quizCompleted
+                condition: (stats) => stats.currentScore === 15 && stats.totalTime < 120 && stats.quizCompleted
             },
             {
                 id: 'strategist',

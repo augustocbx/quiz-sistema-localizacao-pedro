@@ -45,6 +45,7 @@ const saveScoreBtn = document.getElementById('save-score-btn');
 const randomNameBtn = document.getElementById('random-name-btn');
 const playAgainBtn = document.getElementById('play-again-btn');
 const viewPermanentFromTempBtn = document.getElementById('view-permanent-from-temp-btn');
+const viewAchievementsFromTempBtn = document.getElementById('view-achievements-from-temp-btn');
 const backToStartFromTempBtn = document.getElementById('back-to-start-from-temp-btn');
 const backToStartFromPermanentBtn = document.getElementById('back-to-start-from-permanent-btn');
 const backToStartFromAchievementsBtn = document.getElementById('back-to-start-from-achievements-btn');
@@ -61,6 +62,7 @@ saveScoreBtn.addEventListener('click', saveScore);
 randomNameBtn.addEventListener('click', generateRandomName);
 playAgainBtn.addEventListener('click', startQuiz);
 viewPermanentFromTempBtn.addEventListener('click', () => showScreen('permanentRanking'));
+viewAchievementsFromTempBtn.addEventListener('click', () => showScreen('achievements'));
 backToStartFromTempBtn.addEventListener('click', () => showScreen('start'));
 backToStartFromPermanentBtn.addEventListener('click', () => showScreen('start'));
 backToStartFromAchievementsBtn.addEventListener('click', () => showScreen('start'));
@@ -92,6 +94,23 @@ if (achievementModal) {
     achievementModal.addEventListener('click', (e) => {
         if (e.target === achievementModal) {
             closeAchievementModal();
+        }
+    });
+}
+
+// Event listeners para o modal de jogador
+const playerModalCloseBtn = document.getElementById('player-modal-close');
+const playerModal = document.getElementById('player-modal');
+
+if (playerModalCloseBtn) {
+    playerModalCloseBtn.addEventListener('click', closePlayerModal);
+}
+
+// Fechar modal ao clicar fora do conteúdo
+if (playerModal) {
+    playerModal.addEventListener('click', (e) => {
+        if (e.target === playerModal) {
+            closePlayerModal();
         }
     });
 }
@@ -460,7 +479,8 @@ function saveScore() {
         avatar: avatarSystem ? avatarSystem.getAvatarEmoji() : null,
         score: correctAnswers,
         time: parseFloat(totalTime),
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        achievements: achievementSystem ? achievementSystem.getUnlockedAchievements() : []
     };
 
     // Salvar nos rankings
@@ -573,6 +593,10 @@ function displayRankingList(elementId, ranking) {
                 <div class="ranking-time">${player.time}s</div>
             </div>
         `;
+
+        // Adicionar cursor pointer e evento de clique
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => showPlayerDetails(player, index + 1));
 
         container.appendChild(item);
     });
@@ -729,6 +753,64 @@ function showAchievementDetails(achievement) {
 // Fechar modal
 function closeAchievementModal() {
     const modal = document.getElementById('achievement-modal');
+    modal.classList.remove('show');
+}
+
+// Mostrar modal com detalhes do jogador
+function showPlayerDetails(playerData, position) {
+    const modal = document.getElementById('player-modal');
+
+    // Preencher informações do jogador
+    document.getElementById('player-modal-avatar').textContent = playerData.avatar || '👤';
+    document.getElementById('player-modal-name').textContent = playerData.name;
+    document.getElementById('player-modal-position').textContent = `#${position}`;
+    document.getElementById('player-modal-score').textContent = `${playerData.score}/15`;
+    document.getElementById('player-modal-time').textContent = `${playerData.time}s`;
+
+    // Formatar data
+    if (playerData.timestamp) {
+        const date = new Date(playerData.timestamp);
+        const dateStr = date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        document.getElementById('player-modal-date').textContent = dateStr;
+    } else {
+        document.getElementById('player-modal-date').textContent = 'Data não disponível';
+    }
+
+    // Mostrar badges
+    const badgesContainer = document.getElementById('player-modal-badges');
+    badgesContainer.innerHTML = '';
+
+    if (playerData.achievements && playerData.achievements.length > 0) {
+        playerData.achievements.forEach(achievement => {
+            const badge = document.createElement('div');
+            badge.className = 'player-modal-badge';
+            badge.title = achievement.name;
+            badge.innerHTML = `
+                <div class="player-modal-badge-icon">${achievement.icon}</div>
+                <div class="player-modal-badge-name">${achievement.name}</div>
+            `;
+            badgesContainer.appendChild(badge);
+        });
+    } else {
+        badgesContainer.innerHTML = '<div class="player-modal-no-badges">Nenhuma conquista desbloqueada</div>';
+    }
+
+    // Mostrar modal
+    modal.classList.add('show');
+
+    // Som de feedback
+    if (soundManager) soundManager.playClick();
+}
+
+// Fechar modal de detalhes do jogador
+function closePlayerModal() {
+    const modal = document.getElementById('player-modal');
     modal.classList.remove('show');
 }
 
