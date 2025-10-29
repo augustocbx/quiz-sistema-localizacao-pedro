@@ -4,7 +4,7 @@ Um quiz educativo e interativo sobre navegação por astros e sistemas modernos 
 
 ## Características
 
-- 🌟 **40 perguntas** sobre orientação pelos astros e GPS (20 selecionadas aleatoriamente por sessão)
+- 🌟 **60 perguntas** sobre orientação pelos astros e GPS (15 selecionadas aleatoriamente por sessão)
 - 🎨 **Animações temáticas** de comemoração e consolo
 - 🎯 **Sistema de pontuação** com critério de desempate por tempo
 - 🏆 **Rankings**: temporário (últimos 5 jogadores) e permanente (top 10)
@@ -22,7 +22,7 @@ quiz-orientacao/
 │   └── backgrounds.css       # Fundos temáticos das perguntas
 ├── js/
 │   ├── script.js             # Lógica principal do quiz
-│   ├── questions.js          # Banco de 40 perguntas
+│   ├── questions.js          # Banco de 60 perguntas
 │   ├── animations.js         # Animações SVG
 │   └── names.js              # Sistema de nomes aleatórios
 ├── images/                   # Pasta para imagens (opcional)
@@ -113,7 +113,7 @@ quiz-orientacao/
 ## Características Técnicas
 
 ### Sistema de Perguntas
-- 20 perguntas aleatórias de um banco de 40
+- 15 perguntas aleatórias de um banco de 60
 - Respostas embaralhadas para cada pergunta
 - Não mostra a resposta correta após erro
 
@@ -121,8 +121,8 @@ quiz-orientacao/
 
 **Comemoração (ao acertar)**:
 - 3 animações comuns (estrela, bússola, constelação)
-- 1 animação rara (aparece ao acertar 19/20)
-- 1 animação lendária (aparece ao acertar 20/20)
+- 1 animação rara (aparece ao acertar 14/15)
+- 1 animação lendária (aparece ao acertar 15/15)
 
 **Consolo (ao errar)**:
 - 5 animações com frequências decrescentes:
@@ -155,8 +155,8 @@ Todos os dados são salvos no localStorage do navegador:
 
 ## Funcionalidades
 
-- ✅ 40 perguntas sobre orientação e navegação
-- ✅ Seleção aleatória de 20 perguntas por sessão
+- ✅ 60 perguntas sobre orientação e navegação
+- ✅ Seleção aleatória de 15 perguntas por sessão
 - ✅ 4 respostas por pergunta, apenas 1 correta
 - ✅ Ordem aleatória das respostas
 - ✅ Animações temáticas com rotação

@@ -114,7 +114,7 @@ function startQuiz() {
     // Inicializar power-ups
     if (powerUpSystem) initializePowerUps();
 
-    // Selecionar 15 perguntas aleatórias do banco de 40
+    // Selecionar 15 perguntas aleatórias do banco de 60
     selectedQuestions = selectRandomQuestions(QUESTION_BANK, 15);
 
     // Embaralhar as respostas de cada pergunta

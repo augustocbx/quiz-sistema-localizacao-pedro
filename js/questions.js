@@ -1,4 +1,4 @@
-// Banco de 40 perguntas sobre orientação e navegação
+// Banco de 60 perguntas sobre orientação e navegação
 const QUESTION_BANK = [
     {
         question: "Qual é a estrela que sempre indica o Norte no céu noturno?",
@@ -239,5 +239,125 @@ const QUESTION_BANK = [
         answers: ["GPS e sistemas de navegação", "Bússola magnética", "Observação de estrelas", "Mapas de papel"],
         correctIndex: 0,
         backgroundClass: "bg-airplane-gps"
+    },
+    {
+        question: "Se você colocar uma vara no chão pela manhã, em que direção a sombra dela aponta?",
+        answers: ["Para o Oeste", "Para o Leste", "Para o Norte", "Para o Sul"],
+        correctIndex: 0,
+        backgroundClass: "bg-sun-navigation"
+    },
+    {
+        question: "Quando você vê o Sol se pôr no final do dia, você está olhando para qual direção?",
+        answers: ["Oeste", "Leste", "Norte", "Sul"],
+        correctIndex: 0,
+        backgroundClass: "bg-sun-navigation"
+    },
+    {
+        question: "Os navegadores antigos usavam um instrumento chamado 'ampulheta' durante as viagens. Para que servia?",
+        answers: ["Para medir o tempo durante a viagem", "Para ver as estrelas", "Para medir a temperatura", "Para guardar água"],
+        correctIndex: 0,
+        backgroundClass: "bg-ancient-navigation"
+    },
+    {
+        question: "Qual destes instrumentos antigos era usado para desenhar mapas dos lugares descobertos?",
+        answers: ["Compasso (de desenho)", "Microscópio", "Termômetro", "Calculadora"],
+        correctIndex: 0,
+        backgroundClass: "bg-map-coordinates"
+    },
+    {
+        question: "Antes da bússola, os navegadores chineses se orientavam usando um objeto que flutuava na água. O que era?",
+        answers: ["Uma colher magnética de pedra-ímã", "Uma folha seca", "Um peixe de madeira", "Uma estrela de metal"],
+        correctIndex: 0,
+        backgroundClass: "bg-compass"
+    },
+    {
+        question: "Por que os exploradores antigos preferiam viajar observando o céu em noites sem nuvens?",
+        answers: ["Para ver as estrelas e se orientar", "Para não pegar chuva", "Para economizar comida", "Para dormir melhor"],
+        correctIndex: 0,
+        backgroundClass: "bg-stars-night"
+    },
+    {
+        question: "Quantos satélites GPS estão orbitando a Terra neste momento?",
+        answers: ["Mais de 30 satélites", "Apenas 4 satélites", "Apenas 1 satélite", "Nenhum, o GPS usa torres"],
+        correctIndex: 0,
+        backgroundClass: "bg-gps-satellite"
+    },
+    {
+        question: "Como funcionam os relógios de sol que existem em praças e jardins?",
+        answers: ["A sombra de uma haste indica as horas conforme o Sol se move", "Eles têm pilhas escondidas", "Medem a temperatura", "Contam os pássaros que passam"],
+        correctIndex: 0,
+        backgroundClass: "bg-sun-navigation"
+    },
+    {
+        question: "Em florestas úmidas, os musgos crescem mais no lado da árvore que recebe menos Sol. No Brasil, esse lado é:",
+        answers: ["Sul", "Norte", "Leste", "Oeste"],
+        correctIndex: 0,
+        backgroundClass: "bg-forest-navigation"
+    },
+    {
+        question: "Por que a Estrela Polar é tão importante para navegação no hemisfério norte?",
+        answers: ["Ela fica praticamente parada no céu, sempre indicando o Norte", "Ela é a estrela mais brilhante", "Ela muda de cor", "Ela só aparece no verão"],
+        correctIndex: 0,
+        backgroundClass: "bg-stars-night"
+    },
+    {
+        question: "O que o seu celular recebe do espaço para saber onde você está?",
+        answers: ["Sinais de satélites GPS", "Luz das estrelas", "Ondas de rádio FM", "Mensagens de outros celulares"],
+        correctIndex: 0,
+        backgroundClass: "bg-smartphone-gps"
+    },
+    {
+        question: "Os aviões modernos usam GPS para voar. O que aconteceria se o GPS parasse de funcionar?",
+        answers: ["Eles usariam outros sistemas de navegação como rádio e radar", "Todos os aviões cairiam", "Os aviões não poderiam mais voar", "Nada, aviões não usam GPS"],
+        correctIndex: 0,
+        backgroundClass: "bg-airplane-gps"
+    },
+    {
+        question: "Quando você abre o Google Maps no celular, o que o pontinho azul mostra?",
+        answers: ["Sua localização atual", "Sua casa", "O lugar mais próximo", "Onde tem Wi-Fi"],
+        correctIndex: 0,
+        backgroundClass: "bg-smartphone-gps"
+    },
+    {
+        question: "A bússola do celular funciona porque dentro dele existe um sensor que detecta o quê?",
+        answers: ["O campo magnético da Terra", "A luz do Sol", "O vento", "A chuva"],
+        correctIndex: 0,
+        backgroundClass: "bg-compass"
+    },
+    {
+        question: "Por que é difícil usar o GPS dentro de shoppings e túneis?",
+        answers: ["Os sinais dos satélites não passam bem pelas paredes e teto", "O GPS desliga sozinho", "É proibido usar GPS nesses lugares", "Os satélites estão muito longe"],
+        correctIndex: 0,
+        backgroundClass: "bg-modern-navigation"
+    },
+    {
+        question: "No modo avião, o que ainda funciona no seu celular?",
+        answers: ["A bússola", "As ligações telefônicas", "O WhatsApp", "O YouTube"],
+        correctIndex: 0,
+        backgroundClass: "bg-airplane-gps"
+    },
+    {
+        question: "Quando você compartilha sua localização com alguém pelo WhatsApp, você está enviando o quê?",
+        answers: ["Suas coordenadas (latitude e longitude)", "Uma foto sua", "Seu endereço de casa", "Seu número de telefone"],
+        correctIndex: 0,
+        backgroundClass: "bg-map-coordinates"
+    },
+    {
+        question: "O GPS dos carros mostra o caminho na tela. Como ele sabe quando você vira uma esquina?",
+        answers: ["Ele detecta que sua posição mudou de direção", "Ele adivinha", "O motorista pressiona um botão", "Ele escuta o barulho do carro"],
+        correctIndex: 0,
+        backgroundClass: "bg-modern-navigation"
+    },
+    {
+        question: "Jogos como Pokémon GO usam GPS para fazer o quê?",
+        answers: ["Mostrar onde você está no mapa e colocar personagens em lugares reais", "Aumentar a velocidade do jogo", "Deixar o celular mais rápido", "Economizar bateria"],
+        correctIndex: 0,
+        backgroundClass: "bg-smartphone-gps"
+    },
+    {
+        question: "Qual é a vantagem de usar vários sistemas de satélites (GPS, GLONASS, Galileo) ao mesmo tempo no celular?",
+        answers: ["A localização fica mais precisa e confiável", "O celular fica mais rápido", "Gasta menos bateria", "A tela fica maior"],
+        correctIndex: 0,
+        backgroundClass: "bg-satellite-systems"
     }
 ];
