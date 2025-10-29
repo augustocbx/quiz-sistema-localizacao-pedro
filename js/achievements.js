@@ -2,13 +2,31 @@
 
 class AchievementSystem {
     constructor() {
+        // Badges organizados por ordem crescente de dificuldade
         this.achievements = [
+            // MUITO FÁCIL - Garantidos para iniciantes
             {
                 id: 'first_star',
                 name: 'Primeira Estrela',
                 description: 'Complete seu primeiro quiz',
                 icon: '🌟',
                 condition: (stats) => stats.quizzesCompleted >= 1
+            },
+            {
+                id: 'beginner',
+                name: 'Primeiros Passos',
+                description: 'Acerte 5 ou mais perguntas',
+                icon: '🎈',
+                condition: (stats) => stats.currentScore >= 5
+            },
+
+            // FÁCIL - Acontecem naturalmente
+            {
+                id: 'clutch',
+                name: 'Contra o Relógio',
+                description: 'Acerte uma pergunta com menos de 1 segundo',
+                icon: '⏱️',
+                condition: (stats) => stats.lastSecondAnswer === true
             },
             {
                 id: 'explorer',
@@ -18,6 +36,15 @@ class AchievementSystem {
                 condition: (stats) => stats.currentScore >= 7
             },
             {
+                id: 'combo_master',
+                name: 'Combo Master',
+                description: 'Acerte 5 perguntas seguidas',
+                icon: '🔥',
+                condition: (stats) => stats.maxCombo >= 5
+            },
+
+            // MÉDIO - Requer atenção e esforço
+            {
                 id: 'navigator',
                 name: 'Navegador Expert',
                 description: 'Acerte 9 ou mais perguntas',
@@ -25,26 +52,35 @@ class AchievementSystem {
                 condition: (stats) => stats.currentScore >= 9
             },
             {
-                id: 'combo_master',
-                name: 'Combo Master',
-                description: 'Acerte 5 perguntas seguidas',
-                icon: '🔥',
-                condition: (stats) => stats.maxCombo >= 5
+                id: 'resilient',
+                name: 'Resiliente',
+                description: 'Erre 3 ou mais perguntas mas complete com 7+ acertos',
+                icon: '🌊',
+                condition: (stats) => stats.currentScore >= 7 && (10 - stats.currentScore) >= 3 && stats.quizCompleted
             },
             {
-                id: 'speedster',
-                name: 'Velocista',
-                description: 'Complete todas as 10 perguntas em menos de 100 segundos',
-                icon: '⚡',
-                condition: (stats) => stats.totalTime < 100 && stats.quizCompleted
+                id: 'medium_master',
+                name: 'Domínio das Médias',
+                description: 'Acerte todas as 3 perguntas médias',
+                icon: '📚',
+                condition: (stats) => stats.mediumCorrect === 3
             },
             {
-                id: 'perfection',
-                name: 'Perfeição',
-                description: 'Acerte todas as 10 perguntas',
-                icon: '💎',
-                condition: (stats) => stats.currentScore === 10 && stats.quizCompleted
+                id: 'strategist',
+                name: 'Estrategista',
+                description: 'Complete um quiz sem usar nenhum power-up',
+                icon: '🎮',
+                condition: (stats) => stats.quizCompleted && stats.powerUpsUsed === 0
             },
+            {
+                id: 'hard_conqueror',
+                name: 'Desafio Difícil',
+                description: 'Acerte a pergunta difícil',
+                icon: '💪',
+                condition: (stats) => stats.hardCorrect === true
+            },
+
+            // MÉDIO-DIFÍCIL - Requer conhecimento específico
             {
                 id: 'compass_expert',
                 name: 'Mestre da Bússola',
@@ -67,6 +103,47 @@ class AchievementSystem {
                 condition: (stats) => stats.starsCorrect >= 2 && stats.starsTotal === stats.starsCorrect && stats.starsTotal >= 2
             },
             {
+                id: 'power_master',
+                name: 'Mestre das Ajudas',
+                description: 'Use todos os 3 power-ups em um único quiz',
+                icon: '🎪',
+                condition: (stats) => stats.quizCompleted && stats.allPowerUpsUsed === true
+            },
+            {
+                id: 'very_hard_champion',
+                name: 'Campeão Supremo',
+                description: 'Acerte a pergunta muito difícil',
+                icon: '👑',
+                condition: (stats) => stats.veryHardCorrect === true
+            },
+
+            // DIFÍCIL - Requer excelência
+            {
+                id: 'perfection',
+                name: 'Perfeição',
+                description: 'Acerte todas as 10 perguntas',
+                icon: '💎',
+                condition: (stats) => stats.currentScore === 10 && stats.quizCompleted
+            },
+            {
+                id: 'speedster',
+                name: 'Velocista',
+                description: 'Complete todas as 10 perguntas em menos de 100 segundos',
+                icon: '⚡',
+                condition: (stats) => stats.totalTime < 100 && stats.quizCompleted
+            },
+
+            // MUITO DIFÍCIL - Maestria absoluta
+            {
+                id: 'flawless_fast',
+                name: 'Flash Perfeito',
+                description: '10/10 em menos de 100 segundos',
+                icon: '⚡💎',
+                condition: (stats) => stats.currentScore === 10 && stats.totalTime < 100 && stats.quizCompleted
+            },
+
+            // PERSISTÊNCIA - Requer tempo e dedicação
+            {
                 id: 'persistent',
                 name: 'Persistente',
                 description: 'Complete 5 quizzes',
@@ -79,69 +156,6 @@ class AchievementSystem {
                 description: 'Complete 10 quizzes',
                 icon: '🏆',
                 condition: (stats) => stats.quizzesCompleted >= 10
-            },
-            {
-                id: 'flawless_fast',
-                name: 'Flash Perfeito',
-                description: '10/10 em menos de 100 segundos',
-                icon: '⚡💎',
-                condition: (stats) => stats.currentScore === 10 && stats.totalTime < 100 && stats.quizCompleted
-            },
-            {
-                id: 'strategist',
-                name: 'Estrategista',
-                description: 'Complete um quiz sem usar nenhum power-up',
-                icon: '🎮',
-                condition: (stats) => stats.quizCompleted && stats.powerUpsUsed === 0
-            },
-            {
-                id: 'clutch',
-                name: 'Contra o Relógio',
-                description: 'Acerte uma pergunta com menos de 1 segundo',
-                icon: '⏱️',
-                condition: (stats) => stats.lastSecondAnswer === true
-            },
-            {
-                id: 'resilient',
-                name: 'Resiliente',
-                description: 'Erre 3 ou mais perguntas mas complete com 7+ acertos',
-                icon: '🌊',
-                condition: (stats) => stats.currentScore >= 7 && (10 - stats.currentScore) >= 3 && stats.quizCompleted
-            },
-            {
-                id: 'power_master',
-                name: 'Mestre das Ajudas',
-                description: 'Use todos os 3 power-ups em um único quiz',
-                icon: '🎪',
-                condition: (stats) => stats.quizCompleted && stats.allPowerUpsUsed === true
-            },
-            {
-                id: 'medium_master',
-                name: 'Domínio das Médias',
-                description: 'Acerte todas as 3 perguntas médias',
-                icon: '📚',
-                condition: (stats) => stats.mediumCorrect === 3
-            },
-            {
-                id: 'hard_conqueror',
-                name: 'Desafio Difícil',
-                description: 'Acerte a pergunta difícil',
-                icon: '💪',
-                condition: (stats) => stats.hardCorrect === true
-            },
-            {
-                id: 'very_hard_champion',
-                name: 'Campeão Supremo',
-                description: 'Acerte a pergunta muito difícil',
-                icon: '👑',
-                condition: (stats) => stats.veryHardCorrect === true
-            },
-            {
-                id: 'beginner',
-                name: 'Primeiros Passos',
-                description: 'Acerte 5 ou mais perguntas',
-                icon: '🎈',
-                condition: (stats) => stats.currentScore >= 5
             }
         ];
 
