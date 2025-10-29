@@ -1,6 +1,6 @@
 // Service Worker para Quiz: Navegando pelas Estrelas
 // Aumente este número quando fizer atualizações: v1, v2, v3...
-const CACHE_NAME = 'quiz-navegacao-v3';
+const CACHE_NAME = 'quiz-navegacao-v4';
 
 const urlsToCache = [
   '/quiz-sistema-localizacao-pedro/',
@@ -14,7 +14,10 @@ const urlsToCache = [
   '/quiz-sistema-localizacao-pedro/js/names.js',
   '/quiz-sistema-localizacao-pedro/js/sound-manager.js',
   '/quiz-sistema-localizacao-pedro/js/achievements.js',
-  '/quiz-sistema-localizacao-pedro/js/visual-effects.js'
+  '/quiz-sistema-localizacao-pedro/js/visual-effects.js',
+  '/quiz-sistema-localizacao-pedro/js/powerups.js',
+  '/quiz-sistema-localizacao-pedro/js/avatars.js',
+  '/quiz-sistema-localizacao-pedro/js/quiz-enhancements.js'
 ];
 
 // Instalação do Service Worker

@@ -54,6 +54,23 @@
         </div>
     </div>
 
+    <!-- Tela de Seleção de Avatar -->
+    <div id="avatar-screen" class="screen">
+        <div class="container">
+            <h1 class="title">Escolha seu Personagem!</h1>
+            <p class="subtitle">Selecione um avatar para representá-lo no quiz</p>
+
+            <div id="avatar-selector-wrapper">
+                <!-- Avatar selector será inserido aqui -->
+            </div>
+
+            <div class="start-actions">
+                <button id="confirm-avatar-btn" class="btn btn-primary">Começar Quiz! 🚀</button>
+                <button id="back-from-avatar-btn" class="btn btn-secondary">← Voltar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Tela do Quiz -->
     <div id="quiz-screen" class="screen">
         <div class="quiz-header">
@@ -67,6 +84,19 @@
         </div>
 
         <div class="quiz-content">
+            <!-- Timer -->
+            <div id="timer-container" class="timer-container">
+                <div class="timer-text" id="timer-text">10s</div>
+                <div class="timer-bar-bg">
+                    <div id="timer-bar" class="timer-bar" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- Power-Ups -->
+            <div id="powerups-wrapper">
+                <!-- Power-ups serão inseridos aqui -->
+            </div>
+
             <div class="question-container">
                 <h2 id="question-text" class="question-text"></h2>
             </div>
@@ -180,6 +210,9 @@
     <script src="js/sound-manager.js"></script>
     <script src="js/achievements.js"></script>
     <script src="js/visual-effects.js"></script>
+    <script src="js/powerups.js"></script>
+    <script src="js/avatars.js"></script>
+    <script src="js/quiz-enhancements.js"></script>
     <script src="js/questions.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/names.js"></script>

@@ -12,9 +12,18 @@ let categoryStats = {
     stars: { correct: 0, total: 0 }
 };
 
+// Timer
+let timerInterval = null;
+let timeRemaining = 10;
+const TIME_PER_QUESTION = 10; // segundos
+
+// Power-ups
+let removedAnswerIndices = [];
+
 // Elementos do DOM
 const screens = {
     start: document.getElementById('start-screen'),
+    avatar: document.getElementById('avatar-screen'),
     quiz: document.getElementById('quiz-screen'),
     result: document.getElementById('result-screen'),
     tempRanking: document.getElementById('temp-ranking-screen'),
@@ -26,6 +35,8 @@ const screens = {
 const startBtn = document.getElementById('start-btn');
 const viewPermanentRankingBtn = document.getElementById('view-permanent-ranking-btn');
 const viewAchievementsBtn = document.getElementById('view-achievements-btn');
+const confirmAvatarBtn = document.getElementById('confirm-avatar-btn');
+const backFromAvatarBtn = document.getElementById('back-from-avatar-btn');
 const quitBtn = document.getElementById('quit-btn');
 const saveScoreBtn = document.getElementById('save-score-btn');
 const randomNameBtn = document.getElementById('random-name-btn');
@@ -37,7 +48,9 @@ const backToStartFromAchievementsBtn = document.getElementById('back-to-start-fr
 const soundToggleBtn = document.getElementById('sound-toggle-btn');
 
 // Event Listeners
-startBtn.addEventListener('click', startQuiz);
+startBtn.addEventListener('click', () => showScreen('avatar'));
+confirmAvatarBtn.addEventListener('click', startQuiz);
+backFromAvatarBtn.addEventListener('click', () => showScreen('start'));
 viewPermanentRankingBtn.addEventListener('click', () => showScreen('permanentRanking'));
 viewAchievementsBtn.addEventListener('click', () => showScreen('achievements'));
 quitBtn.addEventListener('click', quitQuiz);
@@ -70,6 +83,8 @@ function showScreen(screenName) {
 
     if (screenName === 'start') {
         updateHomeTempRanking();
+    } else if (screenName === 'avatar') {
+        displayAvatarSelection();
     } else if (screenName === 'tempRanking') {
         displayTempRanking();
     } else if (screenName === 'permanentRanking') {
@@ -95,6 +110,9 @@ function startQuiz() {
 
     // Tocar som de início
     if (soundManager) soundManager.playStart();
+
+    // Inicializar power-ups
+    if (powerUpSystem) initializePowerUps();
 
     // Selecionar 15 perguntas aleatórias do banco de 40
     selectedQuestions = selectRandomQuestions(QUESTION_BANK, 15);
@@ -139,6 +157,12 @@ function shuffleArray(array) {
 function displayQuestion() {
     const question = selectedQuestions[currentQuestionIndex];
 
+    // Resetar índices removidos
+    removedAnswerIndices = [];
+
+    // Iniciar timer
+    startTimer();
+
     // Atualizar contador de perguntas
     document.getElementById('current-question').textContent = currentQuestionIndex + 1;
     document.getElementById('correct-count').textContent = correctAnswers;
@@ -173,6 +197,9 @@ function displayQuestion() {
 function selectAnswer(selectedIndex) {
     const question = selectedQuestions[currentQuestionIndex];
     const isCorrect = selectedIndex === question.shuffledCorrectIndex;
+
+    // Parar timer
+    stopTimer();
 
     // Desabilitar todos os botões
     const buttons = document.querySelectorAll('.answer-btn');
@@ -266,6 +293,9 @@ function quitQuiz() {
 
 // Finalizar quiz
 function finishQuiz() {
+    // Parar timer
+    stopTimer();
+
     quizFinished = true;
     const endTime = Date.now();
     const totalTime = ((endTime - startTime) / 1000).toFixed(1);
@@ -345,6 +375,7 @@ function saveScore() {
 
     const scoreData = {
         name: playerName,
+        avatar: avatarSystem ? avatarSystem.getAvatarEmoji() : null,
         score: correctAnswers,
         time: parseFloat(totalTime),
         timestamp: Date.now()
@@ -439,7 +470,8 @@ function displayRankingList(elementId, ranking) {
         const item = document.createElement('div');
         item.className = `ranking-item ${index === 0 ? 'top-1' : ''} ${index === 1 ? 'top-2' : ''} ${index === 2 ? 'top-3' : ''}`;
 
-        const icon = getIconForName(player.name);
+        // Usar avatar se disponível, senão usar ícone do nome
+        const icon = player.avatar || getIconForName(player.name);
 
         item.innerHTML = `
             <div class="ranking-position">#${index + 1}</div>
