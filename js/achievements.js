@@ -34,7 +34,7 @@ class AchievementSystem {
             {
                 id: 'speedster',
                 name: 'Velocista',
-                description: 'Complete em menos de 120 segundos',
+                description: 'Complete todas as 15 perguntas em menos de 120 segundos',
                 icon: '⚡',
                 condition: (stats) => stats.totalTime < 120 && stats.quizCompleted
             },
