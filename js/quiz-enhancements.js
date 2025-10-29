@@ -9,73 +9,38 @@ function displayAvatarSelection() {
 
 // Inicializar Power-Ups no quiz
 function initializePowerUps() {
-    console.log('[Init] initializePowerUps INÍCIO');
     powerUpSystem.reset();
     removedAnswerIndices = [];
 
     const wrapper = document.getElementById('powerups-wrapper');
-    if (!wrapper) {
-        console.error('[PowerUps] Wrapper não encontrado!');
-        return;
-    }
+    if (!wrapper) return;
 
-    console.log('[Init] Criando UI dos power-ups...');
     wrapper.innerHTML = '';
     const powerUpsUI = powerUpSystem.createPowerUpUI();
     wrapper.appendChild(powerUpsUI);
 
     // Event listeners para power-ups
     const fiftyFiftyBtn = document.getElementById('powerup-fiftyFifty');
-    const hintBtn = document.getElementById('powerup-hint');
-    const skipBtn = document.getElementById('powerup-skip');
-
-    console.log('[Init] Botões encontrados:', {
-        fiftyFifty: fiftyFiftyBtn ? 'SIM' : 'NÃO',
-        hint: hintBtn ? 'SIM' : 'NÃO',
-        skip: skipBtn ? 'SIM' : 'NÃO'
-    });
+    const swapQuestionBtn = document.getElementById('powerup-swapQuestion');
+    const doubleTimeBtn = document.getElementById('powerup-doubleTime');
 
     if (fiftyFiftyBtn) {
-        fiftyFiftyBtn.addEventListener('click', () => {
-            console.log('[Click] 50:50 clicado!');
-            usePowerUp('fiftyFifty');
-        });
-        console.log('[Init] 50:50 após event listener - disabled:', fiftyFiftyBtn.disabled, 'style:', fiftyFiftyBtn.style.background);
+        fiftyFiftyBtn.addEventListener('click', () => usePowerUp('fiftyFifty'));
     }
-    if (hintBtn) {
-        hintBtn.addEventListener('click', () => {
-            console.log('[Click] Dica clicado!');
-            usePowerUp('hint');
-        });
-        console.log('[Init] Dica após event listener - disabled:', hintBtn.disabled, 'style:', hintBtn.style.background);
+    if (swapQuestionBtn) {
+        swapQuestionBtn.addEventListener('click', () => usePowerUp('swapQuestion'));
     }
-    if (skipBtn) {
-        skipBtn.addEventListener('click', () => {
-            console.log('[Click] Pular clicado!');
-            usePowerUp('skip');
-        });
-        console.log('[Init] Pular após event listener - disabled:', skipBtn.disabled, 'style:', skipBtn.style.background);
+    if (doubleTimeBtn) {
+        doubleTimeBtn.addEventListener('click', () => usePowerUp('doubleTime'));
     }
 
-    // Aguardar um momento antes de atualizar UI (garante DOM pronto)
-    console.log('[Init] Agendando updateUI...');
-    setTimeout(() => {
-        console.log('[Init] Executando updateUI agora...');
-        powerUpSystem.updateUI();
-    }, 50);
+    // Atualizar UI imediatamente para garantir que os botões estejam habilitados
+    powerUpSystem.updateUI();
 }
 
 // Usar power-up
 function usePowerUp(powerUpId) {
-    console.log(`[UsePowerUp] Tentando usar ${powerUpId}`);
-    console.log(`[UsePowerUp] Disponível?`, powerUpSystem.isAvailable(powerUpId));
-
-    if (!powerUpSystem.isAvailable(powerUpId)) {
-        console.log(`[UsePowerUp] ${powerUpId} NÃO DISPONÍVEL! Abortando.`);
-        return;
-    }
-
-    console.log(`[UsePowerUp] ${powerUpId} disponível, aplicando...`);
+    if (!powerUpSystem.isAvailable(powerUpId)) return;
 
     const question = selectedQuestions[currentQuestionIndex];
 
@@ -96,27 +61,59 @@ function usePowerUp(powerUpId) {
             powerUpSystem.showPowerUpEffect(powerUpId, result.message);
             powerUpSystem.updateUI();
         }
-    } else if (powerUpId === 'hint') {
-        const result = powerUpSystem.applyHint(question);
-        if (result) {
-            powerUpSystem.showPowerUpEffect(powerUpId, result.hint);
-            powerUpSystem.updateUI();
-        }
-    } else if (powerUpId === 'skip') {
-        const result = powerUpSystem.applySkip();
+    } else if (powerUpId === 'swapQuestion') {
+        const result = powerUpSystem.applySwapQuestion();
         if (result) {
             powerUpSystem.showPowerUpEffect(powerUpId, result.message);
             powerUpSystem.updateUI();
 
-            // Pular para próxima pergunta
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < selectedQuestions.length) {
+            // Trocar a pergunta atual por uma nova do banco
+            // Pegar perguntas que ainda não foram usadas
+            const usedQuestions = selectedQuestions.map(q => q.question);
+            const availableQuestions = QUESTION_BANK.filter(q => !usedQuestions.includes(q.question));
+
+            if (availableQuestions.length > 0) {
+                // Selecionar uma pergunta aleatória
+                const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+                const originalQuestion = availableQuestions[randomIndex];
+
+                // Criar uma cópia da pergunta para não modificar o banco original
+                const newQuestion = { ...originalQuestion };
+
+                // Embaralhar respostas da nova pergunta (mesmo processo do startQuiz)
+                const answers = [...newQuestion.answers];
+                const correctAnswer = answers[newQuestion.correctIndex];
+
+                // Usar a função shuffleArray existente
+                shuffleArray(answers);
+
+                // Atualizar índice da resposta correta
+                newQuestion.shuffledAnswers = answers;
+                newQuestion.shuffledCorrectIndex = answers.indexOf(correctAnswer);
+
+                // Substituir a pergunta atual
+                selectedQuestions[currentQuestionIndex] = newQuestion;
+
+                // Mostrar a nova pergunta após um delay
+                setTimeout(() => {
+                    removedAnswerIndices = []; // Limpar respostas removidas do 50:50
                     displayQuestion();
-                } else {
-                    finishQuiz();
-                }
-            }, 1500);
+                }, 1500);
+            }
+        }
+    } else if (powerUpId === 'doubleTime') {
+        const result = powerUpSystem.applyDoubleTime();
+        if (result) {
+            // Dobrar o tempo restante
+            const currentTime = timeRemaining;
+            const additionalTime = currentTime; // Adicionar o mesmo tempo que resta (dobrando)
+            timeRemaining = currentTime + additionalTime;
+
+            powerUpSystem.showPowerUpEffect(powerUpId, result.message);
+            powerUpSystem.updateUI();
+
+            // Atualizar UI do timer imediatamente
+            updateTimerUI();
         }
     }
 }
@@ -155,7 +152,8 @@ function updateTimerUI() {
 
     timerText.textContent = Math.ceil(timeRemaining) + 's';
 
-    const percentage = (timeRemaining / TIME_PER_QUESTION) * 100;
+    // Calcular percentual - pode ultrapassar 100% quando tempo é dobrado (feedback visual)
+    const percentage = Math.min((timeRemaining / TIME_PER_QUESTION) * 100, 100);
     timerBar.style.width = percentage + '%';
 
     // Mudar cores baseado no tempo restante

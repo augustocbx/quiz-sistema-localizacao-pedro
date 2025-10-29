@@ -11,19 +11,19 @@ class PowerUpSystem {
                 available: 1,
                 used: 0
             },
-            hint: {
-                id: 'hint',
-                name: 'Dica',
-                icon: '💡',
-                description: 'Mostra uma dica sobre a resposta',
+            swapQuestion: {
+                id: 'swapQuestion',
+                name: 'Trocar',
+                icon: '🔄',
+                description: 'Troca por outra pergunta',
                 available: 1,
                 used: 0
             },
-            skip: {
-                id: 'skip',
-                name: 'Pular',
-                icon: '⏭️',
-                description: 'Pula para próxima pergunta',
+            doubleTime: {
+                id: 'doubleTime',
+                name: '+Tempo',
+                icon: '⏰',
+                description: 'Dobra o tempo disponível',
                 available: 1,
                 used: 0
             }
@@ -31,15 +31,9 @@ class PowerUpSystem {
     }
 
     reset() {
-        console.log('[PowerUps] RESET chamado');
         this.powerUps.fiftyFifty.used = 0;
-        this.powerUps.hint.used = 0;
-        this.powerUps.skip.used = 0;
-        console.log('[PowerUps] Estado após reset:', {
-            fiftyFifty: `used=${this.powerUps.fiftyFifty.used}, available=${this.powerUps.fiftyFifty.available}`,
-            hint: `used=${this.powerUps.hint.used}, available=${this.powerUps.hint.available}`,
-            skip: `used=${this.powerUps.skip.used}, available=${this.powerUps.skip.available}`
-        });
+        this.powerUps.swapQuestion.used = 0;
+        this.powerUps.doubleTime.used = 0;
     }
 
     isAvailable(powerUpId) {
@@ -89,45 +83,29 @@ class PowerUpSystem {
         };
     }
 
-    // Dica - Mostra categoria/tema
-    applyHint(question) {
-        if (!this.use('hint')) return null;
-
-        const questionText = question.question.toLowerCase();
-        let hint = 'Pense bem sobre o tema da pergunta...';
-
-        // Gerar dica baseada no conteúdo
-        if (questionText.includes('bússola') || questionText.includes('magnético')) {
-            hint = '💡 Dica: Esta pergunta é sobre navegação magnética e bússolas.';
-        } else if (questionText.includes('gps') || questionText.includes('satélite')) {
-            hint = '💡 Dica: Esta pergunta é sobre tecnologia moderna de posicionamento.';
-        } else if (questionText.includes('estrela') || questionText.includes('polar') || questionText.includes('constelação')) {
-            hint = '💡 Dica: Esta pergunta é sobre navegação celeste e astronomia.';
-        } else if (questionText.includes('norte') || questionText.includes('sul') || questionText.includes('direção')) {
-            hint = '💡 Dica: Pense nos pontos cardeais e orientação.';
-        } else if (questionText.includes('longitude') || questionText.includes('latitude')) {
-            hint = '💡 Dica: Esta pergunta envolve coordenadas geográficas.';
-        }
+    // Trocar Pergunta - Substitui a pergunta atual por outra do banco
+    applySwapQuestion() {
+        if (!this.use('swapQuestion')) return null;
 
         // Som
         if (soundManager) soundManager.playSparkle();
 
         return {
             success: true,
-            hint: hint
+            message: '🔄 Pergunta trocada! Boa sorte com a nova!'
         };
     }
 
-    // Pular - Vai para próxima pergunta
-    applySkip() {
-        if (!this.use('skip')) return null;
+    // Dobrar Tempo - Adiciona tempo extra na pergunta atual
+    applyDoubleTime() {
+        if (!this.use('doubleTime')) return null;
 
         // Som
-        if (soundManager) soundManager.playClick();
+        if (soundManager) soundManager.playSparkle();
 
         return {
             success: true,
-            message: 'Pergunta pulada! Não conta como erro.'
+            message: '⏰ Tempo dobrado! Você tem mais tempo agora!'
         };
     }
 
@@ -139,16 +117,29 @@ class PowerUpSystem {
 
         Object.values(this.powerUps).forEach(powerUp => {
             const button = document.createElement('button');
-            button.className = 'powerup-btn';
+            button.className = 'powerup-btn'; // NÃO adicionar 'powerup-used'
             button.id = `powerup-${powerUp.id}`;
             button.title = powerUp.description;
-            button.disabled = false; // Iniciar como habilitado
 
-            // Aplicar estilos inline imediatamente
-            button.style.background = 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)';
-            button.style.border = '3px solid #fbbf24';
-            button.style.cursor = 'pointer';
-            button.style.opacity = '1';
+            // Garantir que está 100% habilitado
+            button.disabled = false;
+            button.removeAttribute('disabled');
+
+            // Aplicar estilos inline forçados
+            button.style.cssText = `
+                background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%) !important;
+                border: 3px solid #fbbf24 !important;
+                border-radius: 12px !important;
+                padding: 12px 16px !important;
+                cursor: pointer !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                position: relative !important;
+                min-width: 80px !important;
+                color: white !important;
+                box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4) !important;
+                z-index: 101 !important;
+            `;
 
             button.innerHTML = `
                 <div class="powerup-icon">${powerUp.icon}</div>
@@ -156,9 +147,6 @@ class PowerUpSystem {
                 <div class="powerup-count">${this.getRemaining(powerUp.id)}</div>
             `;
 
-            console.log(`[CreateUI] Criando botão ${powerUp.id} - disabled=${button.disabled}`);
-
-            // Event listener será adicionado no quiz-enhancements.js
             container.appendChild(button);
         });
 
@@ -166,50 +154,61 @@ class PowerUpSystem {
     }
 
     updateUI() {
-        console.log('[PowerUps] updateUI chamado');
         Object.values(this.powerUps).forEach(powerUp => {
             const button = document.getElementById(`powerup-${powerUp.id}`);
-            console.log(`[PowerUps] Botão ${powerUp.id}:`, button ? 'ENCONTRADO' : 'NÃO ENCONTRADO');
 
-            if (button) {
-                const countElement = button.querySelector('.powerup-count');
-                const remaining = this.getRemaining(powerUp.id);
+            if (!button) return;
 
-                console.log(`[PowerUps] ${powerUp.id} - remaining=${remaining}, used=${powerUp.used}, available=${powerUp.available}`);
+            const countElement = button.querySelector('.powerup-count');
+            const remaining = this.getRemaining(powerUp.id);
 
+            // Atualizar contador
+            if (countElement) {
                 countElement.textContent = remaining;
+            }
 
-                if (remaining === 0) {
-                    console.log(`[PowerUps] ${powerUp.id} - DESABILITANDO (remaining=0)`);
-                    button.classList.add('powerup-used');
-                    button.disabled = true;
-                    button.style.cursor = 'not-allowed';
-                    button.style.opacity = '0.4';
-                } else {
-                    console.log(`[PowerUps] ${powerUp.id} - HABILITANDO (remaining=${remaining})`);
-                    button.classList.remove('powerup-used');
-                    button.disabled = false;
-                    button.removeAttribute('disabled'); // Remover atributo também
+            if (remaining === 0) {
+                // DESABILITAR
+                button.className = 'powerup-btn powerup-used';
+                button.disabled = true;
+                button.setAttribute('disabled', 'true');
 
-                    // Forçar estilos inline para garantir que apareçam habilitados
-                    button.style.setProperty('background', 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)', 'important');
-                    button.style.setProperty('border', '3px solid #fbbf24', 'important');
-                    button.style.setProperty('cursor', 'pointer', 'important');
-                    button.style.setProperty('opacity', '1', 'important');
-                    button.style.setProperty('pointer-events', 'auto', 'important');
+                // Sobrescrever estilos inline para mostrar como desabilitado
+                button.style.cssText = `
+                    background: linear-gradient(135deg, #4b5563 0%, #374151 100%) !important;
+                    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+                    border-radius: 12px !important;
+                    padding: 12px 16px !important;
+                    cursor: not-allowed !important;
+                    opacity: 0.4 !important;
+                    pointer-events: none !important;
+                    position: relative !important;
+                    min-width: 80px !important;
+                    color: white !important;
+                    box-shadow: none !important;
+                    z-index: 101 !important;
+                `;
+            } else {
+                // HABILITAR
+                button.className = 'powerup-btn'; // Remove 'powerup-used'
+                button.disabled = false;
+                button.removeAttribute('disabled');
 
-                    // DEBUG: Verificar estado após mudança
-                    const computedStyle = window.getComputedStyle(button);
-                    console.log(`[PowerUps] ${powerUp.id} DEPOIS:`, {
-                        disabled: button.disabled,
-                        hasDisabledAttr: button.hasAttribute('disabled'),
-                        className: button.className,
-                        inlineBackground: button.style.background,
-                        computedBackground: computedStyle.background,
-                        computedCursor: computedStyle.cursor,
-                        computedPointerEvents: computedStyle.pointerEvents
-                    });
-                }
+                // Reforçar estilos inline (caso tenham sido alterados)
+                button.style.cssText = `
+                    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%) !important;
+                    border: 3px solid #fbbf24 !important;
+                    border-radius: 12px !important;
+                    padding: 12px 16px !important;
+                    cursor: pointer !important;
+                    opacity: 1 !important;
+                    pointer-events: auto !important;
+                    position: relative !important;
+                    min-width: 80px !important;
+                    color: white !important;
+                    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4) !important;
+                    z-index: 101 !important;
+                `;
             }
         });
     }
