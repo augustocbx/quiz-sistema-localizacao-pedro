@@ -222,11 +222,37 @@ function startQuiz() {
     displayQuestion();
 }
 
-// Selecionar perguntas aleatórias
+// Selecionar perguntas aleatórias respeitando a dificuldade
 function selectRandomQuestions(bank, count) {
-    const shuffled = [...bank];
-    shuffleArray(shuffled);
-    return shuffled.slice(0, count);
+    // Separar perguntas por dificuldade
+    const easy = bank.filter(q => !q.difficulty || q.difficulty === 'easy');
+    const medium = bank.filter(q => !q.difficulty || q.difficulty === 'easy' || q.difficulty === 'medium');
+    const hard = bank.filter(q => q.difficulty === 'hard');
+    const veryHard = bank.filter(q => q.difficulty === 'veryHard');
+
+    const selected = [];
+
+    // Posições 1-5: FÁCEIS (5 perguntas)
+    const easyShuffled = [...easy];
+    shuffleArray(easyShuffled);
+    selected.push(...easyShuffled.slice(0, 5));
+
+    // Posições 6-8: MÉDIAS (3 perguntas)
+    const mediumFiltered = medium.filter(q => !selected.includes(q));
+    shuffleArray(mediumFiltered);
+    selected.push(...mediumFiltered.slice(0, 3));
+
+    // Posição 9: DIFÍCIL (1 pergunta)
+    const hardShuffled = [...hard];
+    shuffleArray(hardShuffled);
+    selected.push(hardShuffled[0]);
+
+    // Posição 10: MUITO DIFÍCIL (1 pergunta)
+    const veryHardShuffled = [...veryHard];
+    shuffleArray(veryHardShuffled);
+    selected.push(veryHardShuffled[0]);
+
+    return selected;
 }
 
 // Embaralhar array

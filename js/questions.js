@@ -13,10 +13,10 @@ const QUESTION_BANK = [
         backgroundClass: "bg-gps-satellite"
     },
     {
-        question: "Qual instrumento os navegadores antigos usavam para medir a altura das estrelas?",
-        answers: ["Astrolábio", "Telescópio", "Binóculo", "Microscópio"],
+        question: "Qual direção você está olhando quando vê o Sol nascer pela manhã?",
+        answers: ["Leste", "Oeste", "Norte", "Sul"],
         correctIndex: 0,
-        backgroundClass: "bg-ancient-navigation"
+        backgroundClass: "bg-sun-navigation"
     },
     {
         question: "Em qual constelação está a Estrela Polar?",
@@ -64,25 +64,27 @@ const QUESTION_BANK = [
         question: "Qual é o nome do polo celeste que fica no hemisfério norte?",
         answers: ["Polo Norte Celeste", "Equador Celeste", "Meridiano Celeste", "Zênite Norte"],
         correctIndex: 0,
-        backgroundClass: "bg-celestial-pole"
+        backgroundClass: "bg-celestial-pole",
+        difficulty: "veryHard"
     },
     {
         question: "Em que ano o GPS foi disponibilizado para uso civil?",
         answers: ["1995", "2000", "1980", "2010"],
         correctIndex: 1,
-        backgroundClass: "bg-gps-history"
+        backgroundClass: "bg-gps-history",
+        difficulty: "hard"
     },
     {
-        question: "Qual era o principal problema de navegação antes do GPS?",
-        answers: ["Determinar a longitude exata", "Ver as estrelas", "Ler mapas", "Usar bússola"],
+        question: "Para que lado a bússola sempre aponta?",
+        answers: ["Norte", "Sul", "Leste", "Oeste"],
         correctIndex: 0,
-        backgroundClass: "bg-map-coordinates"
+        backgroundClass: "bg-compass"
     },
     {
-        question: "O que é um sextante?",
-        answers: ["Instrumento para medir ângulos entre astros", "Tipo de bússola", "Mapa estelar", "Telescópio naval"],
+        question: "O que os navegadores antigos usavam para saber as horas durante a viagem?",
+        answers: ["Ampulheta (relógio de areia)", "Celular", "Relógio digital", "Calculadora"],
         correctIndex: 0,
-        backgroundClass: "bg-sextant"
+        backgroundClass: "bg-ancient-navigation"
     },
     {
         question: "Qual estrela é a mais brilhante do céu noturno?",
@@ -115,8 +117,8 @@ const QUESTION_BANK = [
         backgroundClass: "bg-orion"
     },
     {
-        question: "Os satélites GPS orbitam a Terra a que altura aproximadamente?",
-        answers: ["20.000 km", "100 km", "1.000 km", "50.000 km"],
+        question: "Onde ficam os satélites que fazem o GPS funcionar?",
+        answers: ["No espaço, muito acima das nuvens", "No fundo do mar", "Dentro da Terra", "Em prédios muito altos"],
         correctIndex: 0,
         backgroundClass: "bg-gps-satellite"
     },
@@ -124,7 +126,8 @@ const QUESTION_BANK = [
         question: "Qual fenômeno natural pode atrapalhar sinais de GPS?",
         answers: ["Tempestades solares", "Chuva forte", "Vento", "Neblina"],
         correctIndex: 0,
-        backgroundClass: "bg-solar-storm"
+        backgroundClass: "bg-solar-storm",
+        difficulty: "hard"
     },
     {
         question: "Como se chama a linha imaginária que divide a Terra em Norte e Sul?",
@@ -136,7 +139,8 @@ const QUESTION_BANK = [
         question: "Qual civilização antiga era famosa por navegar usando as estrelas?",
         answers: ["Fenícios", "Incas", "Maias", "Astecas"],
         correctIndex: 0,
-        backgroundClass: "bg-stars-night"
+        backgroundClass: "bg-stars-night",
+        difficulty: "hard"
     },
     {
         question: "O que é longitude?",
@@ -160,7 +164,8 @@ const QUESTION_BANK = [
         question: "Qual é a velocidade aproximada de um sinal de GPS?",
         answers: ["Velocidade da luz", "Velocidade do som", "1000 km/h", "100 km/h"],
         correctIndex: 0,
-        backgroundClass: "bg-gps-satellite"
+        backgroundClass: "bg-gps-satellite",
+        difficulty: "hard"
     },
     {
         question: "Como os povos originários brasileiros se orientavam nas florestas?",
@@ -196,7 +201,8 @@ const QUESTION_BANK = [
         question: "Como se chama o movimento aparente das estrelas no céu?",
         answers: ["Movimento diurno", "Órbita estelar", "Rotação estelar", "Translação celeste"],
         correctIndex: 0,
-        backgroundClass: "bg-stars-night"
+        backgroundClass: "bg-stars-night",
+        difficulty: "hard"
     },
     {
         question: "Qual instrumento moderno substituiu o sextante nos navios?",
@@ -208,25 +214,29 @@ const QUESTION_BANK = [
         question: "O que causa as marés que os navegadores precisam conhecer?",
         answers: ["Atração gravitacional da Lua", "Vento forte", "Temperatura da água", "Rotação da Terra"],
         correctIndex: 0,
-        backgroundClass: "bg-moon-tides"
+        backgroundClass: "bg-moon-tides",
+        difficulty: "hard"
     },
     {
         question: "Quantas constelações oficiais existem no céu?",
         answers: ["88", "12", "50", "100"],
         correctIndex: 0,
-        backgroundClass: "bg-constellation"
+        backgroundClass: "bg-constellation",
+        difficulty: "veryHard"
     },
     {
         question: "Qual o nome do sistema russo similar ao GPS?",
         answers: ["GLONASS", "GALILEO", "BEIDOU", "NAVSTAR"],
         correctIndex: 0,
-        backgroundClass: "bg-satellite-systems"
+        backgroundClass: "bg-satellite-systems",
+        difficulty: "veryHard"
     },
     {
         question: "Como os navegadores mediam a velocidade do navio antigamente?",
         answers: ["Com a barquinha de arrasto", "Contando ondas", "Observando as estrelas", "Usando relógio"],
         correctIndex: 0,
-        backgroundClass: "bg-ancient-navigation"
+        backgroundClass: "bg-ancient-navigation",
+        difficulty: "veryHard"
     },
     {
         question: "Por que as estrelas parecem se mover no céu?",
@@ -268,7 +278,8 @@ const QUESTION_BANK = [
         question: "Antes da bússola, os navegadores chineses se orientavam usando um objeto que flutuava na água. O que era?",
         answers: ["Uma colher magnética de pedra-ímã", "Uma folha seca", "Um peixe de madeira", "Uma estrela de metal"],
         correctIndex: 0,
-        backgroundClass: "bg-compass"
+        backgroundClass: "bg-compass",
+        difficulty: "hard"
     },
     {
         question: "Por que os exploradores antigos preferiam viajar observando o céu em noites sem nuvens?",
@@ -280,7 +291,8 @@ const QUESTION_BANK = [
         question: "Quantos satélites GPS estão orbitando a Terra neste momento?",
         answers: ["Mais de 30 satélites", "Apenas 4 satélites", "Apenas 1 satélite", "Nenhum, o GPS usa torres"],
         correctIndex: 0,
-        backgroundClass: "bg-gps-satellite"
+        backgroundClass: "bg-gps-satellite",
+        difficulty: "hard"
     },
     {
         question: "Como funcionam os relógios de sol que existem em praças e jardins?",
@@ -359,5 +371,12 @@ const QUESTION_BANK = [
         answers: ["A localização fica mais precisa e confiável", "O celular fica mais rápido", "Gasta menos bateria", "A tela fica maior"],
         correctIndex: 0,
         backgroundClass: "bg-satellite-systems"
+    },
+    {
+        question: "Qual o nome do sistema de navegação por satélite da China?",
+        answers: ["BeiDou", "SkyMap", "ChinaGPS", "DragonSat"],
+        correctIndex: 0,
+        backgroundClass: "bg-satellite-systems",
+        difficulty: "veryHard"
     }
 ];
