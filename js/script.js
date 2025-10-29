@@ -23,6 +23,11 @@ let powerUpsUsed = 0;
 let powerUpsUsedTypes = new Set();
 let lastSecondAnswer = false;
 
+// Rastreamento de acertos por dificuldade
+let mediumCorrect = 0;
+let hardCorrect = false;
+let veryHardCorrect = false;
+
 // Elementos do DOM
 const screens = {
     start: document.getElementById('start-screen'),
@@ -186,6 +191,11 @@ function startQuiz() {
     powerUpsUsedTypes = new Set();
     lastSecondAnswer = false;
 
+    // Reset de rastreamento de dificuldade
+    mediumCorrect = 0;
+    hardCorrect = false;
+    veryHardCorrect = false;
+
     // Tocar som de início
     if (soundManager) soundManager.playStart();
 
@@ -222,11 +232,37 @@ function startQuiz() {
     displayQuestion();
 }
 
-// Selecionar perguntas aleatórias
+// Selecionar perguntas aleatórias respeitando a dificuldade
 function selectRandomQuestions(bank, count) {
-    const shuffled = [...bank];
-    shuffleArray(shuffled);
-    return shuffled.slice(0, count);
+    // Separar perguntas por dificuldade
+    const easy = bank.filter(q => !q.difficulty || q.difficulty === 'easy');
+    const medium = bank.filter(q => !q.difficulty || q.difficulty === 'easy' || q.difficulty === 'medium');
+    const hard = bank.filter(q => q.difficulty === 'hard');
+    const veryHard = bank.filter(q => q.difficulty === 'veryHard');
+
+    const selected = [];
+
+    // Posições 1-5: FÁCEIS (5 perguntas)
+    const easyShuffled = [...easy];
+    shuffleArray(easyShuffled);
+    selected.push(...easyShuffled.slice(0, 5));
+
+    // Posições 6-8: MÉDIAS (3 perguntas)
+    const mediumFiltered = medium.filter(q => !selected.includes(q));
+    shuffleArray(mediumFiltered);
+    selected.push(...mediumFiltered.slice(0, 3));
+
+    // Posição 9: DIFÍCIL (1 pergunta)
+    const hardShuffled = [...hard];
+    shuffleArray(hardShuffled);
+    selected.push(hardShuffled[0]);
+
+    // Posição 10: MUITO DIFÍCIL (1 pergunta)
+    const veryHardShuffled = [...veryHard];
+    shuffleArray(veryHardShuffled);
+    selected.push(veryHardShuffled[0]);
+
+    return selected;
 }
 
 // Embaralhar array
@@ -310,6 +346,18 @@ function selectAnswer(selectedIndex) {
         currentCombo++;
         if (currentCombo > maxCombo) {
             maxCombo = currentCombo;
+        }
+
+        // Rastrear acertos por dificuldade (baseado na posição)
+        if (currentQuestionIndex >= 5 && currentQuestionIndex <= 7) {
+            // Posições 6-8 (índices 5-7): Médias
+            mediumCorrect++;
+        } else if (currentQuestionIndex === 8) {
+            // Posição 9 (índice 8): Difícil
+            hardCorrect = true;
+        } else if (currentQuestionIndex === 9) {
+            // Posição 10 (índice 9): Muito Difícil
+            veryHardCorrect = true;
         }
 
         document.getElementById('correct-count').textContent = correctAnswers;
@@ -413,7 +461,10 @@ function finishQuiz() {
         quizzesCompleted: achievementSystem.stats.quizzesCompleted + 1,
         powerUpsUsed: powerUpsUsed,
         allPowerUpsUsed: powerUpsUsedTypes.size === 3,
-        lastSecondAnswer: lastSecondAnswer
+        lastSecondAnswer: lastSecondAnswer,
+        mediumCorrect: mediumCorrect,
+        hardCorrect: hardCorrect,
+        veryHardCorrect: veryHardCorrect
     };
 
     // Atualizar estatísticas de conquistas
@@ -655,7 +706,10 @@ function checkQuizAchievements() {
         quizzesCompleted: achievementSystem.stats.quizzesCompleted,
         powerUpsUsed: powerUpsUsed,
         allPowerUpsUsed: powerUpsUsedTypes.size === 3,
-        lastSecondAnswer: lastSecondAnswer
+        lastSecondAnswer: lastSecondAnswer,
+        mediumCorrect: mediumCorrect,
+        hardCorrect: hardCorrect,
+        veryHardCorrect: veryHardCorrect
     };
 
     const newAchievements = achievementSystem.checkAchievements(currentStats);
