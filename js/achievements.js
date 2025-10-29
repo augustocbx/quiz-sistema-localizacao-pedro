@@ -48,23 +48,23 @@ class AchievementSystem {
             {
                 id: 'compass_expert',
                 name: 'Mestre da Bússola',
-                description: 'Acerte todas as perguntas sobre bússola',
+                description: 'Acerte todas as perguntas sobre bússola (mínimo 2)',
                 icon: '🧭',
-                condition: (stats) => stats.compassCorrect >= 3 && stats.compassTotal === stats.compassCorrect
+                condition: (stats) => stats.compassCorrect >= 2 && stats.compassTotal === stats.compassCorrect && stats.compassTotal >= 2
             },
             {
                 id: 'gps_guru',
                 name: 'Guru do GPS',
-                description: 'Acerte todas as perguntas sobre GPS',
+                description: 'Acerte todas as perguntas sobre GPS (mínimo 2)',
                 icon: '🛰️',
-                condition: (stats) => stats.gpsCorrect >= 3 && stats.gpsTotal === stats.gpsCorrect
+                condition: (stats) => stats.gpsCorrect >= 2 && stats.gpsTotal === stats.gpsCorrect && stats.gpsTotal >= 2
             },
             {
                 id: 'star_navigator',
                 name: 'Navegador Estelar',
-                description: 'Acerte todas sobre estrelas e orientação',
+                description: 'Acerte todas sobre estrelas e orientação (mínimo 2)',
                 icon: '✨',
-                condition: (stats) => stats.starsCorrect >= 3 && stats.starsTotal === stats.starsCorrect
+                condition: (stats) => stats.starsCorrect >= 2 && stats.starsTotal === stats.starsCorrect && stats.starsTotal >= 2
             },
             {
                 id: 'persistent',
