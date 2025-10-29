@@ -18,7 +18,9 @@ class AvatarSystem {
             { id: 'cowboy', emoji: '🤠', name: 'Cowboy' },
             { id: 'knight', emoji: '🛡️', name: 'Cavaleiro' },
             { id: 'pilot', emoji: '🛩️', name: 'Piloto' },
-            { id: 'sailor', emoji: '⚓', name: 'Marinheiro' }
+            { id: 'sailor', emoji: '⚓', name: 'Marinheiro' },
+            { id: 'rocket', emoji: '🚀', name: 'Foguete' },
+            { id: 'telescope', emoji: '🔭', name: 'Telescópio' }
         ];
 
         this.selectedAvatar = this.loadSavedAvatar() || this.avatars[0];
