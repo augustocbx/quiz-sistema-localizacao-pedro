@@ -778,7 +778,8 @@ function displayAchievements() {
     const gallery = document.getElementById('achievements-gallery');
     gallery.innerHTML = '';
 
-    const allAchievements = [...unlocked, ...locked];
+    // Manter ordem original dos badges (por dificuldade)
+    const allAchievements = achievementSystem.achievements;
 
     allAchievements.forEach(achievement => {
         const isUnlocked = achievementSystem.isUnlocked(achievement.id);
