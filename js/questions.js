@@ -50,13 +50,6 @@ const QUESTION_BANK = [
         backgroundClass: "bg-stars-night"
     },
     {
-        question: "Qual é o nome do polo celeste que fica no hemisfério norte?",
-        answers: ["Polo Norte Celeste", "Equador Celeste", "Meridiano Celeste", "Zênite Norte"],
-        correctIndex: 0,
-        backgroundClass: "bg-celestial-pole",
-        difficulty: "veryHard"
-    },
-    {
         question: "Em que ano o GPS foi disponibilizado para uso civil?",
         answers: ["2000", "1995", "1980", "2010"],
         correctIndex: 0,
@@ -76,12 +69,6 @@ const QUESTION_BANK = [
         backgroundClass: "bg-ancient-navigation"
     },
     {
-        question: "Qual estrela é a mais brilhante do céu noturno?",
-        answers: ["Sirius", "Estrela Polar", "Sol", "Lua"],
-        correctIndex: 0,
-        backgroundClass: "bg-stars-night"
-    },
-    {
         question: "Como os navegadores determinavam as horas antes dos relógios precisos?",
         answers: ["Pela posição do Sol e das estrelas", "Contando os dias", "Usando velas", "Medindo a temperatura"],
         correctIndex: 0,
@@ -98,13 +85,6 @@ const QUESTION_BANK = [
         answers: ["Distância em relação ao Equador", "Distância em relação ao Polo Norte", "Altura do mar", "Profundidade do oceano"],
         correctIndex: 0,
         backgroundClass: "bg-map-coordinates"
-    },
-    {
-        question: "Qual é a constelação conhecida como 'As Três Marias'?",
-        answers: ["Órion", "Ursa Maior", "Cruzeiro do Sul", "Escorpião"],
-        correctIndex: 0,
-        backgroundClass: "bg-orion",
-        difficulty: "hard"
     },
     {
         question: "Onde ficam os satélites que fazem o GPS funcionar?",
@@ -204,13 +184,6 @@ const QUESTION_BANK = [
         answers: ["Atração gravitacional da Lua", "Vento forte", "Temperatura da água", "Rotação da Terra"],
         correctIndex: 0,
         backgroundClass: "bg-moon-tides",
-        difficulty: "veryHard"
-    },
-    {
-        question: "Quantas constelações oficiais existem no céu?",
-        answers: ["88", "12", "50", "100"],
-        correctIndex: 0,
-        backgroundClass: "bg-constellation",
         difficulty: "veryHard"
     },
     {
@@ -480,24 +453,10 @@ const QUESTION_BANK = [
         difficulty: "hard"
     },
     {
-        question: "Qual constelação era usada pelos navegadores árabes para cruzar o deserto?",
-        answers: ["Ursa Maior", "Cruzeiro do Sul", "Escorpião", "Centauro"],
-        correctIndex: 0,
-        backgroundClass: "bg-constellation",
-        difficulty: "veryHard"
-    },
-    {
         question: "Além de indicar direções, para que mais as estrelas eram úteis aos navegadores?",
         answers: ["Para saber o mês do ano e as horas da noite", "Para prever o clima", "Para fazer comida", "Para iluminar o caminho"],
         correctIndex: 0,
         backgroundClass: "bg-stars-night",
-        difficulty: "hard"
-    },
-    {
-        question: "Como funciona o movimento de revolução da Lua?",
-        answers: ["A Lua gira em torno da Terra em cerca de 27 dias", "A Lua gira em torno do Sol", "A Lua não se move", "A Lua gira em 24 horas"],
-        correctIndex: 0,
-        backgroundClass: "bg-moon-orbit",
         difficulty: "hard"
     },
     {
@@ -532,13 +491,6 @@ const QUESTION_BANK = [
         answers: ["Para saber quando é seguro entrar ou sair de portos rasos", "Para pescar melhor", "Para economizar combustível", "Para limpar o navio"],
         correctIndex: 0,
         backgroundClass: "bg-moon-tides",
-        difficulty: "hard"
-    },
-    {
-        question: "Qual fase da Lua dura aproximadamente 7 dias?",
-        answers: ["Cada uma das quatro fases principais", "Apenas a Lua Cheia", "Apenas a Lua Nova", "Nenhuma delas"],
-        correctIndex: 0,
-        backgroundClass: "bg-moon-phases",
         difficulty: "hard"
     },
     {
@@ -824,12 +776,6 @@ const QUESTION_BANK = [
         correctIndex: 0,
         backgroundClass: "bg-sun-navigation",
         difficulty: "hard"
-    },
-    {
-        question: "Quais dois movimentos principais a Lua realiza?",
-        answers: ["Rotação (em torno de si mesma) e revolução (em torno da Terra)", "Apenas gira em torno do Sol", "Apenas gira em torno de si mesma", "Não se move"],
-        correctIndex: 0,
-        backgroundClass: "bg-moon-orbit"
     },
     {
         question: "O que os povos antigos observavam no céu para criar calendários e planejar a agricultura?",
