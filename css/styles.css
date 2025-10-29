@@ -519,6 +519,7 @@ body::before {
 
 .ranking-section {
     margin: 30px 0;
+    position: relative;
 }
 
 .ranking-title {
@@ -632,6 +633,37 @@ body::before {
     padding: 40px;
     color: #94a3b8;
     font-size: 1.2rem;
+}
+
+/* Botão de Limpar Ranking Temporário */
+.btn-clear-temp {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border: 2px solid rgba(239, 68, 68, 0.5);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.btn-clear-temp:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+}
+
+.btn-clear-temp:active {
+    transform: scale(0.95) rotate(5deg);
 }
 
 /* Responsividade */
