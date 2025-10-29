@@ -997,7 +997,7 @@ body::before {
 .qr-floating-small {
     position: fixed;
     top: 20px;
-    right: 20px;
+    left: 20px;
     background: white;
     padding: 8px;
     border-radius: 12px;
@@ -1129,7 +1129,7 @@ body::before {
 @media (max-width: 768px) {
     .qr-floating-small {
         top: 10px;
-        right: 10px;
+        left: 10px;
         padding: 6px;
     }
 
