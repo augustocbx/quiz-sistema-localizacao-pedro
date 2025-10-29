@@ -189,15 +189,26 @@ class PowerUpSystem {
                     console.log(`[PowerUps] ${powerUp.id} - HABILITANDO (remaining=${remaining})`);
                     button.classList.remove('powerup-used');
                     button.disabled = false;
+                    button.removeAttribute('disabled'); // Remover atributo também
 
                     // Forçar estilos inline para garantir que apareçam habilitados
-                    button.style.background = 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)';
-                    button.style.border = '3px solid #fbbf24';
-                    button.style.cursor = 'pointer';
-                    button.style.opacity = '1';
+                    button.style.setProperty('background', 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)', 'important');
+                    button.style.setProperty('border', '3px solid #fbbf24', 'important');
+                    button.style.setProperty('cursor', 'pointer', 'important');
+                    button.style.setProperty('opacity', '1', 'important');
+                    button.style.setProperty('pointer-events', 'auto', 'important');
 
                     // DEBUG: Verificar estado após mudança
-                    console.log(`[PowerUps] ${powerUp.id} - disabled=${button.disabled}, classList=${button.className}`);
+                    const computedStyle = window.getComputedStyle(button);
+                    console.log(`[PowerUps] ${powerUp.id} DEPOIS:`, {
+                        disabled: button.disabled,
+                        hasDisabledAttr: button.hasAttribute('disabled'),
+                        className: button.className,
+                        inlineBackground: button.style.background,
+                        computedBackground: computedStyle.background,
+                        computedCursor: computedStyle.cursor,
+                        computedPointerEvents: computedStyle.pointerEvents
+                    });
                 }
             }
         });
