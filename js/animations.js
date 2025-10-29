@@ -196,10 +196,10 @@ const CONSOLATION_ANIMATIONS = [
 // Função para selecionar animação de comemoração baseada nos acertos
 function getCelebrationAnimation(correctAnswers, totalQuestions) {
     if (correctAnswers === totalQuestions) {
-        // 15/15 - Lendária
+        // 10/10 - Lendária
         return CELEBRATION_ANIMATIONS[4];
     } else if (correctAnswers === totalQuestions - 1) {
-        // 14/15 - Rara
+        // 9/10 - Rara
         return CELEBRATION_ANIMATIONS[3];
     } else {
         // Escolhe aleatoriamente entre as 3 comuns

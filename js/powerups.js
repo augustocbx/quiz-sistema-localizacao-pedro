@@ -23,7 +23,7 @@ class PowerUpSystem {
                 id: 'doubleTime',
                 name: '+Tempo',
                 icon: '⏰',
-                description: 'Restaura os 15 segundos',
+                description: 'Restaura os 20 segundos',
                 available: 1,
                 used: 0
             }
@@ -96,7 +96,7 @@ class PowerUpSystem {
         };
     }
 
-    // Restaurar Tempo - Volta o tempo para 15 segundos
+    // Restaurar Tempo - Volta o tempo para 20 segundos
     applyDoubleTime() {
         if (!this.use('doubleTime')) return null;
 
@@ -105,7 +105,7 @@ class PowerUpSystem {
 
         return {
             success: true,
-            message: '⏰ Tempo restaurado para 15 segundos!'
+            message: '⏰ Tempo restaurado para 20 segundos!'
         };
     }
 

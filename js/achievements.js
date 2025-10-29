@@ -13,16 +13,16 @@ class AchievementSystem {
             {
                 id: 'explorer',
                 name: 'Explorador',
-                description: 'Acerte 10 ou mais perguntas',
+                description: 'Acerte 7 ou mais perguntas',
                 icon: '⭐',
-                condition: (stats) => stats.currentScore >= 10
+                condition: (stats) => stats.currentScore >= 7
             },
             {
                 id: 'navigator',
                 name: 'Navegador Expert',
-                description: 'Acerte 13 ou mais perguntas',
+                description: 'Acerte 9 ou mais perguntas',
                 icon: '🎯',
-                condition: (stats) => stats.currentScore >= 13
+                condition: (stats) => stats.currentScore >= 9
             },
             {
                 id: 'combo_master',
@@ -34,16 +34,16 @@ class AchievementSystem {
             {
                 id: 'speedster',
                 name: 'Velocista',
-                description: 'Complete todas as 15 perguntas em menos de 120 segundos',
+                description: 'Complete todas as 10 perguntas em menos de 100 segundos',
                 icon: '⚡',
-                condition: (stats) => stats.totalTime < 120 && stats.quizCompleted
+                condition: (stats) => stats.totalTime < 100 && stats.quizCompleted
             },
             {
                 id: 'perfection',
                 name: 'Perfeição',
-                description: 'Acerte todas as 15 perguntas',
+                description: 'Acerte todas as 10 perguntas',
                 icon: '💎',
-                condition: (stats) => stats.currentScore === 15 && stats.quizCompleted
+                condition: (stats) => stats.currentScore === 10 && stats.quizCompleted
             },
             {
                 id: 'compass_expert',
@@ -83,9 +83,9 @@ class AchievementSystem {
             {
                 id: 'flawless_fast',
                 name: 'Flash Perfeito',
-                description: '15/15 em menos de 120 segundos',
+                description: '10/10 em menos de 100 segundos',
                 icon: '⚡💎',
-                condition: (stats) => stats.currentScore === 15 && stats.totalTime < 120 && stats.quizCompleted
+                condition: (stats) => stats.currentScore === 10 && stats.totalTime < 100 && stats.quizCompleted
             },
             {
                 id: 'strategist',
@@ -104,9 +104,9 @@ class AchievementSystem {
             {
                 id: 'resilient',
                 name: 'Resiliente',
-                description: 'Erre 3 ou mais perguntas mas complete com 10+ acertos',
+                description: 'Erre 3 ou mais perguntas mas complete com 7+ acertos',
                 icon: '🌊',
-                condition: (stats) => stats.currentScore >= 10 && (15 - stats.currentScore) >= 3 && stats.quizCompleted
+                condition: (stats) => stats.currentScore >= 7 && (10 - stats.currentScore) >= 3 && stats.quizCompleted
             },
             {
                 id: 'power_master',

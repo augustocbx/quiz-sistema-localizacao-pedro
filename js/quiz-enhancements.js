@@ -119,7 +119,7 @@ function usePowerUp(powerUpId) {
             powerUpsUsed++;
             powerUpsUsedTypes.add('doubleTime');
 
-            // Restaurar o tempo para 15 segundos
+            // Restaurar o tempo para 20 segundos
             timeRemaining = TIME_PER_QUESTION;
 
             powerUpSystem.showPowerUpEffect(powerUpId, result.message);

@@ -170,7 +170,7 @@ class SoundManager {
         osc.stop(this.audioContext.currentTime + 0.1);
     }
 
-    // Som de vitória perfeita (15/15)
+    // Som de vitória perfeita (10/10)
     playPerfect() {
         if (!this.enabled) return;
 

@@ -69,7 +69,7 @@ const QUESTION_BANK = [
     {
         question: "Em que ano o GPS foi disponibilizado para uso civil?",
         answers: ["1995", "2000", "1980", "2010"],
-        correctIndex: 0,
+        correctIndex: 1,
         backgroundClass: "bg-gps-history"
     },
     {

@@ -14,8 +14,8 @@ let categoryStats = {
 
 // Timer
 let timerInterval = null;
-let timeRemaining = 15;
-const TIME_PER_QUESTION = 15; // segundos
+let timeRemaining = 20;
+const TIME_PER_QUESTION = 20; // segundos
 
 // Power-ups
 let removedAnswerIndices = [];
@@ -198,8 +198,8 @@ function startQuiz() {
     // Inicializar power-ups
     if (powerUpSystem) initializePowerUps();
 
-    // Selecionar 15 perguntas aleatórias do banco de 60
-    selectedQuestions = selectRandomQuestions(QUESTION_BANK, 15);
+    // Selecionar 10 perguntas aleatórias do banco de 60
+    selectedQuestions = selectRandomQuestions(QUESTION_BANK, 10);
 
     // Embaralhar as respostas de cada pergunta
     selectedQuestions.forEach(question => {
@@ -426,7 +426,7 @@ function finishQuiz() {
     const newAchievements = achievementSystem.checkAchievements(finalStats);
 
     // Efeitos especiais para vitória perfeita
-    if (correctAnswers === 15) {
+    if (correctAnswers === 10) {
         if (soundManager) soundManager.playPerfect();
         if (visualEffects) {
             setTimeout(() => visualEffects.perfectVictory(), 500);
@@ -610,7 +610,7 @@ function displayRankingList(elementId, ranking) {
                 <div class="ranking-name">${player.name}</div>
             </div>
             <div class="ranking-stats">
-                <div class="ranking-score">${player.score}/15</div>
+                <div class="ranking-score">${player.score}/10</div>
                 <div class="ranking-time">${player.time}s</div>
             </div>
         `;
@@ -785,7 +785,7 @@ function showPlayerDetails(playerData, position) {
     document.getElementById('player-modal-avatar').textContent = playerData.avatar || '👤';
     document.getElementById('player-modal-name').textContent = playerData.name;
     document.getElementById('player-modal-position').textContent = `#${position}`;
-    document.getElementById('player-modal-score').textContent = `${playerData.score}/15`;
+    document.getElementById('player-modal-score').textContent = `${playerData.score}/10`;
     document.getElementById('player-modal-time').textContent = `${playerData.time}s`;
 
     // Formatar data
