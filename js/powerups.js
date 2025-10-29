@@ -174,10 +174,21 @@ class PowerUpSystem {
                     console.log(`[PowerUps] ${powerUp.id} - DESABILITANDO (remaining=0)`);
                     button.classList.add('powerup-used');
                     button.disabled = true;
+                    button.style.cursor = 'not-allowed';
+                    button.style.opacity = '0.4';
                 } else {
                     console.log(`[PowerUps] ${powerUp.id} - HABILITANDO (remaining=${remaining})`);
                     button.classList.remove('powerup-used');
                     button.disabled = false;
+
+                    // Forçar estilos inline para garantir que apareçam habilitados
+                    button.style.background = 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)';
+                    button.style.border = '3px solid #fbbf24';
+                    button.style.cursor = 'pointer';
+                    button.style.opacity = '1';
+
+                    // DEBUG: Verificar estado após mudança
+                    console.log(`[PowerUps] ${powerUp.id} - disabled=${button.disabled}, classList=${button.className}`);
                 }
             }
         });
