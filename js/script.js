@@ -600,42 +600,42 @@ function saveScore() {
 
 // Sistema de Rankings
 function loadRankings() {
-    const general = localStorage.getItem('generalRanking');
-    const temp = localStorage.getItem('tempRanking');
+    const general = storageManager.getItem('generalRanking');
+    const temp = storageManager.getItem('tempRanking');
 
     if (!general) {
-        localStorage.setItem('generalRanking', JSON.stringify([]));
+        storageManager.setItem('generalRanking', JSON.stringify([]));
     }
 
     if (!temp) {
-        localStorage.setItem('tempRanking', JSON.stringify([]));
+        storageManager.setItem('tempRanking', JSON.stringify([]));
     }
 }
 
 function saveToRankings(scoreData) {
     // Ranking Geral - mantém histórico completo ordenado (Top 30)
-    let generalRanking = JSON.parse(localStorage.getItem('generalRanking')) || [];
+    let generalRanking = JSON.parse(storageManager.getItem('generalRanking')) || [];
     generalRanking.push(scoreData);
     generalRanking.sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         return a.time - b.time;
     });
     generalRanking = generalRanking.slice(0, 30);
-    localStorage.setItem('generalRanking', JSON.stringify(generalRanking));
+    storageManager.setItem('generalRanking', JSON.stringify(generalRanking));
 
     // Ranking Temporário - estrutura separada, mantém todos os jogadores
-    let tempRanking = JSON.parse(localStorage.getItem('tempRanking')) || [];
+    let tempRanking = JSON.parse(storageManager.getItem('tempRanking')) || [];
     tempRanking.push(scoreData);
     tempRanking.sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         return a.time - b.time;
     });
-    localStorage.setItem('tempRanking', JSON.stringify(tempRanking));
+    storageManager.setItem('tempRanking', JSON.stringify(tempRanking));
 }
 
 // Atualizar ranking temporário na tela inicial
 function updateHomeTempRanking() {
-    const tempRanking = JSON.parse(localStorage.getItem('tempRanking')) || [];
+    const tempRanking = JSON.parse(storageManager.getItem('tempRanking')) || [];
 
     // Pegar os Top 3 do ranking temporário
     const top3 = tempRanking.slice(0, 3);
@@ -645,13 +645,13 @@ function updateHomeTempRanking() {
 
 // Exibir tela de ranking temporário
 function displayTempRanking() {
-    const tempRanking = JSON.parse(localStorage.getItem('tempRanking')) || [];
+    const tempRanking = JSON.parse(storageManager.getItem('tempRanking')) || [];
     displayRankingList('temp-ranking-list', tempRanking);
 }
 
 // Limpar ranking temporário
 function clearTempRanking() {
-    const tempRanking = JSON.parse(localStorage.getItem('tempRanking')) || [];
+    const tempRanking = JSON.parse(storageManager.getItem('tempRanking')) || [];
 
     if (tempRanking.length === 0) {
         alert('O ranking temporário já está vazio!');
@@ -661,7 +661,7 @@ function clearTempRanking() {
     const confirmation = confirm('Tem certeza que deseja limpar o ranking temporário? Esta ação não pode ser desfeita.');
 
     if (confirmation) {
-        localStorage.setItem('tempRanking', JSON.stringify([]));
+        storageManager.setItem('tempRanking', JSON.stringify([]));
 
         // Atualizar a exibição
         displayTempRanking();
@@ -676,7 +676,7 @@ function clearTempRanking() {
 
 // Exibir tela de ranking permanente
 function displayPermanentRanking() {
-    const permanentRanking = JSON.parse(localStorage.getItem('generalRanking')) || [];
+    const permanentRanking = JSON.parse(storageManager.getItem('generalRanking')) || [];
     displayRankingList('permanent-ranking-list', permanentRanking);
 }
 
@@ -997,12 +997,12 @@ function resetAllData() {
 
         if (confirmReset) {
             // Resetar conquistas
-            localStorage.removeItem('achievements');
-            localStorage.removeItem('achievementDetails');
-            localStorage.removeItem('achievementStats');
+            storageManager.removeItem('achievements');
+            storageManager.removeItem('achievementDetails');
+            storageManager.removeItem('achievementStats');
 
             // Resetar ranking geral (temporário é calculado dinamicamente dele)
-            localStorage.removeItem('generalRanking');
+            storageManager.removeItem('generalRanking');
 
             // Recarregar sistema de conquistas
             achievementSystem.loadProgress();

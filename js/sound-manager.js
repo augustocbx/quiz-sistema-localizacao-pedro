@@ -11,7 +11,7 @@ class SoundManager {
         this.initAudioContext();
 
         // Carrega preferência salva
-        const savedPreference = localStorage.getItem('soundEnabled');
+        const savedPreference = storageManager.getItem('soundEnabled');
         if (savedPreference !== null) {
             this.enabled = savedPreference === 'true';
         }
@@ -29,7 +29,7 @@ class SoundManager {
     // Toggle sons on/off
     toggle() {
         this.enabled = !this.enabled;
-        localStorage.setItem('soundEnabled', this.enabled.toString());
+        storageManager.setItem('soundEnabled', this.enabled.toString());
         return this.enabled;
     }
 

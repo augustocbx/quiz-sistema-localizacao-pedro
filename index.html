@@ -286,6 +286,9 @@
     <!-- QR Code Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+    <!-- Storage Manager (deve ser carregado PRIMEIRO) -->
+    <script src="js/storage-manager.js"></script>
+
     <script src="js/sound-manager.js"></script>
     <script src="js/achievements.js"></script>
     <script src="js/visual-effects.js"></script>
@@ -408,7 +411,7 @@
 
                                 // Salva nova versão (sem limpar rankings)
                                 const newVersion = event.data.version;
-                                localStorage.setItem('appVersion', newVersion);
+                                storageManager.setItem('appVersion', newVersion);
 
                                 // A página será recarregada automaticamente pelo controllerchange
                             }

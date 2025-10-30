@@ -163,7 +163,7 @@ class AchievementSystem {
     }
 
     loadProgress() {
-        const saved = localStorage.getItem('achievements');
+        const saved = storageManager.getItem('achievements');
         if (saved) {
             this.unlockedAchievements = JSON.parse(saved);
         } else {
@@ -171,14 +171,14 @@ class AchievementSystem {
         }
 
         // Carregar detalhes das conquistas (quem desbloqueou)
-        const savedDetails = localStorage.getItem('achievementDetails');
+        const savedDetails = storageManager.getItem('achievementDetails');
         if (savedDetails) {
             this.achievementDetails = JSON.parse(savedDetails);
         } else {
             this.achievementDetails = {};
         }
 
-        const savedStats = localStorage.getItem('achievementStats');
+        const savedStats = storageManager.getItem('achievementStats');
         if (savedStats) {
             this.stats = JSON.parse(savedStats);
         } else {
@@ -196,9 +196,9 @@ class AchievementSystem {
     }
 
     saveProgress() {
-        localStorage.setItem('achievements', JSON.stringify(this.unlockedAchievements));
-        localStorage.setItem('achievementDetails', JSON.stringify(this.achievementDetails));
-        localStorage.setItem('achievementStats', JSON.stringify(this.stats));
+        storageManager.setItem('achievements', JSON.stringify(this.unlockedAchievements));
+        storageManager.setItem('achievementDetails', JSON.stringify(this.achievementDetails));
+        storageManager.setItem('achievementStats', JSON.stringify(this.stats));
     }
 
     isUnlocked(achievementId) {
