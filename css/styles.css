@@ -243,7 +243,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(15, 23, 42, 0.60);
+    background: rgba(15, 23, 42, 0.15); /* Overlay muito leve para legibilidade */
     z-index: 1;
 }
 

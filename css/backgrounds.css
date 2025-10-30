@@ -1,12 +1,12 @@
 /* Fundos temáticos para as perguntas do quiz */
 
-/* Base style for all backgrounds - discreto e com overlay */
+/* Base style for all backgrounds - imagens vibrantes e coloridas ocupando tela toda */
 [class*="bg-"] {
     position: relative;
     overflow: hidden;
 }
 
-/* Pseudo-elemento para a imagem de fundo com filtros */
+/* Pseudo-elemento para a imagem de fundo - SEM filtros escuros */
 [class*="bg-"]::after {
     content: '';
     position: absolute;
@@ -17,12 +17,12 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: brightness(0.6) contrast(0.9) blur(1.5px); /* Filtros para deixar discreto */
-    -webkit-filter: brightness(0.6) contrast(0.9) blur(1.5px);
+    filter: brightness(1.0) contrast(1.1); /* Imagens vibrantes e coloridas */
+    -webkit-filter: brightness(1.0) contrast(1.1);
     z-index: -2;
 }
 
-/* Overlay escuro adicional para melhorar legibilidade */
+/* Overlay LEVE apenas para garantir legibilidade do texto */
 [class*="bg-"]::before {
     content: '';
     position: absolute;
@@ -30,7 +30,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.65); /* overlay escuro 65% */
+    background: rgba(0, 0, 0, 0.25); /* overlay leve de apenas 25% */
     pointer-events: none;
     z-index: -1;
 }
@@ -102,58 +102,58 @@
     background-image: url('../images/backgrounds/nature-forest.jpg');
 }
 
-/* Opacidade aumentada para imagens mais escuras e discretas */
+/* Overlays leves específicos para cada categoria - apenas para melhorar legibilidade quando necessário */
 .bg-stars-night::before,
 .bg-constellation::before,
 .bg-southern-cross::before,
 .bg-orion::before,
 .bg-celestial-pole::before {
-    background: rgba(0, 5, 15, 0.75); /* Azul escuro para céu noturno */
+    background: rgba(0, 5, 15, 0.3); /* Overlay leve azul para céu noturno */
 }
 
 .bg-gps-satellite::before,
 .bg-satellite-systems::before,
 .bg-gps-history::before {
-    background: rgba(10, 10, 30, 0.75); /* Azul/roxo escuro para espaço */
+    background: rgba(10, 10, 30, 0.3); /* Overlay leve azul/roxo para espaço */
 }
 
 .bg-solar-storm::before {
-    background: rgba(30, 0, 0, 0.7); /* Vermelho escuro para tempestade solar */
+    background: rgba(30, 0, 0, 0.25); /* Overlay leve vermelho para tempestade solar */
 }
 
 .bg-smartphone-gps::before {
-    background: rgba(0, 0, 0, 0.75); /* Preto para destacar tela de celular */
+    background: rgba(0, 0, 0, 0.3); /* Overlay leve preto para smartphone */
 }
 
 .bg-ancient-navigation::before,
 .bg-sextant::before,
 .bg-compass::before,
 .bg-compass-rose::before {
-    background: rgba(25, 20, 15, 0.75); /* Marrom escuro para antiguidade */
+    background: rgba(25, 20, 15, 0.3); /* Overlay leve marrom para antiguidade */
 }
 
 .bg-sun-navigation::before {
-    background: rgba(40, 30, 0, 0.65); /* Amarelo escuro translúcido */
+    background: rgba(40, 30, 0, 0.2); /* Overlay muito leve amarelo */
 }
 
 .bg-full-moon::before,
 .bg-moon-tides::before,
 .bg-moon-phases::before,
 .bg-moon-orbit::before {
-    background: rgba(5, 10, 25, 0.75); /* Azul noturno */
+    background: rgba(5, 10, 25, 0.3); /* Overlay leve azul noturno */
 }
 
 .bg-map-coordinates::before,
 .bg-earth-equator::before,
 .bg-greenwich::before {
-    background: rgba(20, 20, 15, 0.75); /* Verde escuro para mapas */
+    background: rgba(20, 20, 15, 0.3); /* Overlay leve verde para mapas */
 }
 
 .bg-modern-navigation::before,
 .bg-airplane-gps::before {
-    background: rgba(10, 20, 40, 0.75); /* Azul aviação */
+    background: rgba(10, 20, 40, 0.3); /* Overlay leve azul aviação */
 }
 
 .bg-forest-navigation::before {
-    background: rgba(5, 20, 5, 0.75); /* Verde escuro floresta */
+    background: rgba(5, 20, 5, 0.3); /* Overlay leve verde floresta */
 }
