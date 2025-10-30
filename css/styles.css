@@ -646,7 +646,8 @@ body::before {
     position: relative;
 }
 
-.home-ranking .btn-clear-temp {
+/* Botão de limpar ranking temporário - estilo aplicado em todas as telas */
+.ranking-section .btn-clear-temp {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -666,13 +667,13 @@ body::before {
     margin-right: 0;
 }
 
-.home-ranking .btn-clear-temp:hover {
+.ranking-section .btn-clear-temp:hover {
     background: linear-gradient(135deg, #dc2626, #b91c1c);
     transform: scale(1.1) rotate(10deg);
     box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
 }
 
-.home-ranking .btn-clear-temp:active {
+.ranking-section .btn-clear-temp:active {
     transform: scale(0.95) rotate(5deg);
 }
 
