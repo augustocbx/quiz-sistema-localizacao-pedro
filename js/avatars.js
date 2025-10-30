@@ -23,7 +23,8 @@ class AvatarSystem {
             { id: 'telescope', emoji: '🔭', name: 'Telescópio' }
         ];
 
-        this.selectedAvatar = this.loadSavedAvatar() || this.avatars[0];
+        // Se houver avatar salvo, usar ele; senão, escolher um aleatório
+        this.selectedAvatar = this.loadSavedAvatar() || this.getRandomAvatar();
     }
 
     loadSavedAvatar() {
@@ -33,6 +34,12 @@ class AvatarSystem {
             return this.avatars.find(a => a.id === avatarId) || null;
         }
         return null;
+    }
+
+    // Retorna um avatar aleatório da lista
+    getRandomAvatar() {
+        const randomIndex = Math.floor(Math.random() * this.avatars.length);
+        return this.avatars[randomIndex];
     }
 
     saveAvatar(avatarId) {
