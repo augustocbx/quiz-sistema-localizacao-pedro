@@ -23,17 +23,8 @@ class AvatarSystem {
             { id: 'telescope', emoji: '🔭', name: 'Telescópio' }
         ];
 
-        // Se houver avatar salvo, usar ele; senão, escolher um aleatório
-        this.selectedAvatar = this.loadSavedAvatar() || this.getRandomAvatar();
-    }
-
-    loadSavedAvatar() {
-        const saved = storageManager.getItem('selectedAvatar');
-        if (saved) {
-            const avatarId = saved;
-            return this.avatars.find(a => a.id === avatarId) || null;
-        }
-        return null;
+        // Avatar inicial aleatório (será renovado toda vez que abrir a tela)
+        this.selectedAvatar = this.getRandomAvatar();
     }
 
     // Retorna um avatar aleatório da lista
@@ -42,11 +33,16 @@ class AvatarSystem {
         return this.avatars[randomIndex];
     }
 
-    saveAvatar(avatarId) {
+    // Escolhe novo avatar aleatório (chamado ao entrar na tela de seleção)
+    selectRandomAvatar() {
+        this.selectedAvatar = this.getRandomAvatar();
+    }
+
+    // Seleciona avatar sem salvar permanentemente
+    selectAvatar(avatarId) {
         const avatar = this.avatars.find(a => a.id === avatarId);
         if (avatar) {
             this.selectedAvatar = avatar;
-            storageManager.setItem('selectedAvatar', avatarId);
             return true;
         }
         return false;
@@ -102,7 +98,7 @@ class AvatarSystem {
 
                 // Selecionar novo
                 option.classList.add('selected');
-                this.saveAvatar(avatar.id);
+                this.selectAvatar(avatar.id);
 
                 // Som de feedback
                 if (soundManager) soundManager.playClick();
