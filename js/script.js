@@ -57,6 +57,7 @@ const backToStartFromPermanentBtn = document.getElementById('back-to-start-from-
 const backToStartFromAchievementsBtn = document.getElementById('back-to-start-from-achievements-btn');
 const soundToggleBtn = document.getElementById('sound-toggle-btn');
 const clearTempRankingBtn = document.getElementById('clear-temp-ranking-btn');
+const clearTempRankingBtnFull = document.getElementById('clear-temp-ranking-btn-full');
 
 // Event Listeners
 startBtn.addEventListener('click', () => showScreen('avatar'));
@@ -85,6 +86,9 @@ backToStartFromAchievementsBtn.addEventListener('click', () => showScreen('start
 soundToggleBtn.addEventListener('click', toggleSound);
 if (clearTempRankingBtn) {
     clearTempRankingBtn.addEventListener('click', clearTempRanking);
+}
+if (clearTempRankingBtnFull) {
+    clearTempRankingBtnFull.addEventListener('click', clearTempRanking);
 }
 
 // Event listener para o botão de reset
@@ -609,14 +613,14 @@ function loadRankings() {
 }
 
 function saveToRankings(scoreData) {
-    // Ranking Geral - mantém histórico completo ordenado (Top 10)
+    // Ranking Geral - mantém histórico completo ordenado (Top 30)
     let generalRanking = JSON.parse(localStorage.getItem('generalRanking')) || [];
     generalRanking.push(scoreData);
     generalRanking.sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         return a.time - b.time;
     });
-    generalRanking = generalRanking.slice(0, 10);
+    generalRanking = generalRanking.slice(0, 30);
     localStorage.setItem('generalRanking', JSON.stringify(generalRanking));
 
     // Ranking Temporário - estrutura separada, mantém todos os jogadores
