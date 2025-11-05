@@ -208,6 +208,11 @@ function handleTimeOut() {
 
     // Próxima pergunta
     setTimeout(() => {
+        // Remover foco de qualquer elemento ativo
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
+
         currentQuestionIndex++;
         if (currentQuestionIndex < selectedQuestions.length) {
             displayQuestion();

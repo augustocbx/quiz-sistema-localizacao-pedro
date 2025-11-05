@@ -308,6 +308,11 @@ function displayQuestion() {
     // Resetar índices removidos
     removedAnswerIndices = [];
 
+    // Remover foco de qualquer elemento ativo para evitar pré-seleção visual
+    if (document.activeElement) {
+        document.activeElement.blur();
+    }
+
     // Iniciar timer
     startTimer();
 
@@ -417,6 +422,11 @@ function selectAnswer(selectedIndex) {
 
     // Aguardar e mostrar próxima pergunta
     setTimeout(() => {
+        // Remover foco do botão clicado antes de avançar
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
+
         currentQuestionIndex++;
 
         if (currentQuestionIndex < selectedQuestions.length) {
